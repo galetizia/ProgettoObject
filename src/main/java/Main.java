@@ -83,7 +83,7 @@ public class Main {
         else
             System.out.println("\nLogin successo");
 
-        Voto voto = g.valutaTeam(team,20    ); //Il punteggio deve essere massimo di 10 e minimo  1
+        Voto voto = g.valutaTeam(team,10); //Il punteggio deve essere massimo di 10 e minimo  1
         System.out.println(voto.getTeam().getNome());
         System.out.println(voto.getGiudice().nome + " " + voto.getGiudice().cognome);
         System.out.println(voto.getValutazione());
