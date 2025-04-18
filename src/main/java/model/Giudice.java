@@ -8,6 +8,8 @@ public class Giudice extends Utente {
     }
 
     public Voto valutaTeam(Team team, int punteggio) {
+        if(punteggio<=0 || punteggio>10)
+            throw new IllegalArgumentException("Il punteggio assegnato dal giudice non è valido, deve essere compreso tra 1 e 10");
         return new Voto(punteggio, this, team);
     }
 
