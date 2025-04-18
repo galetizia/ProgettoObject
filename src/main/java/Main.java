@@ -7,20 +7,20 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Utente> partecipanti = new ArrayList<>();
 
-        Utente u=new Utente("giancarlo","tro","tro@gmail.com",234, "peppino","si");
-        Utente u1 =new Utente("gabriele","letizia","ciao@gmail.com",112, "ciao", "ok");
-        Utente u2 =new Utente("trallalero","trallala","dddd@gmail.com",233,  "trallala", "no");
+        Utente u=new Utente("giancarlo","tro","tro@gmail.com", "peppino","si");
+        Utente u1 =new Utente("gabriele","letizia","ciao@gmail.com", "ciao", "ok");
+        Utente u2 =new Utente("trallalero","trallala","dddd@gmail.com",  "trallala", "no");
         partecipanti.add(u);
         partecipanti.add(u1);
         partecipanti.add(u2);
 
-        Utente u3=new Utente("giancarlo","tro","tro@gmail.com",234, "Il Meme","si");
-        Utente u4 =new Utente("gabriele","letizia","ciao@gmail.com",112, "Porfirio", "ok");
+        Utente u3=new Utente("giancarlo","tro","tro@gmail.com", "Il Meme","si");
+        Utente u4 =new Utente("gabriele","letizia","ciao@gmail.com", "Porfirio", "ok");
 
         partecipanti.add(u3);
         partecipanti.add(u4);
 
-        Organizzatore o=new Organizzatore("franco","ricciardi","gab@gmail.com",342,"sono", "vivo");
+        Organizzatore o=new Organizzatore("franco","ricciardi","gab@gmail.com","sono", "vivo");
 
         ArrayList<Giudice> giudici = new ArrayList<>();
         Giudice g=o.aggiungiGiudice(u);
@@ -29,14 +29,14 @@ public class Main {
 
         System.out.println();
         for(Utente p : partecipanti){
-            System.out.println(p.ruolo +" " +p.nome + " " + p.cognome + " ID: " + p.id + " " +p.email +" " + p.username + " " + p.password);
+            System.out.println(p.ruolo +" " +p.nome + " " + p.cognome + " " +p.email +" " + p.username + " " + p.password);
         }
         System.out.println();
         for(Giudice p : giudici){
-            System.out.println(p.ruolo +": " +p.nome + " " + p.cognome +" ID: " + p.id +" " +p.email +" " +p.username +" " +p.password);
+            System.out.println(p.ruolo +": " +p.nome + " " + p.cognome +" " +p.email +" " +p.username +" " +p.password);
         }
 
-        System.out.println(o.ruolo +": " +o.nome +" " +o.cognome +" ID: " +o.id +" " +o.email +" " +o.username +" " +o.password);
+        System.out.println(o.ruolo +": " +o.nome +" " +o.cognome +" " +o.email +" " +o.username +" " +o.password);
 
 
         LocalDate dInizio = LocalDate.of(2027, 2,12);
@@ -83,7 +83,7 @@ public class Main {
         else
             System.out.println("\nLogin successo");
 
-        Voto voto=g.valutaTeam(g,team,30);
+        Voto voto = g.valutaTeam(team,30);
         System.out.println(voto.getTeam().getNome());
         System.out.println(voto.getGiudice().nome + " " + voto.getGiudice().cognome);
         System.out.println(voto.getValutazione());

@@ -5,16 +5,14 @@ public class Utente {
     public final String cognome;
     public final String nome;
     public final String email;
-    public final int id;
     public String ruolo="Partecipante";
     public String username;
     public String password;
 
-    public Utente(String nome, String cognome, String email, int id, String username, String password) {
+    public Utente(String nome, String cognome, String email, String username, String password) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
-        this.id = id;
         this.username = username;
         this.password = password;
     }
