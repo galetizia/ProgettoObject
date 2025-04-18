@@ -7,8 +7,8 @@ public class Organizzatore extends Utente {
         this.ruolo="Organizzatore";
     }
 
-    public Giudice aggiungiGiudice(Utente u){
-        return new Giudice(u.nome, u.cognome, u.email, u.username, u.password);
+    public Giudice aggiungiGiudice(Utente utente){
+        return new Giudice(utente.getNome(), utente.getCognome(), utente.email, utente.username, utente.password);
     }
 
 }

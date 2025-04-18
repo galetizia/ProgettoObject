@@ -13,8 +13,6 @@ public class Giudice extends Utente {
         return new Voto(punteggio, this, team);
     }
 
-    public void commentaAggiornamento(Aggiornamento a, String commento) {
-        a.commento = commento;
-    }
+    public void commentaAggiornamento(Aggiornamento a, String commento) { a.commento = commento; }
 
 }

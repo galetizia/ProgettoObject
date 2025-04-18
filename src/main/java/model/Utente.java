@@ -2,8 +2,8 @@ package model;
 
 public class Utente {
 
-    public final String cognome;
-    public final String nome;
+    private final String cognome;
+    private final String nome;
     public final String email;
     public String ruolo="Partecipante";
     public String username;
@@ -17,10 +17,13 @@ public class Utente {
         this.password = password;
     }
 
-
     public boolean login(String username, String password) {
         return this.username.equals(username) && this.password.equals(password);
     }
+
+    public String getNome() { return this.nome; }
+
+    public String getCognome() { return this.cognome; }
 
 }
 

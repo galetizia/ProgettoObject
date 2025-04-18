@@ -12,15 +12,10 @@ public class Voto {
             this.team = team;
         }
 
-    public int getValutazione() {
-            return valutazione;
-    }
+    public int getValutazione() { return valutazione; }
 
-    public Giudice getGiudice() {
-            return giudice;
-    }
+    public Giudice getGiudice() { return giudice; }
 
-    public Team getTeam() {
-            return team;
-    }
+    public Team getTeam() { return team; }
+
 }
