@@ -11,8 +11,8 @@ public class Hackathon {
     public LocalDate dataInizio;
     public LocalDate dataFine;
     public LocalDate finePeriodoPrenotazioni;
-    public int maxIscritti;
-    public int maxDimTeam;
+    private final int maxIscritti;
+    private final int maxDimTeam;
     private final ArrayList<Team> listaTeam;
     private final ArrayList<Utente> listaUtente;
 
@@ -53,6 +53,9 @@ public class Hackathon {
 
     public int getMaxDimTeam() {
         return maxDimTeam;
+    }
+    public int getMaxIscritti() {
+        return maxIscritti;
     }
 
     public boolean prenotazioniAperte() {

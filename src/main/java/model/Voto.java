@@ -2,9 +2,9 @@ package model;
 
 public class Voto {
 
-        public int valutazione;
-        Giudice giudice;
-        Team team;
+        private final int valutazione;
+        private final Giudice giudice;
+        private final Team team;
 
         protected Voto(int valutazione, Giudice giudice, Team team) {
             this.valutazione = valutazione;

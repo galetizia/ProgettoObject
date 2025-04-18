@@ -12,10 +12,7 @@ public class Giudice extends Utente {
     }
 
     public void commentaAggiornamento(Aggiornamento a, String commento) {
-
         a.commento = commento;
     }
-
-
 
 }

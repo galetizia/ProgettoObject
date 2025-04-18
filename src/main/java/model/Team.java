@@ -3,13 +3,13 @@ import java.util.ArrayList;
 
 public class Team {
     public String nome;
-    ArrayList <Utente> componentiTeam;
+    private final ArrayList <Utente> componentiTeam;
     final int maxDimTeam;
 
-    public Team(String nome, int maxDimTeam) {
+    public Team(String nome, Hackathon hackathon) {
         this.nome = nome;
         this.componentiTeam= new ArrayList<>();
-        this.maxDimTeam=maxDimTeam;
+        this.maxDimTeam=hackathon.getMaxDimTeam();
     }
 
     public String getNome(){
@@ -39,4 +39,9 @@ public class Team {
 
         return new Aggiornamento(nome, documento);
     }
+
+    public void espelliMembro(Utente u){
+        componentiTeam.remove(u);
+    }
+
 }

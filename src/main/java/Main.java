@@ -54,13 +54,15 @@ public class Main {
         hackathon.iscriviUtente(u4);
 
         System.out.println();
-        Team team=new Team("BRR BRR PATAPIM", hackathon.getMaxDimTeam());
+        Team team=new Team("BRR BRR PATAPIM", hackathon);
+        System.out.println("Iscritti max: " +hackathon.getMaxIscritti());
+        System.out.println("Dimensione max Team: " +hackathon.getMaxDimTeam());
         team.aggiungiMembro(u1);
         team.aggiungiMembro(u2);
         team.stampaTeam();
 
         System.out.println();
-        Team team2= new Team("LIRILì LARILà", hackathon.getMaxDimTeam());
+        Team team2= new Team("LIRILì LARILà", hackathon);
         team2.aggiungiMembro(u3);
         team2.aggiungiMembro(u4);
         team2.stampaTeam();
@@ -103,6 +105,9 @@ public class Main {
 
         System.out.println("Aggiornamento: " + a.nome);
         System.out.println("Documento: " + a.documento + "\n" + "Commento del Giudice: " + a.commento);
+
+        team.espelliMembro(u1);
+        team.stampaTeam();
     }
 
 }
