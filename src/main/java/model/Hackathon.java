@@ -14,7 +14,7 @@ public class Hackathon {
     private final int maxIscritti;
     private final int maxDimTeam;
     private final ArrayList<Team> listaTeam;
-    private final ArrayList<Utente> listaUtente;
+    private final ArrayList<Utente> listaUtenti;
 
     public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam, String problema) {
 
@@ -23,7 +23,7 @@ public class Hackathon {
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.listaTeam = new ArrayList<>();
-        this.listaUtente = new ArrayList<>();
+        this.listaUtenti = new ArrayList<>();
         this.maxIscritti = maxIscritti;
         this.maxDimTeam = maxDimTeam;
         this.finePeriodoPrenotazioni = dataInizio.minusDays(2); //le iscrizioni chiudono due giorni prima
@@ -32,8 +32,8 @@ public class Hackathon {
     }
     public void iscriviUtente(Utente u){
 
-        if(u!=null && !listaUtente.contains(u) && listaUtente.size()<this.maxIscritti){
-            listaUtente.add(u);
+        if(u!=null && !listaUtenti.contains(u) && listaUtenti.size()<this.maxIscritti){
+            listaUtenti.add(u);
         }
     }
 
