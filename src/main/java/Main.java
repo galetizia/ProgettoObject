@@ -48,11 +48,11 @@ public class Main {
         LocalDate dInizio = LocalDate.of(2027, 2, 12); //Creiamo una data di inizio e una data di fine che poi saranno
         LocalDate dFine = LocalDate.of(2027, 2, 15);   // quelle effettive dell'Hackathon
 
-        String problema = "Traccia del problema"; //Stabiliamo il problema che i partecipanti dovranno risolvere
 
         //Creiamo Hackathon
-        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10, problema);
+        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10);
         System.out.println("\nQuesta Hackathon inizia il " + dInizio + " e termina il " + dFine);
+        g.pubblicaProblema("Traccia del problema", hackathon);
         System.out.println("Il problema di questo hackathon è: " + hackathon.getProblema());
         System.out.println("Iscritti max: " + hackathon.getMaxIscritti());
         System.out.println("Dimensione max Team: " + hackathon.getMaxDimTeam());
@@ -89,10 +89,11 @@ public class Main {
 
         System.out.println();
         //assegnamo un voto al team con il metodo presente in giudice, il punteggio deve essere massimo di 10 e minimo 1
-        Voto voto = g.valutaTeam(team, 10);
-        System.out.println("Nome Team: " + voto.getTeam().getNome());
-        System.out.println("Giudice: " + voto.getGiudice().getNome() + " " + voto.getGiudice().getCognome());
-        System.out.println("Voto: " + voto.getValutazione());
+        ArrayList<Voto> voti= new ArrayList<>();
+        voti.add(g.valutaTeam(team, 10));
+        voti.add(g.valutaTeam(team2, 8));
+
+        hackathon.pubblicaClassifica(voti);
 
         if (team.isPieno()) //metodo per controllare che un team non sia pieno
             System.out.println("\nTeam pieno");
