@@ -48,10 +48,8 @@ public class Main {
         LocalDate dInizio = LocalDate.of(2027, 2, 12); //Creiamo una data di inizio e una data di fine che poi saranno
         LocalDate dFine = LocalDate.of(2027, 2, 15);   // quelle effettive dell'Hackathon
 
-        String problema = "Traccia del problema"; //Stabiliamo il problema che i partecipanti dovranno risolvere
-
         //Creiamo Hackathon
-        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10, problema);
+        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10);
         System.out.println("\nQuesta Hackathon inizia il " + dInizio + " e termina il " + dFine);
         System.out.println("Il problema di questo hackathon è: " + hackathon.getProblema());
         System.out.println("Iscritti max: " + hackathon.getMaxIscritti());
