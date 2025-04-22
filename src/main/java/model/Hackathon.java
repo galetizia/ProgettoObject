@@ -1,12 +1,13 @@
 package model;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Hackathon {
 
     public final String titolo;
     public String sede;
-    private final String problema;
+    protected String problema;
     public LocalDate dataInizio;
     public LocalDate dataFine;
     public LocalDate finePeriodoPrenotazioni;
@@ -15,7 +16,7 @@ public class Hackathon {
     private final ArrayList<Team> listaTeam;
     private final ArrayList<Utente> listaUtenti;
 
-    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam, String problema) {
+    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam) {
         this.titolo = titolo;
         this.sede = sede;
         this.dataInizio = dataInizio;
@@ -25,7 +26,6 @@ public class Hackathon {
         this.maxIscritti = maxIscritti;
         this.maxDimTeam = maxDimTeam;
         this.finePeriodoPrenotazioni = dataInizio.minusDays(2); //le iscrizioni chiudono due giorni prima
-        this.problema = problema;
     }
 
     public void iscriviUtente(Utente u){
@@ -46,11 +46,16 @@ public class Hackathon {
 
     public int getMaxIscritti() { return maxIscritti; }
 
-    public boolean prenotazioniAperte() {
-        return LocalDate.now().isBefore(finePeriodoPrenotazioni);
-    }
+    public boolean prenotazioniAperte() { return LocalDate.now().isBefore(finePeriodoPrenotazioni);}
 
     public String getProblema() { return problema; }
+
+    public void pubblicaClassifica(List<Voto> voti){
+        for (Voto v : voti) {
+            System.out.println("|Nome Team: " + v.getTeam().getNome());
+            System.out.println("Voto: " + v.getValutazione());
+        }
+    }
 
 
 }
