@@ -29,9 +29,9 @@ public class Main {
 
         ArrayList<Giudice> giudici = new ArrayList<>(); //creiamo un arraylist dove andremo a inserire tutti i giudici
 
-        Giudice g = organizzatore.aggiungiGiudice(u, partecipanti); //l'organizzatore promuove un partecipante a giudice
+        Giudice g = organizzatore.aggiungiGiudice(u, partecipanti, giudici); //l'organizzatore promuove un partecipante a giudice
+        Giudice g1= organizzatore.aggiungiGiudice(u1, partecipanti, giudici);
 
-        giudici.add(g);
 
         System.out.println("\nStampa dei partecipanti post rimozione di " + u.getNome() + " " + u.getCognome() + ": ");
         for (Utente p : partecipanti) { //testiamo che sia stato rimosso l'utente diventato giudice
@@ -87,12 +87,21 @@ public class Main {
             System.out.println("\nLogin successo utente " + u.username);
 
 
+
+
         System.out.println();
         //assegnamo un voto al team con il metodo presente in giudice, il punteggio deve essere massimo di 10 e minimo 1
-        Voto voto = g.valutaTeam(team, 10);
-        System.out.println("Nome Team: " + voto.getTeam().getNome());
-        System.out.println("Giudice: " + voto.getGiudice().getNome() + " " + voto.getGiudice().getCognome());
-        System.out.println("Voto: " + voto.getValutazione());
+        ArrayList<Voto> voti = new ArrayList<>();
+        voti.add(g.valutaTeam(team, 10));
+        voti.add(g1.valutaTeam(team, 8));
+
+        for(Voto v : voti){
+
+            System.out.println("Nome Team: " + v.getTeam().getNome());
+            System.out.println("Giudice: " + v.getGiudice().getNome() + " " + v.getGiudice().getCognome());
+            System.out.println("Voto: " + v.getValutazione());
+        }
+
 
         if (team.isPieno()) //metodo per controllare che un team non sia pieno
             System.out.println("\nTeam pieno");
