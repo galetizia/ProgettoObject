@@ -20,7 +20,7 @@ public class Main {
         partecipanti.add(u4);
 
 
-        System.out.println("\nStampa dei partecipanti prima della rimozione di " + u.getNome() + " " + u.getCognome() + ": ");
+        System.out.println("\nStampa dei partecipanti prima della rimozione");
         for (Utente p : partecipanti) { //testiamo che tutti gli utenti creati siano correttamente inseriti nell'arraylist "partecipanti"
             System.out.println("|" + p.ruolo + ": " + p.getNome() + " " + p.getCognome());
         }
@@ -30,28 +30,25 @@ public class Main {
         ArrayList<Giudice> giudici = new ArrayList<>(); //creiamo un arraylist dove andremo a inserire tutti i giudici
 
         Giudice g = organizzatore.aggiungiGiudice(u, partecipanti, giudici); //l'organizzatore promuove un partecipante a giudice
-        Giudice g1= organizzatore.aggiungiGiudice(u1, partecipanti, giudici);
+        Giudice g1 = organizzatore.aggiungiGiudice(u1, partecipanti, giudici);
 
-
-        System.out.println("\nStampa dei partecipanti post rimozione di " + u.getNome() + " " + u.getCognome() + ": ");
+        System.out.println("\nStampa dei partecipanti post rimozione");
         for (Utente p : partecipanti) { //testiamo che sia stato rimosso l'utente diventato giudice
             System.out.println("|" + p.ruolo + " " + p.getNome() + " " + p.getCognome());
         }
 
         System.out.println("\n" + organizzatore.ruolo + ": " + organizzatore.getNome() + " " + organizzatore.getCognome());
 
-        for (Giudice p : giudici) { //testiamo che tutti gli utenti che sono giudici siano inseriti nell'arraylist "giudici"
-            System.out.println(p.ruolo + ": " + p.getNome() + " " + p.getCognome());
+        for (Giudice giudice : giudici) { //testiamo che tutti gli utenti che sono giudici siano inseriti nell'arraylist "giudici"
+            System.out.println(giudice.ruolo + ": " + giudice.getNome() + " " + giudice.getCognome());
         }
 
 
         LocalDate dInizio = LocalDate.of(2027, 2, 12); //Creiamo una data di inizio e una data di fine che poi saranno
         LocalDate dFine = LocalDate.of(2027, 2, 15);   // quelle effettive dell'Hackathon
 
-        String problema = "Traccia del problema"; //Stabiliamo il problema che i partecipanti dovranno risolvere
-
         //Creiamo Hackathon
-        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10, problema);
+        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10);
         System.out.println("\nQuesta Hackathon inizia il " + dInizio + " e termina il " + dFine);
         System.out.println("Il problema di questo hackathon è: " + hackathon.getProblema());
         System.out.println("Iscritti max: " + hackathon.getMaxIscritti());
@@ -87,21 +84,18 @@ public class Main {
             System.out.println("\nLogin successo utente " + u.username);
 
 
-
-
         System.out.println();
         //assegnamo un voto al team con il metodo presente in giudice, il punteggio deve essere massimo di 10 e minimo 1
-        ArrayList<Voto> voti = new ArrayList<>();
+        ArrayList <Voto> voti = new ArrayList<>();
+
         voti.add(g.valutaTeam(team, 10));
         voti.add(g1.valutaTeam(team, 8));
 
-        for(Voto v : voti){
-
-            System.out.println("Nome Team: " + v.getTeam().getNome());
-            System.out.println("Giudice: " + v.getGiudice().getNome() + " " + v.getGiudice().getCognome());
-            System.out.println("Voto: " + v.getValutazione());
+        for (Voto voto : voti) {
+            System.out.println("Nome Team: " + voto.getTeam().getNome());
+            System.out.println("Giudice: " + voto.getGiudice().getNome() + " " + voto.getGiudice().getCognome());
+            System.out.println("Voto: " + voto.getValutazione());
         }
-
 
         if (team.isPieno()) //metodo per controllare che un team non sia pieno
             System.out.println("\nTeam pieno");

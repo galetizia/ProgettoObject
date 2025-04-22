@@ -15,4 +15,9 @@ public class Giudice extends Utente {
 
     public void commentaAggiornamento(Aggiornamento a, String commento) { a.commento = commento; }
 
+    public void pubblicaProblema(String problema, Hackathon hackathon){
+        hackathon.problema=problema; //Stabiliamo il problema che i partecipanti dovranno risolvere
+
+    }
+
 }
