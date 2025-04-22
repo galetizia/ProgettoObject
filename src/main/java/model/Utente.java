@@ -5,7 +5,7 @@ public class Utente {
     private final String cognome;
     private final String nome;
     public final String email;
-    public String ruolo="Partecipante";
+    public String ruolo = "Partecipante";
     public String username;
     public String password;
 

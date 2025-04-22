@@ -25,19 +25,20 @@ public class Main {
             System.out.println("|" + p.ruolo + ": " + p.getNome() + " " + p.getCognome());
         }
 
-        Organizzatore o = new Organizzatore("Francesco", "Ricciardi", "Ricciardi@gmail.com", "Ricciardi", "FrArIcC");
+        Organizzatore organizzatore = new Organizzatore("Francesco", "Ricciardi", "Ricciardi@gmail.com", "Ricciardi", "FrArIcC");
 
         ArrayList<Giudice> giudici = new ArrayList<>(); //creiamo un arraylist dove andremo a inserire tutti i giudici
-        Giudice g = o.aggiungiGiudice(u); //l'organizzatore promuove un partecipante a giudice
+
+        Giudice g = organizzatore.aggiungiGiudice(u, partecipanti); //l'organizzatore promuove un partecipante a giudice
+
         giudici.add(g);
-        partecipanti.remove(u); // per eliminare l'utente dall'arraylist "partecipanti" poichè diventato giudice
 
         System.out.println("\nStampa dei partecipanti post rimozione di " + u.getNome() + " " + u.getCognome() + ": ");
         for (Utente p : partecipanti) { //testiamo che sia stato rimosso l'utente diventato giudice
             System.out.println("|" + p.ruolo + " " + p.getNome() + " " + p.getCognome());
         }
 
-        System.out.println("\n" + o.ruolo + ": " + o.getNome() + " " + o.getCognome());
+        System.out.println("\n" + organizzatore.ruolo + ": " + organizzatore.getNome() + " " + organizzatore.getCognome());
 
         for (Giudice p : giudici) { //testiamo che tutti gli utenti che sono giudici siano inseriti nell'arraylist "giudici"
             System.out.println(p.ruolo + ": " + p.getNome() + " " + p.getCognome());
