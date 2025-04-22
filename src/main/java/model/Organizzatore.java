@@ -16,7 +16,7 @@ public class Organizzatore extends Utente {
             partecipanti.remove(utente); // elimina l'utente dall'arraylist "partecipanti" poichè diventerà giudice
             Giudice g = new Giudice(utente.getNome(), utente.getCognome(), utente.email, utente.username, utente.password);
             giudici.add(g);
-            return g;
+            return g; //
         }
         else
             throw new IllegalArgumentException("L'utente selezionato è già un giudice");
