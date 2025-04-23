@@ -88,9 +88,8 @@ public class Main {
 
 
         System.out.println();
-        //assegnamo un voto al team con il metodo presente in giudice, il punteggio deve essere massimo di 10 e minimo 1
-        ArrayList<Voto> voti = new ArrayList<>();
-        g.valutaTeam(team, 10);
+
+        g.valutaTeam(team, 4);
         g1.valutaTeam(team, 7);
         g1.valutaTeam(team2, 8);
 
@@ -121,7 +120,7 @@ public class Main {
         System.out.println("Documento: " + a.documento + "\n" + "Commento del Giudice: " + a.commento);
 
 
-        hackathon.pubblicaClassifica(voti);
+        hackathon.pubblicaClassifica();
 
         System.out.println();
         team.espelliMembro(u1); //metodo per espellere membri da un team

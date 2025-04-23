@@ -1,7 +1,6 @@
 package model;
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Hackathon {
 
@@ -52,10 +51,26 @@ public class Hackathon {
 
     public String getProblema() { return problema; }
 
-    public void pubblicaClassifica(List<Voto> voti){
-        for (Voto v : voti) {
-            System.out.println("|Nome Team: " + v.getTeam().getNome());
-            System.out.println("Voto: " + v.getValutazione());
+    public void pubblicaClassifica(){
+
+        double max=0;
+        Team temp = new Team("Temp", this);
+        ArrayList<Team> listaClassifica;
+        listaClassifica = listaTeam;
+        int c=1;
+
+        while(!listaClassifica.isEmpty()) {
+            for (Team t : listaClassifica) {
+
+                if (t.mediaVoti >= max) {
+                    max = t.mediaVoti;
+                    temp = t;
+                }
+            }
+            max=0;
+            System.out.println(c +") Team: " + temp.getNome() + " Media voti: " + temp.mediaVoti);
+            listaClassifica.remove(temp);
+            c++;
         }
     }
 

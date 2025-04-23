@@ -37,6 +37,8 @@ public class Team {
         System.out.println("Media voti ricevuti: " + mediaVoti);
     }
 
+
+
     public boolean isPieno(){ return componentiTeam.size()>=maxDimTeam; }
 
     public boolean isVuoto(){ return componentiTeam.isEmpty(); }
