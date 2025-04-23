@@ -7,10 +7,10 @@ public class Giudice extends Utente {
         this.ruolo="Giudice";
     }
 
-    public Voto valutaTeam(Team team, int punteggio) {
+    public void valutaTeam(Team team, int punteggio) {
         if(punteggio<=0 || punteggio>10)
             throw new IllegalArgumentException("Il punteggio assegnato dal giudice non è valido, deve essere compreso tra 1 e 10");
-        return new Voto(punteggio, this, team);
+        team.voti.add(new Voto(punteggio, this, team));
     }
 
     public void commentaAggiornamento(Aggiornamento a, String commento) { a.commento = commento; }

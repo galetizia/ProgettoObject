@@ -50,6 +50,7 @@ public class Main {
 
         //Creiamo Hackathon
         Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10);
+        g.pubblicaProblema("Traccia problema", hackathon);
         System.out.println("\nQuesta Hackathon inizia il " + dInizio + " e termina il " + dFine);
         System.out.println("Il problema di questo hackathon è: " + hackathon.getProblema());
         System.out.println("Iscritti max: " + hackathon.getMaxIscritti());
@@ -90,15 +91,12 @@ public class Main {
         System.out.println();
         //assegnamo un voto al team con il metodo presente in giudice, il punteggio deve essere massimo di 10 e minimo 1
         ArrayList<Voto> voti = new ArrayList<>();
-        voti.add(g.valutaTeam(team, 10));
-        voti.add(g1.valutaTeam(team, 8));
+        g.valutaTeam(team, 10);
+        g1.valutaTeam(team, 7);
+        g1.valutaTeam(team2, 8);
 
-        for(Voto v : voti){
-
-            System.out.println("Nome Team: " + v.getTeam().getNome());
-            System.out.println("Giudice: " + v.getGiudice().getNome() + " " + v.getGiudice().getCognome());
-            System.out.println("Voto: " + v.getValutazione());
-        }
+        team.stampaVoti();
+        team2.stampaVoti();
 
 
         if (team.isPieno()) //metodo per controllare che un team non sia pieno
@@ -123,6 +121,8 @@ public class Main {
         System.out.println("Aggiornamento: " + a.nome); //stampiamo il nome dell'aggiornamento, il documento e il commento
         System.out.println("Documento: " + a.documento + "\n" + "Commento del Giudice: " + a.commento);
 
+
+        hackathon.pubblicaClassifica(voti);
 
         System.out.println();
         team.espelliMembro(u1); //metodo per espellere membri da un team

@@ -5,6 +5,8 @@ public class Team {
     private final String nome;
     private final ArrayList <Utente> componentiTeam;
     private final int maxDimTeam;
+    protected ArrayList<Voto> voti= new ArrayList<>();
+    protected double mediaVoti=0;
 
     public Team(String nome, Hackathon hackathon) {
         this.nome = nome;
@@ -23,6 +25,16 @@ public class Team {
             for(Utente u : componentiTeam){
                 System.out.println("Membro: " + u.username);
             }
+    }
+
+    public void stampaVoti(){
+        for(Voto v : voti){
+            mediaVoti = mediaVoti + v.getValutazione();
+
+        }
+        mediaVoti /= voti.size();
+        System.out.println("Nome Team: " +this.getNome());
+        System.out.println("Media voti ricevuti: " + mediaVoti);
     }
 
     public boolean isPieno(){ return componentiTeam.size()>=maxDimTeam; }
