@@ -90,8 +90,9 @@ public class Main {
         System.out.println();
 
         g.valutaTeam(team, 4);
-        g1.valutaTeam(team, 7);
-        g1.valutaTeam(team2, 8);
+        g1.valutaTeam(team, 9);
+        g1.valutaTeam(team2, 2);
+        g.valutaTeam(team2, 10);
 
         team.stampaVoti();
         team2.stampaVoti();
