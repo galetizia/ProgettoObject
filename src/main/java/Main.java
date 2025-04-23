@@ -25,12 +25,18 @@ public class Main {
             System.out.println("|" + p.ruolo + ": " + p.getNome() + " " + p.getCognome());
         }
 
+        LocalDate dInizio = LocalDate.of(2027, 2, 12); //Creiamo una data di inizio e una data di fine che poi saranno
+        LocalDate dFine = LocalDate.of(2027, 2, 15);   // quelle effettive dell'Hackathon
+
+        //Creiamo Hackathon
+        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10);
+
+
         Organizzatore organizzatore = new Organizzatore("Francesco", "Ricciardi", "Ricciardi@gmail.com", "Ricciardi", "FrArIcC");
 
-        ArrayList<Giudice> giudici = new ArrayList<>(); //creiamo un arraylist dove andremo a inserire tutti i giudici
 
-        Giudice g = organizzatore.aggiungiGiudice(u, partecipanti, giudici); //l'organizzatore promuove un partecipante a giudice
-        Giudice g1= organizzatore.aggiungiGiudice(u1, partecipanti, giudici);
+        Giudice g = organizzatore.aggiungiGiudice(u, partecipanti, hackathon); //l'organizzatore promuove un partecipante a giudice
+        Giudice g1= organizzatore.aggiungiGiudice(u1, partecipanti, hackathon);
 
 
         System.out.println("\nStampa dei partecipanti post rimozione di " + u.getNome() + " " + u.getCognome() + ": ");
@@ -40,21 +46,14 @@ public class Main {
 
         System.out.println("\n" + organizzatore.ruolo + ": " + organizzatore.getNome() + " " + organizzatore.getCognome());
 
-        for (Giudice p : giudici) { //testiamo che tutti gli utenti che sono giudici siano inseriti nell'arraylist "giudici"
-            System.out.println(p.ruolo + ": " + p.getNome() + " " + p.getCognome());
-        }
 
-
-        LocalDate dInizio = LocalDate.of(2027, 2, 12); //Creiamo una data di inizio e una data di fine che poi saranno
-        LocalDate dFine = LocalDate.of(2027, 2, 15);   // quelle effettive dell'Hackathon
-
-        //Creiamo Hackathon
-        Hackathon hackathon = new Hackathon("Primo Hackathon", "Napoli", dInizio, dFine, 200, 10);
         g.pubblicaProblema("Traccia problema", hackathon);
         System.out.println("\nQuesta Hackathon inizia il " + dInizio + " e termina il " + dFine);
         System.out.println("Il problema di questo hackathon è: " + hackathon.getProblema());
         System.out.println("Iscritti max: " + hackathon.getMaxIscritti());
         System.out.println("Dimensione max Team: " + hackathon.getMaxDimTeam());
+
+        hackathon.stampaGiudici();
 
         hackathon.iscriviUtente(u1);   //iscriviamo utenti all'Hackathon
         hackathon.iscriviUtente(u2);

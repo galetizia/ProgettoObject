@@ -15,6 +15,7 @@ public class Hackathon {
     private final int maxDimTeam;
     private final ArrayList<Team> listaTeam;
     private final ArrayList<Utente> listaUtenti;
+    protected final ArrayList<Giudice> listaGiudici;
 
     public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam) {
         this.titolo = titolo;
@@ -23,6 +24,7 @@ public class Hackathon {
         this.dataFine = dataFine;
         this.listaTeam = new ArrayList<>();
         this.listaUtenti = new ArrayList<>();
+        this.listaGiudici = new ArrayList<>();
         this.maxIscritti = maxIscritti;
         this.maxDimTeam = maxDimTeam;
         this.finePeriodoPrenotazioni = dataInizio.minusDays(2); //le iscrizioni chiudono due giorni prima
@@ -55,6 +57,20 @@ public class Hackathon {
             System.out.println("|Nome Team: " + v.getTeam().getNome());
             System.out.println("Voto: " + v.getValutazione());
         }
+    }
+
+    public void stampaGiudici(){
+
+        int c=1;
+
+        System.out.println("Lista dei Giudici:");
+
+        for(Giudice g : listaGiudici){
+            System.out.println("|Giudice n." + c + " " +g.getNome() + " " + g.getCognome());
+
+            c++;
+        }
+
     }
 
 

@@ -9,14 +9,14 @@ public class Organizzatore extends Utente {
         this.ruolo="Organizzatore";
     }
 
-    public Giudice aggiungiGiudice(Utente utente, List<Utente> partecipanti, List<Giudice> giudici){
+    public Giudice aggiungiGiudice(Utente utente, List<Utente> partecipanti, Hackathon hackathon){
 
         if(partecipanti.contains(utente)) {
 
             partecipanti.remove(utente); // elimina l'utente dall'arraylist "partecipanti" poichè diventerà giudice
             Giudice g = new Giudice(utente.getNome(), utente.getCognome(), utente.email, utente.username, utente.password);
-            giudici.add(g);
-            return g; //
+            hackathon.listaGiudici.add(g);
+            return g;
         }
         else
             throw new IllegalArgumentException("L'utente selezionato è già un giudice");
