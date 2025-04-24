@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class Hackathon {
 
@@ -51,41 +52,24 @@ public class Hackathon {
 
     public String getProblema() { return problema; }
 
-    public void pubblicaClassifica(){
-
-        double max=0;
-        Team temp = new Team("Temp", this);
-        ArrayList<Team> listaClassifica;
-        listaClassifica = listaTeam;
-        int c=1;
-
-        while(!listaClassifica.isEmpty()) {
-            for (Team t : listaClassifica) {
-
-                if (t.mediaVoti >= max) {
-                    max = t.mediaVoti;
-                    temp = t;
-                }
-            }
-            max=0;
-            System.out.println(c +") Team: " + temp.getNome() + " Media voti: " + temp.mediaVoti);
-            listaClassifica.remove(temp);
+    public void pubblicaClassifica() {
+        int c = 1;
+        // Ordina la lista in base alla media voti in ordine decrescente
+        listaTeam.sort(Comparator.comparingDouble((Team t) -> t.mediaVoti).reversed());
+        for (Team t : listaTeam) {
+            System.out.println(c + ") Team: " + t.getNome() + " Media voti: " + t.mediaVoti);
             c++;
         }
     }
 
+
     public void stampaGiudici(){
-
         int c=1;
-
         System.out.println("Lista dei Giudici:");
-
         for(Giudice g : listaGiudici){
             System.out.println("|Giudice n." + c + " " +g.getNome() + " " + g.getCognome());
-
             c++;
         }
-
     }
 
 

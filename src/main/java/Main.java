@@ -92,7 +92,7 @@ public class Main {
         g.valutaTeam(team, 4);
         g1.valutaTeam(team, 9);
         g1.valutaTeam(team2, 2);
-        g.valutaTeam(team2, 10);
+        g.valutaTeam(team2, 3);
 
         team.stampaVoti();
         team2.stampaVoti();
