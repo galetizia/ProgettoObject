@@ -1,3 +1,6 @@
+import model.Organizzatore;
+import model.Utente;
+
 import javax.swing.*;
 
 public class SignIn {
@@ -11,22 +14,40 @@ public class SignIn {
     private JButton registerButton;
     private JLabel name;
     private JLabel surname;
-    private JLabel Email;
+    private JLabel email;
     private JLabel username;
     private JButton backButton;
+    private JCheckBox utenteCheckBox;
+    private JCheckBox organizzatoreCheckBox;
 
     public SignIn(JFrame parentFrame) {
         // Logica per la registrazione
         registerButton.addActionListener(e -> {
+            String username = inpUsername.getText();
+            String email = inpEmail.getText();
+            String name = inpName.getText();
+            String surname = inpSurname.getText();
             String password = new String(inpPassword.getPassword());
             String confirmPassword = new String(inpPassConfirm.getPassword());
 
-            if (password.isEmpty() || confirmPassword.isEmpty()) {
-                JOptionPane.showMessageDialog(parentFrame, "Password and confirm password are empty");
-            } else if (password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(mainPanel, "Registrazione completata!");
-                parentFrame.dispose(); // Dopo la registrazione, torna al login
-                showLoginForm();
+            if (password.isEmpty() || confirmPassword.isEmpty() || username.isEmpty() || email.isEmpty() || name.isEmpty() || surname.isEmpty()) {
+                JOptionPane.showMessageDialog(parentFrame, "Compilare tutti i campi");
+            }else if(!email.contains("@")) {
+                JOptionPane.showMessageDialog(parentFrame, "Formato Email non valido");
+            }else if (password.equals(confirmPassword)) {
+                if(utenteCheckBox.isSelected()) {
+                    Utente utente = new Utente(name,surname,email, username, password);
+                    JOptionPane.showMessageDialog(mainPanel, "Registrazione completata!");
+                    parentFrame.dispose(); // Dopo la registrazione, torna al login
+                    showLoginForm();
+                } else if (organizzatoreCheckBox.isSelected()) {
+                    Organizzatore organizzatore= new Organizzatore(name,surname,email, username, password);
+                    JOptionPane.showMessageDialog(mainPanel, "Registrazione completata!");
+                    parentFrame.dispose(); // Dopo la registrazione, torna al login
+                    showLoginForm();
+                } else{
+                    JOptionPane.showMessageDialog(parentFrame, "Inserire un ruolo");
+                }
             } else {
                 JOptionPane.showMessageDialog(mainPanel, "Le password non coincidono!");
             }
