@@ -1,6 +1,7 @@
 import model.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -25,7 +26,10 @@ public class Login {
 
         this.listaOrganizzatori = listaOrganizzatori;
         this.listaUtenti = listaUtenti;
+        mainPanel.setPreferredSize(new Dimension(400, 300));
 
+        loginButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.addActionListener(e -> {
             String username = inpUsername.getText();
             String password = new String(inpPassword.getPassword());
@@ -61,7 +65,8 @@ public class Login {
                 JOptionPane.showMessageDialog(mainPanel, "Credenziali errate.");
             }
         });
-
+        signInButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        signInButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signInButton.addActionListener(e -> {
             parentFrame.dispose(); // Chiude la finestra di login
             showSignInForm(parentFrame); // Apre la finestra di registrazione

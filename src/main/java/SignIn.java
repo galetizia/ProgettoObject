@@ -2,6 +2,7 @@ import model.Organizzatore;
 import model.Utente;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class SignIn {
@@ -20,11 +21,15 @@ public class SignIn {
     private JButton backButton;
     private JCheckBox utenteCheckBox;
     private JCheckBox organizzatoreCheckBox;
-    private ArrayList<Organizzatore> listaOrganizzatori;
-    private ArrayList<Utente> listaUtenti;
+    private ArrayList<Organizzatore> listaOrganizzatori = new ArrayList<>();
+    private ArrayList<Utente> listaUtenti = new ArrayList<>();
 
     public SignIn(JFrame parentFrame, ArrayList<Organizzatore> listaOrganizzatori, ArrayList<Utente> listaUtenti) {
         // Logica per la registrazione
+        mainPanel.setPreferredSize(new Dimension(600, 400));
+
+        registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerButton.addActionListener(e -> {
             String username = inpUsername.getText();
             String email = inpEmail.getText();
@@ -61,6 +66,8 @@ public class SignIn {
         });
 
         // Pulsante indietro
+        backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        backButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backButton.addActionListener(e -> {
             parentFrame.dispose(); // Chiude la finestra corrente
             showLoginForm();       // Apre direttamente una nuova finestra di login
