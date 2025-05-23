@@ -1,6 +1,9 @@
+import model.*;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class Login {
     private JPanel mainPanel;
@@ -11,20 +14,54 @@ public class Login {
     private JButton loginButton;
     private JButton signInButton;
     private JLabel forgotLabel;
+    private JCheckBox organizzatoreCheck;
+    private JCheckBox utenteCheck;
+    ArrayList<Organizzatore> listaOrganizzatori= new ArrayList<>();
+    ArrayList<Utente> listaUtenti= new ArrayList<>();
+    private Organizzatore loggedOrganizzatore;
+    private Utente loggedUtente;
 
-    public Login(JFrame parentFrame) {
-        // Evento "Login"
+    public Login(JFrame parentFrame, ArrayList<Utente> listaUtenti, ArrayList<Organizzatore> listaOrganizzatori) {
+
+        this.listaOrganizzatori = listaOrganizzatori;
+        this.listaUtenti = listaUtenti;
+
         loginButton.addActionListener(e -> {
             String username = inpUsername.getText();
             String password = new String(inpPassword.getPassword());
-            if (username.equals("admin") && password.equals("1234")) {
-                JOptionPane.showMessageDialog(mainPanel, "Login effettuato!");
-            } else {
+
+            if(!organizzatoreCheck.isSelected() && !utenteCheck.isSelected()) {
+                JOptionPane.showMessageDialog(mainPanel, "Inserire un ruolo");
+                return;
+            }
+            // Cerca tra gli organizzatori
+            if(organizzatoreCheck.isSelected()) {
+                for (Organizzatore org : listaOrganizzatori) {
+                    if (org.username.equals(username) && org.password.equals(password)) {
+                        JOptionPane.showMessageDialog(mainPanel, "Login effettuato come Organizzatore!");
+                        loggedOrganizzatore = org;
+                        parentFrame.dispose();
+                        showSchermataOrganizzatore(parentFrame);
+                        return; // esce dal metodo
+                    }
+                }
+                JOptionPane.showMessageDialog(mainPanel, "Credenziali errate.");
+
+            }
+            // Cerca tra gli utenti
+            if(utenteCheck.isSelected()) {
+                for (Utente utente : listaUtenti) {
+                    if (utente.username.equals(username) && utente.password.equals(password)) {
+                        JOptionPane.showMessageDialog(mainPanel, "Login effettuato come Utente!");
+                        loggedUtente = utente;
+                        // Qui puoi mostrare la schermata utente (da implementare)
+                        return;
+                    }
+                }
                 JOptionPane.showMessageDialog(mainPanel, "Credenziali errate.");
             }
         });
 
-        // Evento "Sign-In"
         signInButton.addActionListener(e -> {
             parentFrame.dispose(); // Chiude la finestra di login
             showSignInForm(parentFrame); // Apre la finestra di registrazione
@@ -44,7 +81,7 @@ public class Login {
     private void showSignInForm(JFrame parentFrame) {
         parentFrame.dispose(); // Chiude la finestra di login PRIMA di aprirne una nuova
         JFrame frame = new JFrame("Registrazione");
-        frame.setContentPane(new SignIn(frame).getMainPanel());
+        frame.setContentPane(new SignIn(frame,listaOrganizzatori,listaUtenti).getMainPanel());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);
@@ -52,6 +89,16 @@ public class Login {
         frame.setVisible(true);
     }
 
+    private void showSchermataOrganizzatore(JFrame parentFrame) {
+        parentFrame.dispose();
+        JFrame frame = new JFrame("Schermata Organizzatore");
+        frame.setContentPane(new SchermataOrganizzatore(frame, listaOrganizzatori, listaUtenti, loggedOrganizzatore).getMainPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -60,7 +107,10 @@ public class Login {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Login");
-            Login login = new Login(frame);
+            ArrayList<Organizzatore> listaOrganizzatori = new ArrayList<>();
+            ArrayList<Utente> listaUtenti = new ArrayList<>();
+
+            Login login = new Login(frame,listaUtenti,listaOrganizzatori);
             frame.setContentPane(login.getMainPanel());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();

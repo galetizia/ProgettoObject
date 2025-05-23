@@ -2,6 +2,7 @@ import model.Organizzatore;
 import model.Utente;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class SignIn {
     private JPanel mainPanel;
@@ -19,8 +20,10 @@ public class SignIn {
     private JButton backButton;
     private JCheckBox utenteCheckBox;
     private JCheckBox organizzatoreCheckBox;
+    private ArrayList<Organizzatore> listaOrganizzatori;
+    private ArrayList<Utente> listaUtenti;
 
-    public SignIn(JFrame parentFrame) {
+    public SignIn(JFrame parentFrame, ArrayList<Organizzatore> listaOrganizzatori, ArrayList<Utente> listaUtenti) {
         // Logica per la registrazione
         registerButton.addActionListener(e -> {
             String username = inpUsername.getText();
@@ -29,6 +32,8 @@ public class SignIn {
             String surname = inpSurname.getText();
             String password = new String(inpPassword.getPassword());
             String confirmPassword = new String(inpPassConfirm.getPassword());
+            this.listaOrganizzatori = listaOrganizzatori;
+            this.listaUtenti = listaUtenti;
 
             if (password.isEmpty() || confirmPassword.isEmpty() || username.isEmpty() || email.isEmpty() || name.isEmpty() || surname.isEmpty()) {
                 JOptionPane.showMessageDialog(parentFrame, "Compilare tutti i campi");
@@ -37,11 +42,13 @@ public class SignIn {
             }else if (password.equals(confirmPassword)) {
                 if(utenteCheckBox.isSelected()) {
                     Utente utente = new Utente(name,surname,email, username, password);
+                    listaUtenti.add(utente);
                     JOptionPane.showMessageDialog(mainPanel, "Registrazione completata!");
                     parentFrame.dispose(); // Dopo la registrazione, torna al login
                     showLoginForm();
                 } else if (organizzatoreCheckBox.isSelected()) {
                     Organizzatore organizzatore= new Organizzatore(name,surname,email, username, password);
+                    listaOrganizzatori.add(organizzatore);
                     JOptionPane.showMessageDialog(mainPanel, "Registrazione completata!");
                     parentFrame.dispose(); // Dopo la registrazione, torna al login
                     showLoginForm();
@@ -62,7 +69,7 @@ public class SignIn {
 
     private void showLoginForm() {
         JFrame loginFrame = new JFrame("Login");
-        loginFrame.setContentPane(new Login(loginFrame).getMainPanel());
+        loginFrame.setContentPane(new Login(loginFrame, listaUtenti,listaOrganizzatori).getMainPanel());
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.pack();
         loginFrame.setResizable(false);
