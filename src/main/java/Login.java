@@ -58,6 +58,8 @@ public class Login {
                     if (utente.username.equals(username) && utente.password.equals(password)) {
                         JOptionPane.showMessageDialog(mainPanel, "Login effettuato come Utente!");
                         loggedUtente = utente;
+                        parentFrame.dispose();
+                        showSchermataUtente(parentFrame);
                         // Qui puoi mostrare la schermata utente (da implementare)
                         return;
                     }
@@ -98,6 +100,16 @@ public class Login {
         parentFrame.dispose();
         JFrame frame = new JFrame("Schermata Organizzatore");
         frame.setContentPane(new SchermataOrganizzatore(frame, listaOrganizzatori, listaUtenti, loggedOrganizzatore).getMainPanel());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    private void showSchermataUtente(JFrame parentFrame) {
+        parentFrame.dispose();
+        JFrame frame = new JFrame("Schermata Organizzatore");
+        frame.setContentPane(new SchermataUtente(frame, listaOrganizzatori, listaUtenti, loggedUtente).getMainPanel());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);

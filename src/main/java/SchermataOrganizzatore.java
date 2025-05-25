@@ -7,7 +7,6 @@ public class SchermataOrganizzatore {
     private JButton organizzaHackathonButton;
     private JButton hackathonAttualeButton;
     private JButton informazioniPersonaliButton;
-    private JPanel informazioniPersonaliPanel;
     private JLabel name;
     private JLabel surname;
     private JLabel email;
