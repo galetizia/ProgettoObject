@@ -1,9 +1,8 @@
-package GUI;
+package gui;
 
 import model.*;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class SchermataOrganizzatore {
     private JPanel mainPanel;

@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 import model.*;
 import javax.swing.*;
 import java.util.ArrayList;
@@ -31,6 +31,22 @@ public class Controller {
     public void showSignIn() { // Chiude la finestra di login PRIMA di aprirne una nuova
         SignIn signIn = new SignIn(this);
         mainFrame.setContentPane(signIn.getMainPanel());
+        mainFrame.pack();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+    }
+
+    public void showRecuperoUsername() { // Chiude la finestra di login PRIMA di aprirne una nuova
+        RecuperoUsername recuperoUsername = new RecuperoUsername(this);
+        mainFrame.setContentPane(recuperoUsername.getMainPanel());
+        mainFrame.pack();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+    }
+
+    public void showRecuperoPassword() { // Chiude la finestra di login PRIMA di aprirne una nuova
+        RecuperaPassword recuperoPassword = new RecuperaPassword(this);
+        mainFrame.setContentPane(recuperoPassword.getMainPanel());
         mainFrame.pack();
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
@@ -69,24 +85,24 @@ public class Controller {
     }
 
     public boolean registraUtente(Utente utente) {
-        boolean existUser = listaUtenti.stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(utente.getUsername()));
-        boolean sxistInOrg = listaOrganizzatori.stream().anyMatch(org -> org.getUsername().equalsIgnoreCase(utente.getUsername()));
-
-        if (existUser || sxistInOrg) return false;
-
+        if (isUsernameTaken(utente.getUsername())) return false;
         listaUtenti.add(utente);
         return true;
     }
 
     public boolean registraOrganizzatore(Organizzatore organizzatore) {
-        boolean existUser = listaUtenti.stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(organizzatore.getUsername()));
-        boolean sxistInOrg = listaOrganizzatori.stream().anyMatch(org -> org.getUsername().equalsIgnoreCase(organizzatore.getUsername()));
-
-        if (existUser || sxistInOrg) return false;
-
+        if (isUsernameTaken(organizzatore.getUsername())) return false;
         listaOrganizzatori.add(organizzatore);
         return true;
 
+    }
+    private boolean isUsernameTaken(String username) {
+        return listaUtenti.stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(username)) &&
+                listaOrganizzatori.stream().anyMatch(o -> o.getUsername().equalsIgnoreCase(username));
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Controller::new);
     }
 
 }

@@ -1,11 +1,9 @@
-package GUI;
+package gui;
 
-import model.*;
 import model.Utente;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class SchermataUtente {
     private JPanel mainPanel;

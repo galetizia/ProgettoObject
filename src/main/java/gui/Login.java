@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import model.*;
 
@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class Login {
     private JPanel mainPanel;
@@ -16,9 +15,10 @@ public class Login {
     private JPasswordField inpPassword;
     private JButton loginButton;
     private JButton signInButton;
-    private JLabel forgotLabel;
+    private JLabel forgotpass;
     private JCheckBox organizzatoreCheck;
     private JCheckBox utenteCheck;
+    private JLabel forgotUser;
 
     private Controller controller;
     public Login(Controller controller) {
@@ -73,13 +73,21 @@ public class Login {
         signInButton.addActionListener(e -> controller.showSignIn());
 
         // Simula link cliccabile
-        forgotLabel.setText("<html><a href=''>Ho dimenticato la mia password/username?</a></html>");
-        forgotLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        forgotLabel.addMouseListener(new MouseAdapter() {
+        forgotUser.setText("<html><a href=''>Ho dimenticato il mio username</a></html>");
+        forgotUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        forgotUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(mainPanel, "Recupero password in arrivo!");
-            } //idem qua dobbiamo poi fare una cosa a parte
+                controller.showRecuperoUsername();
+            }
+        });
+        forgotpass.setText("<html><a href=''>Ho dimenticato la mia password</a></html>");
+        forgotpass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        forgotpass.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.showRecuperoPassword();
+            }
         });
     }
 
@@ -87,7 +95,5 @@ public class Login {
         return mainPanel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(Controller::new);
-    }
+
 }

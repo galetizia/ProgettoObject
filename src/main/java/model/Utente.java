@@ -27,6 +27,7 @@ public class Utente {
 
     public String getEmail() { return this.email; }
     public String getUsername() { return this.username; }
+    public String getPassword() { return this.password; }
 
 
 }

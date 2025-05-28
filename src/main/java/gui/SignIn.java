@@ -1,11 +1,10 @@
-package GUI;
+package gui;
 
 import model.Organizzatore;
 import model.Utente;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class SignIn {
     private JPanel mainPanel;
