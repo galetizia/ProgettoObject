@@ -1,4 +1,6 @@
-import model.Organizzatore;
+package GUI;
+
+import model.*;
 import model.Utente;
 
 import javax.swing.*;
@@ -6,6 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SchermataUtente {
+    private JPanel mainPanel;
     private JButton iscrizionebutton;
     private JButton attualebutton;
     private JButton teambutton;
@@ -17,16 +20,12 @@ public class SchermataUtente {
     private JLabel surname;
     private JLabel username;
     private JLabel email;
-    private JPanel mainPanel;
-    ArrayList<Organizzatore> listaOrganizzatori= new ArrayList<>();
-    ArrayList<Utente> listaUtenti= new ArrayList<>();
 
+    private Controller controller;
 
-    public SchermataUtente(JFrame frame, ArrayList<Organizzatore> organizzatori, ArrayList<Utente> utenti, Utente utente){
-        this.listaOrganizzatori = organizzatori;
-        this.listaUtenti = utenti;
+    public SchermataUtente(Controller controller, Utente utente) {
+        this.controller = controller;
         mainPanel.setPreferredSize(new Dimension(600, 400));
-
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -69,23 +68,11 @@ public class SchermataUtente {
 
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        logoutButton.addActionListener(e -> {
-            frame.dispose();
-            showLoginForm();
-        });
+        logoutButton.addActionListener(e -> controller.logout());
 
     }
     public JPanel getMainPanel(){
         return mainPanel;
     }
 
-    private void showLoginForm(){
-        JFrame loginFrame = new JFrame("Login");
-        loginFrame.setContentPane(new Login(loginFrame, listaUtenti, listaOrganizzatori).getMainPanel());
-        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginFrame.pack();
-        loginFrame.setResizable(false);
-        loginFrame.setLocationRelativeTo(null);
-        loginFrame.setVisible(true);
-    }
 }

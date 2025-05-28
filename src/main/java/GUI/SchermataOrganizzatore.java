@@ -1,9 +1,12 @@
+package GUI;
+
 import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class SchermataOrganizzatore {
+    private JPanel mainPanel;
     private JButton organizzaHackathonButton;
     private JButton hackathonAttualeButton;
     private JButton informazioniPersonaliButton;
@@ -11,14 +14,12 @@ public class SchermataOrganizzatore {
     private JLabel surname;
     private JLabel email;
     private JLabel username;
-    private JPanel mainPanel;
     private JButton logOutButton;
-    ArrayList<Organizzatore> listaOrganizzatori= new ArrayList<>();
-    ArrayList<Utente> listaUtenti= new ArrayList<>();
 
-    public SchermataOrganizzatore(JFrame frame, ArrayList<Organizzatore> organizzatori, ArrayList<Utente> utenti, Organizzatore organizzatore) {
-        this.listaUtenti = utenti;
-        this.listaOrganizzatori = organizzatori;
+    private Controller controller;
+
+    public SchermataOrganizzatore(Controller controller, Organizzatore organizzatore) {
+        this.controller = controller;
         mainPanel.setPreferredSize(new Dimension(600, 400));
 
 
@@ -44,25 +45,12 @@ public class SchermataOrganizzatore {
         });
         logOutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         logOutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        logOutButton.addActionListener(e -> {
-            frame.dispose();
-            showLoginForm();
-        });
+        logOutButton.addActionListener(e -> controller.logout());
 
     }
 
     public JPanel getMainPanel(){
         return mainPanel;
-    }
-
-    private void showLoginForm(){
-        JFrame loginFrame = new JFrame("Login");
-        loginFrame.setContentPane(new Login(loginFrame, listaUtenti, listaOrganizzatori).getMainPanel());
-        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        loginFrame.pack();
-        loginFrame.setResizable(false);
-        loginFrame.setLocationRelativeTo(null);
-        loginFrame.setVisible(true);
     }
 
 }

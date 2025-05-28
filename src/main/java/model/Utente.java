@@ -25,5 +25,9 @@ public class Utente {
 
     public String getCognome() { return this.cognome; }
 
+    public String getEmail() { return this.email; }
+    public String getUsername() { return this.username; }
+
+
 }
 
