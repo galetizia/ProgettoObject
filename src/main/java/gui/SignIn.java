@@ -1,7 +1,7 @@
 package gui;
 
-import model.Organizzatore;
-import model.Utente;
+import controller.ControllerSignIn;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,11 +22,10 @@ public class SignIn {
     private JButton backButton;
     private JCheckBox utenteCheckBox;
     private JCheckBox organizzatoreCheckBox;
-    private Controller controller;
 
-    public SignIn(Controller controller) {
-        this.controller = controller;
-        // Logica per la registrazione
+
+    public SignIn(ControllerSignIn controller) {
+
         mainPanel.setPreferredSize(new Dimension(600, 400));
 
         registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -48,32 +47,7 @@ public class SignIn {
             String password = new String(inpPassword.getPassword());
             String confirmPassword = new String(inpPassConfirm.getPassword());
 
-            if (password.isEmpty() || confirmPassword.isEmpty() || username.isEmpty() || email.isEmpty() || name.isEmpty() || surname.isEmpty()) {
-                JOptionPane.showMessageDialog(mainPanel, "Compilare tutti i campi");
-            } else if (!email.contains("@")) {
-                JOptionPane.showMessageDialog(mainPanel, "Formato Email non valido");
-            } else if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(mainPanel, "Le password non coincidono!");
-            } else if (!utenteCheckBox.isSelected() && !organizzatoreCheckBox.isSelected()) {
-                JOptionPane.showMessageDialog(mainPanel, "Inserire un ruolo");
-            } else {
-                boolean success = false;
-
-                if (utenteCheckBox.isSelected()) {
-                    Utente utente = new Utente(name, surname, email, username, password);
-                    success = controller.registraUtente(utente);
-                } else if (organizzatoreCheckBox.isSelected()) {
-                    Organizzatore organizzatore = new Organizzatore(name, surname, email, username, password);
-                    success = controller.registraOrganizzatore(organizzatore);
-                }
-
-                if (!success) {
-                    JOptionPane.showMessageDialog(mainPanel, "Username già in uso. Scegli un altro.");
-                } else {
-                    JOptionPane.showMessageDialog(mainPanel, "Registrazione completata!");
-                    controller.showLogin();
-                }
-            }
+            controller.SignIn(username,email,name,surname,password,confirmPassword,utenteCheckBox.isSelected(), organizzatoreCheckBox.isSelected());
         });
 
         // Pulsante indietro

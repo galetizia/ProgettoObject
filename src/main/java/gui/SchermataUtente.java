@@ -1,5 +1,6 @@
 package gui;
 
+import controller.ControllerSchermataUtente;
 import model.Utente;
 
 import javax.swing.*;
@@ -19,10 +20,7 @@ public class SchermataUtente {
     private JLabel username;
     private JLabel email;
 
-    private Controller controller;
-
-    public SchermataUtente(Controller controller, Utente utente) {
-        this.controller = controller;
+    public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

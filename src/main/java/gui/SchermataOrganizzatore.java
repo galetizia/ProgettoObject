@@ -1,5 +1,6 @@
 package gui;
 
+import controller.ControllerSchermataOrganizzatore;
 import model.*;
 import javax.swing.*;
 import java.awt.*;
@@ -15,12 +16,8 @@ public class SchermataOrganizzatore {
     private JLabel username;
     private JButton logOutButton;
 
-    private Controller controller;
-
-    public SchermataOrganizzatore(Controller controller, Organizzatore organizzatore) {
-        this.controller = controller;
+    public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
-
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

@@ -1,6 +1,7 @@
 package gui;
 
-import model.*;
+import controller.ControllerLogin;
+import controller.MainController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +21,7 @@ public class Login {
     private JCheckBox utenteCheck;
     private JLabel forgotUser;
 
-    private Controller controller;
-    public Login(Controller controller) {
-        this.controller = controller;
+    public Login(ControllerLogin controller) {
 
         mainPanel.setPreferredSize(new Dimension(400, 300));
 
@@ -40,32 +39,7 @@ public class Login {
         loginButton.addActionListener(e -> {
             String username = inpUsername.getText();
             String password = new String(inpPassword.getPassword());
-
-            if(!organizzatoreCheck.isSelected() && !utenteCheck.isSelected()) {
-                JOptionPane.showMessageDialog(mainPanel, "Inserire un ruolo");
-                return;
-            }
-            // Cerca tra gli organizzatori
-            if(organizzatoreCheck.isSelected()) {
-                for (Organizzatore org : controller.getListaOrganizzatori()) {
-                    if (org.username.equals(username) && org.password.equals(password)) {
-                        JOptionPane.showMessageDialog(mainPanel, "Login effettuato come Organizzatore!");
-                        controller.showSchermataOrganizzatore(org);
-                        return; // esce dal metodo
-                    }
-                }
-            }
-            // Cerca tra gli utenti
-            if(utenteCheck.isSelected()) {
-                for (Utente utente : controller.getListaUtenti()) {
-                    if (utente.username.equals(username) && utente.password.equals(password)) {
-                        JOptionPane.showMessageDialog(mainPanel, "Login effettuato come Utente!");
-                        controller.showSchermataUtente(utente);
-                        return;
-                    }
-                }
-            }
-            JOptionPane.showMessageDialog(mainPanel, "Credenziali errate.");
+            controller.login(username, password, utenteCheck.isSelected(), organizzatoreCheck.isSelected());
         });
 
         signInButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -94,6 +68,5 @@ public class Login {
     public JPanel getMainPanel() {
         return mainPanel;
     }
-
 
 }
