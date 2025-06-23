@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Team {
     private final String nome;
-    private final ArrayList <Utente> componentiTeam;
+    public final ArrayList <Utente> componentiTeam;
     private final int maxDimTeam;
     protected ArrayList<Voto> voti= new ArrayList<>();
     protected double mediaVoti=0;

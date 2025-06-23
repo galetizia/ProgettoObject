@@ -59,6 +59,10 @@ public class MainController {
         ControllerSchermataUtente schermataUtenteController = new ControllerSchermataUtente(listaUtenti,listaOrganizzatori,this,utente);
         setPanel(schermataUtenteController.getSchermataUtente());
     }
+    public void showTeamSchermataUtente(Team team){
+        ControllerTeamSchermataUtente teamSchermataUtenteController = new ControllerTeamSchermataUtente(team, this);
+        //setPanel(teamSchermataUtenteController.getTeamSchermataUtente);
+    }
 
     // Getters e accesso centralizzato ai dati
     public ArrayList<Utente> getListaUtenti() {

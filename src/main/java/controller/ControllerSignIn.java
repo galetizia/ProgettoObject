@@ -67,7 +67,7 @@ public class ControllerSignIn {
 
     }
     private boolean isUsernameTaken(String username) {
-        return mainController.getListaUtenti().stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(username)) &&
+        return mainController.getListaUtenti().stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(username)) ||
                 mainController.getListaOrganizzatori().stream().anyMatch(o -> o.getUsername().equalsIgnoreCase(username));
     }
 
