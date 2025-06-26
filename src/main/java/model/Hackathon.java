@@ -13,11 +13,12 @@ public class Hackathon {
     public LocalDate finePeriodoPrenotazioni;
     private final int maxIscritti;
     private final int maxDimTeam;
+    private int hackathonID;
     private final ArrayList<Team> listaTeam;
     private final ArrayList<Utente> listaUtenti;
     protected final ArrayList<Giudice> listaGiudici;
 
-    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam) {
+    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam, int hackathonID) {
         this.titolo = titolo;
         this.sede = sede;
         this.dataInizio = dataInizio;
@@ -28,6 +29,7 @@ public class Hackathon {
         this.maxIscritti = maxIscritti;
         this.maxDimTeam = maxDimTeam;
         this.finePeriodoPrenotazioni = dataInizio.minusDays(2); //le iscrizioni chiudono due giorni prima
+        this.hackathonID = hackathonID;
     }
 
     public void iscriviUtente(Utente u){

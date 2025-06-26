@@ -2,8 +2,8 @@ package model;
 
 public class Giudice extends Utente {
 
-    protected Giudice(String nome, String cognome, String email, String username, String password) {
-        super(nome, cognome, email, username, password);
+    public Giudice(String nome, String cognome, String email, String username, String password, int hackathonID) {
+        super(nome, cognome, email, username, password,hackathonID);
         this.ruolo="Giudice";
     }
 

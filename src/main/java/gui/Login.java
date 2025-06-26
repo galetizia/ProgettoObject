@@ -1,7 +1,6 @@
 package gui;
 
 import controller.ControllerLogin;
-import controller.MainController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +10,8 @@ import java.awt.event.MouseEvent;
 public class Login {
     private JPanel mainPanel;
     private JLabel username;
-    private JTextField inpUsername;
     private JLabel password;
+    private JTextField inpUsername;
     private JPasswordField inpPassword;
     private JButton loginButton;
     private JButton signInButton;
