@@ -7,15 +7,15 @@ public class ConnessioneDatabase {
 
     private static ConnessioneDatabase instance;
     public Connection connection = null;
-    private String nome = "postgres";
-    private String password = "password";
-    private String url = "jdbc:postgresql://localhost:5432/Hackathon";
-    private String driver = "org.postgresql.Driver";
+    private static final String  NOME = "postgres";
+    private static final String PASS = "Passwordhackathon";
+    private static final String URL = "jdbc:postgresql://localhost:5432/Hackathon";
+    private static final String DRIVER = "org.postgresql.Driver";
 
     private ConnessioneDatabase() throws SQLException {
         try{
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url, nome, password);
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection(URL, NOME, PASS);
         } catch(ClassNotFoundException e){
             System.out.println("Database connection creation failed : " + e.getMessage());
             e.printStackTrace();
