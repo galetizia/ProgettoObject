@@ -19,4 +19,5 @@ public class ControllerTeamSchermataUtente {
         this.maincontroller = maincontroller;
         this.listacomponenti = team.componentiTeam;
     }
+
 }

@@ -13,7 +13,7 @@ public class Hackathon {
     public LocalDate finePeriodoPrenotazioni;
     private final int maxIscritti;
     private final int maxDimTeam;
-    private int hackathonID;
+    private final int hackathonID;
     private final ArrayList<Team> listaTeam;
     private final ArrayList<Utente> listaUtenti;
     protected final ArrayList<Giudice> listaGiudici;
@@ -64,7 +64,6 @@ public class Hackathon {
         }
     }
 
-
     public void stampaGiudici(){
         int c=1;
         System.out.println("Lista dei Giudici:");
@@ -73,6 +72,8 @@ public class Hackathon {
             c++;
         }
     }
+
+    public int getHackathonID(){ return this.hackathonID; }
 
 
 }
