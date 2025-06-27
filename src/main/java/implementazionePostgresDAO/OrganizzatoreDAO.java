@@ -23,12 +23,16 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+
                 return new Utente(
                         rs.getString("nome"),
                         rs.getString("cognome"),
                         rs.getString("email"),
                         rs.getString("username"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getInt("team_id"),
+                        rs.getInt("hackathon_id")
+
                 );
             }
         } catch (SQLException e) {
