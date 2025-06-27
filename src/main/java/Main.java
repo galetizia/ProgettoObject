@@ -17,6 +17,7 @@ public class Main {
             System.out.println("Username: " + u.getUsername());
             System.out.println("Hackathon ID: " + u.getHackathonID());
             System.out.println("Team ID: " + u.getTeamID());
+
         } else {
             System.out.println("Utente non trovato");
         }
