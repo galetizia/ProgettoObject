@@ -28,8 +28,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
                         rs.getString("cognome"),
                         rs.getString("email"),
                         rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("hackathon_id")
+                        rs.getString("password")
                 );
             }
         } catch (SQLException e) {
