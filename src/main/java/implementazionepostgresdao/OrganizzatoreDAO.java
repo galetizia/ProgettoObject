@@ -1,11 +1,9 @@
-package implementazionePostgresDAO;
+package implementazionepostgresdao;
 import model.*;
 import java.sql.Connection;
 import database.ConnessioneDatabase;
-import DAO.IOrganizzatoreDAO;
+import dao.IOrganizzatoreDAO;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 

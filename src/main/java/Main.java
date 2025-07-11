@@ -1,4 +1,4 @@
-import implementazionePostgresDAO.OrganizzatoreDAO;
+import implementazionepostgresdao.OrganizzatoreDAO;
 import model.*;
 
 public class Main {

@@ -21,8 +21,11 @@ public class Utente {
         this.teamID = teamID;
     }
 
-    public boolean login(String username, String password) {
-        return this.username.equals(username) && this.password.equals(password);
+    public Utente login(String username, String password) {
+        if(this.username.equals(username) && this.password.equals(password)) {
+            return this;
+        }
+        return null;
     }
     public boolean registrazioneHackathon(int hackathonID) {
         //TODO controllo nel database se esiste l'hackathon a cui stiamo iscrivendo l'utente
