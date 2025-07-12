@@ -14,7 +14,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     @Override
     public Utente trovaUtentePerUsername(String username) {
-        String sql = "SELECT * FROM Utente WHERE username = ?";
+        String sql = "SELECT * FROM utente WHERE username = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -30,6 +30,31 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
                         rs.getString("password"),
                         rs.getInt("team_id"),
                         rs.getInt("hackathon_id")
+
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Organizzatore login(String username, String password) {
+        String sql = "SELECT * FROM organizzatore WHERE username = ? AND password = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                return new Organizzatore(
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password")
 
                 );
             }

@@ -7,4 +7,5 @@ public interface IOrganizzatoreDAO {
 
     Utente trovaUtentePerUsername(String username);
 
+    Organizzatore login(String username, String password);
 }

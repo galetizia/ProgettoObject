@@ -1,20 +1,25 @@
 package controller;
 
 import gui.Login;
+import implementazionepostgresdao.OrganizzatoreDAO;
+import implementazionepostgresdao.UtenteDAO;
 import model.Organizzatore;
 import model.Utente;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerLogin {
     private final Login loginGui;
-    private ArrayList<Organizzatore> listaOrganizzatori;
-    private ArrayList<Utente> listaUtenti;
+    private List<Organizzatore> listaOrganizzatori;
+    private List<Utente> listaUtenti;
+    OrganizzatoreDAO odao = new OrganizzatoreDAO();
+    UtenteDAO udao = new UtenteDAO();
 
     private final MainController maincontroller;
 
-    public ControllerLogin(ArrayList<Utente> utenti, ArrayList<Organizzatore> organizzatori , MainController maincontroller) {
+    public ControllerLogin(List<Utente> utenti, List<Organizzatore> organizzatori , MainController maincontroller) {
         this.maincontroller = maincontroller;
         this.listaOrganizzatori = organizzatori;
         this.listaUtenti = utenti;
@@ -32,22 +37,20 @@ public class ControllerLogin {
         }
 
     if(isOrganizzatore){
-        for (Organizzatore org : listaOrganizzatori) {
-            if (org.username.equals(username) && org.password.equals(password)) {
-                JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Login effettuato come Organizzatore!");
-                maincontroller.showSchermataOrganizzatore(org);
-                return; // esce dal metodo
-            }
+        Organizzatore o = odao.login(username, password);
+        if(o!=null){
+            JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Login effettuato come Organizzatore!");
+            maincontroller.showSchermataOrganizzatore(o);
+            return;
         }
     }
 
     if(isUtente){
-        for (Utente u : listaUtenti) {
-            if (u.username.equals(username) && u.password.equals(password)) {
-                JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Login effettuato come Utente!");
-                maincontroller.showSchermataUtente(u);
-                return;
-            }
+        Utente u = udao.login(username, password);
+        if(u!=null){
+            JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Login effettuato come Utente!");
+            maincontroller.showSchermataUtente(u);
+            return;
         }
     }
     JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Credenziali errate.");
