@@ -23,7 +23,7 @@ public class ControllerSignIn {
 
     public void signIn(Utente u, String confirmPassword, boolean isUtente, boolean isOrganizzatore) {
 
-        String checkEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        String checkEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         if (u.getPassword().isEmpty() || confirmPassword.isEmpty() || u.getUsername().isEmpty() || u.getEmail().isEmpty() || u.getNome().isEmpty() || u.getCognome().isEmpty()) {
             JOptionPane.showMessageDialog(getSignIn(), "Compilare tutti i campi");
         } else if (!u.getEmail().matches(checkEmail)) {

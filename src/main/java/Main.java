@@ -1,3 +1,4 @@
+import implementazionepostgresdao.HackathonDAO;
 import implementazionepostgresdao.OrganizzatoreDAO;
 import implementazionepostgresdao.UtenteDAO;
 import model.*;
@@ -6,6 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         OrganizzatoreDAO dao = new OrganizzatoreDAO();
+        HackathonDAO hdao = new HackathonDAO();
 
         // Test: cerca utente per username
         String username = "luca123";
@@ -16,7 +18,7 @@ public class Main {
         if (u1 != null) System.out.println("Login success user");
         else System.out.println("Login fail user");
 
-        Utente u = dao.trovaUtentePerUsername(username);
+        Utente u = hdao.findUtenteByUsername(username);
         if (u != null) {
             System.out.println("Utente trovato:");
             System.out.println("Nome: " + u.getNome());

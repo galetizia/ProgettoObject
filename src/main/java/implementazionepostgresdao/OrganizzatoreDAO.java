@@ -8,35 +8,9 @@ import java.sql.*;
 public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     private Connection connection;
+    HackathonDAO dao = new HackathonDAO();
 
-    public OrganizzatoreDAO() {
-    }
-
-    @Override
-    public Utente trovaUtentePerUsername(String username) {
-        String sql = "SELECT * FROM utente WHERE username = ?";
-
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-
-                Utente u = new Utente(
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                );
-                u.setHackathonID(rs.getInt("hackathon_id"));
-                u.setTeamID(rs.getInt("team_id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    public OrganizzatoreDAO() {}
 
     public Organizzatore login(String username, String password) {
         String sql = "SELECT * FROM organizzatore WHERE username = ? AND password = ?";
@@ -92,7 +66,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
     }
 
     public Giudice aggiungiGiudice(String username, Hackathon h){
-        Utente u = trovaUtentePerUsername(username);
+        Utente u = dao.findUtenteByUsername(username);
         if (u == null) {
             System.out.println("User not found");
             return null;

@@ -24,8 +24,8 @@ public class SchermataOrganizzatore {
         informazioniPersonaliButton.addActionListener(e -> {
             name.setText("Nome: "+organizzatore.getNome());
             surname.setText("Cognome: "+organizzatore.getCognome());
-            email.setText("Email: "+organizzatore.email);
-            username.setText("Username: "+organizzatore.username);
+            email.setText("Email: "+organizzatore.getEmail());
+            username.setText("Username: "+organizzatore.getUsername());
         });
 
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

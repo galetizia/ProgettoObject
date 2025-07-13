@@ -28,8 +28,8 @@ public class SchermataUtente {
         informazioniPersonaliButton.addActionListener(e -> {
             name.setText("Nome: "+utente.getNome());
             surname.setText("Cognome: "+utente.getCognome());
-            email.setText("Email: "+utente.email);
-            username.setText("Username: "+utente.username);
+            email.setText("Email: "+utente.getEmail());
+            username.setText("Username: "+utente.getUsername());
         });
 
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));

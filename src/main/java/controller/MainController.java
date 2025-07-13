@@ -42,12 +42,12 @@ public class MainController {
     }
 
     public void showRecuperoUsername() {
-        ControllerRecuperoUsername recuperoUsernameController = new ControllerRecuperoUsername(listaUtenti,listaOrganizzatori,this);
+        ControllerRecuperoUsername recuperoUsernameController = new ControllerRecuperoUsername(this);
         setPanel(recuperoUsernameController.getRecuperoUsername());
     }
 
     public void showRecuperoPassword() {
-        ControllerRecuperoPassword recuperoPasswordController = new ControllerRecuperoPassword(listaUtenti,listaOrganizzatori,this);
+        ControllerRecuperoPassword recuperoPasswordController = new ControllerRecuperoPassword(this);
         setPanel(recuperoPasswordController.getRecuperaPassword());
     }
 
@@ -61,7 +61,7 @@ public class MainController {
     }
     public void showTeamSchermataUtente(Team team){
         ControllerTeamSchermataUtente teamSchermataUtenteController = new ControllerTeamSchermataUtente(team, this);
-        //setPanel(teamSchermataUtenteController.getTeamSchermataUtente);
+        setPanel(teamSchermataUtenteController.getTeamSchermataUtente());
     }
 
     // Getters e accesso centralizzato ai dati

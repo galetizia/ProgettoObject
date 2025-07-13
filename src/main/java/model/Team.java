@@ -23,7 +23,7 @@ public class Team {
     public void stampaTeam(){
         System.out.println("Team: " + this.nome);
             for(Utente u : componentiTeam){
-                System.out.println("Membro: " + u.username);
+                System.out.println("Membro: " + u.getUsername());
             }
     }
 
