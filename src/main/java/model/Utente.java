@@ -4,21 +4,18 @@ public class Utente {
 
     private final String nome;
     private final String cognome;
-    public final String email;
-    public String ruolo = "Partecipante"; //da valutare la rimozione
-    public String username;
-    public String password;
+    private final String email;
+    private String username;
+    private String password;
     private int hackathonID;
     private int teamID;
 
-    public Utente(String nome, String cognome, String email, String username, String password, int teamID,int hackathonID) {
+    public Utente(String nome, String cognome, String email, String username, String password) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.hackathonID = hackathonID;
-        this.teamID = teamID;
     }
 
     public Utente login(String username, String password) {

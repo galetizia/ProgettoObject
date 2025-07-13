@@ -3,8 +3,8 @@ package model;
 public class Giudice extends Utente {
 
     public Giudice(String nome, String cognome, String email, String username, String password, int hackathonID) {
-        super(nome, cognome, email, username, password, 0 ,hackathonID);
-        this.ruolo="Giudice";
+        super(nome, cognome, email, username, password);
+        setHackathonID(hackathonID);
     }
 
     public void valutaTeam(Team team, int punteggio) {

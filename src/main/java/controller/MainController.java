@@ -32,12 +32,12 @@ public class MainController {
     }
 
     public void showLogin(){
-        ControllerLogin loginController = new ControllerLogin(listaUtenti,listaOrganizzatori,this);
+        ControllerLogin loginController = new ControllerLogin(this);
         setPanel(loginController.getLogin());
     }
 
     public void showSignIn() {
-        ControllerSignIn signInController = new ControllerSignIn(listaUtenti,listaOrganizzatori,this);
+        ControllerSignIn signInController = new ControllerSignIn(this);
         setPanel(signInController.getSignIn());
     }
 

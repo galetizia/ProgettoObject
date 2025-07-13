@@ -47,7 +47,9 @@ public class SignIn {
             String password = new String(inpPassword.getPassword());
             String confirmPassword = new String(inpPassConfirm.getPassword());
 
-            controller.SignIn(username,email,name,surname,password,confirmPassword,utenteCheckBox.isSelected(), organizzatoreCheckBox.isSelected());
+            Utente u = new Utente(name,surname,email,username,password);
+
+            controller.signIn(u,confirmPassword,utenteCheckBox.isSelected(), organizzatoreCheckBox.isSelected());
         });
 
         // Pulsante indietro

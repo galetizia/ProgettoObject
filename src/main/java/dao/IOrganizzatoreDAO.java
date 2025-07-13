@@ -8,4 +8,6 @@ public interface IOrganizzatoreDAO {
     Utente trovaUtentePerUsername(String username);
 
     Organizzatore login(String username, String password);
+
+    boolean signIn(String nome, String cognome, String email, String username, String password);
 }

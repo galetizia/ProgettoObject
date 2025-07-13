@@ -73,7 +73,7 @@ public class Hackathon {
         }
     }
 
-    public int getHackathonID(){ return this.hackathonID; }
+    public int getID(){ return this.hackathonID; }
 
 
 }

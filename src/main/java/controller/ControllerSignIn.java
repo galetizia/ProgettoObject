@@ -1,23 +1,19 @@
 package controller;
 
 import gui.SignIn;
+import implementazionepostgresdao.*;
 import model.Utente;
-import model.Organizzatore;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ControllerSignIn {
     private final SignIn signInGui;
-    private ArrayList<Utente> utenti;
-    private ArrayList<Organizzatore> organizzatori;
+    OrganizzatoreDAO odao = new OrganizzatoreDAO();
+    UtenteDAO udao = new UtenteDAO();
 
     private final MainController mainController;
 
-    public ControllerSignIn(ArrayList<Utente> utenti, ArrayList<Organizzatore> organizzatori, MainController mainController) {
-        this.utenti = utenti;
-        this.organizzatori = organizzatori;
+    public ControllerSignIn(MainController mainController) {
         this.mainController = mainController;
         this.signInGui = new SignIn(this);
     }
@@ -25,24 +21,24 @@ public class ControllerSignIn {
         return signInGui.getMainPanel();
     }
 
-    public void SignIn(String username, String email, String name, String surname, String password, String confirmPassword, boolean isUtente, boolean isOrganizzatore) {
-        if (password.isEmpty() || confirmPassword.isEmpty() || username.isEmpty() || email.isEmpty() || name.isEmpty() || surname.isEmpty()) {
+    public void signIn(Utente u, String confirmPassword, boolean isUtente, boolean isOrganizzatore) {
+
+        String checkEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        if (u.getPassword().isEmpty() || confirmPassword.isEmpty() || u.getUsername().isEmpty() || u.getEmail().isEmpty() || u.getNome().isEmpty() || u.getCognome().isEmpty()) {
             JOptionPane.showMessageDialog(getSignIn(), "Compilare tutti i campi");
-        } else if (!email.contains("@")) {
+        } else if (!u.getEmail().matches(checkEmail)) {
             JOptionPane.showMessageDialog(getSignIn(), "Formato Email non valido");
-        } else if (!password.equals(confirmPassword)) {
+        } else if (!u.getPassword().equals(confirmPassword)) {
             JOptionPane.showMessageDialog(getSignIn(), "Le password non coincidono!");
         } else if (!isUtente && !isOrganizzatore) {
             JOptionPane.showMessageDialog(getSignIn(), "Inserire un ruolo");
         } else {
-            boolean success = false;
 
+            boolean success;
             if (isUtente) {
-                Utente utente = new Utente(name, surname, email, username, password);
-                success = registraUtente(utente);
-            } else if (isOrganizzatore) {
-                Organizzatore organizzatore = new Organizzatore(name, surname, email, username, password);
-                success = registraOrganizzatore(organizzatore);
+                success = udao.signIn(u.getNome(),u.getCognome(),u.getEmail(),u.getUsername(),u.getPassword());
+            } else{
+                success = odao.signIn(u.getNome(),u.getCognome(),u.getEmail(),u.getUsername(),u.getPassword());
             }
 
             if (!success) {
@@ -53,24 +49,6 @@ public class ControllerSignIn {
             }
         }
     }
-
-    public boolean registraUtente(Utente utente) {
-        if (isUsernameTaken(utente.getUsername())) return false;
-        mainController.getListaUtenti().add(utente);
-        return true;
-    }
-
-    public boolean registraOrganizzatore(Organizzatore organizzatore) {
-        if (isUsernameTaken(organizzatore.getUsername())) return false;
-        mainController.getListaOrganizzatori().add(organizzatore);
-        return true;
-
-    }
-    private boolean isUsernameTaken(String username) {
-        return mainController.getListaUtenti().stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(username)) ||
-                mainController.getListaOrganizzatori().stream().anyMatch(o -> o.getUsername().equalsIgnoreCase(username));
-    }
-
 
     public void showLogin(){
         mainController.showLogin();

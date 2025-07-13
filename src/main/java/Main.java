@@ -38,6 +38,15 @@ public class Main {
         else System.out.println("Login fail organizzatore");
 
 
+        if(dao.signIn("pippo","baudo","pippobau@gmail.com","pip","pibaudo")){
+            System.out.println("Organizzatore registrato");
+        }
+        else
+            System.out.println("Organizzatore non registrato");
+
+
+
+
 
 
 

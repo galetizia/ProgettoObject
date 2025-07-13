@@ -1,28 +1,19 @@
 package controller;
 
 import gui.Login;
-import implementazionepostgresdao.OrganizzatoreDAO;
-import implementazionepostgresdao.UtenteDAO;
-import model.Organizzatore;
-import model.Utente;
-
+import implementazionepostgresdao.*;
+import model.*;
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ControllerLogin {
     private final Login loginGui;
-    private List<Organizzatore> listaOrganizzatori;
-    private List<Utente> listaUtenti;
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     UtenteDAO udao = new UtenteDAO();
 
     private final MainController maincontroller;
 
-    public ControllerLogin(List<Utente> utenti, List<Organizzatore> organizzatori , MainController maincontroller) {
+    public ControllerLogin(MainController maincontroller) {
         this.maincontroller = maincontroller;
-        this.listaOrganizzatori = organizzatori;
-        this.listaUtenti = utenti;
         this.loginGui = new Login (this);
     }
 
