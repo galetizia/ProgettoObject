@@ -64,15 +64,6 @@ public class MainController {
         setPanel(teamSchermataUtenteController.getTeamSchermataUtente());
     }
 
-    // Getters e accesso centralizzato ai dati
-    public ArrayList<Utente> getListaUtenti() {
-        return listaUtenti;
-    }
-
-    public ArrayList<Organizzatore> getListaOrganizzatori() {
-        return listaOrganizzatori;
-    }
-
     public void logout() {
         showLogin();
     }

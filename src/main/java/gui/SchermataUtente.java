@@ -47,6 +47,7 @@ public class SchermataUtente {
         teambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         teambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         teambutton.addActionListener(e -> {
+            controller.schermataTeamUtente(utente);
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });
 
