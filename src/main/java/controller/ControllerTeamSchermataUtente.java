@@ -1,6 +1,7 @@
 package controller;
 
 import gui.TeamSchermataUtente;
+import implementazionepostgresdao.TeamDAO;
 import model.Team;
 import model.Utente;
 
@@ -14,11 +15,20 @@ public class ControllerTeamSchermataUtente {
 
     private final MainController maincontroller;
 
-    public ControllerTeamSchermataUtente(MainController maincontroller, Team team ) {
-        this.teamSchermataUtente = new TeamSchermataUtente(this, team);
+    public ControllerTeamSchermataUtente(MainController maincontroller, Team team, Utente utente) {
+        this.teamSchermataUtente = new TeamSchermataUtente(this, team, utente);
         this.maincontroller = maincontroller;
         this.listacomponenti = team.componentiTeam;
     }
+
+    public void abbandonaTeam(Utente utente) {
+        TeamDAO dao = new TeamDAO();
+        dao.rimuoviUtenteDalTeam(utente.getUsername());
+        utente.setTeamID(null);
+
+        maincontroller.showSchermataUtente(utente);
+    }
+
     public JPanel getTeamSchermataUtente() { return teamSchermataUtente.getMainPanel(); }
 
-}
+}//Modificato - Fabio (Metodo AbbandonaTeam)

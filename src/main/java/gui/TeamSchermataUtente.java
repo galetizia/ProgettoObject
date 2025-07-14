@@ -17,7 +17,7 @@ public class TeamSchermataUtente {
     private DefaultListModel<String> modelListUtenti;
     TeamDAO tdao = new TeamDAO();
 
-    public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team) {
+    public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));
 
         modelListUtenti = new DefaultListModel<>();
@@ -37,6 +37,23 @@ public class TeamSchermataUtente {
             listaUtenti.revalidate();
             listaUtenti.repaint();
             panelUtenti.setVisible(true);
+
+        });
+
+        abbandonaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        abbandonaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        abbandonaButton.addActionListener(e -> {
+            int conferma = JOptionPane.showConfirmDialog(
+                    mainPanel,
+                    "Sei sicuro di voler abbandonare il team?",
+                    "Conferma",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (conferma == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(mainPanel, "Hai abbandonato il team con successo.");
+                controller.abbandonaTeam(utente); // o utente passato come parametro
+            }
         });
     }
 
@@ -44,4 +61,4 @@ public class TeamSchermataUtente {
     public JPanel getMainPanel(){
         return mainPanel;
     }
-}
+}//Modificato - Fabio (AbbandonaButton)

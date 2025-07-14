@@ -23,7 +23,7 @@ public class ControllerSchermataUtente {
     public void schermataTeamUtente(Utente utente){
         if(utente.getTeamID() != null) {
             Team team = tdao.getTeamByID(utente.getTeamID());
-            mainController.showTeamSchermataUtente(team);
+            mainController.showTeamSchermataUtente(team, utente);
         }
     }
 
@@ -32,4 +32,4 @@ public class ControllerSchermataUtente {
     }
 
 
-} //modificato
+} //modificato - Fabio (Parametro Utente)

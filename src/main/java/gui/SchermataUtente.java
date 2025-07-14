@@ -44,7 +44,8 @@ public class SchermataUtente {
         iscrizioneTeamButton.addActionListener(e -> {
             if(utente.getTeamID() != null) JOptionPane.showMessageDialog(mainPanel,"Hai già un team");
 
-            else ;
+            else
+                controller.schermataTeamUtente(utente);
         });
 
         iscrizionebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -56,9 +57,12 @@ public class SchermataUtente {
         myTeambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         myTeambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         myTeambutton.addActionListener(e -> {
-            if(utente.getTeamID() == null) JOptionPane.showMessageDialog(mainPanel,"Non fai ancora parte di un team");
+            if(utente.getTeamID() == null)
+                JOptionPane.showMessageDialog(mainPanel,"Non fai ancora parte di un team");
+            else {
+                controller.schermataTeamUtente(utente);
 
-            controller.schermataTeamUtente(utente);
+            }
 
         });
 

@@ -50,8 +50,8 @@ public class MainController {
         ControllerSchermataUtente schermataUtenteController = new ControllerSchermataUtente(this,utente);
         setPanel(schermataUtenteController.getSchermataUtente());
     }
-    public void showTeamSchermataUtente(Team team){
-        ControllerTeamSchermataUtente teamSchermataUtenteController = new ControllerTeamSchermataUtente(this, team);
+    public void showTeamSchermataUtente(Team team, Utente utente){
+        ControllerTeamSchermataUtente teamSchermataUtenteController = new ControllerTeamSchermataUtente(this, team, utente);
         setPanel(teamSchermataUtenteController.getTeamSchermataUtente());
     }
 
@@ -63,4 +63,4 @@ public class MainController {
         SwingUtilities.invokeLater(MainController::new);
     }
 
-} //modificato
+} //modificato - Fabio (Aggiunto utente come parametro in showTeamSchermataUtente)

@@ -63,6 +63,17 @@ public class TeamDAO implements ITeamDAO {
         return membri;
     }
 
+    @Override
+    public void rimuoviUtenteDalTeam(String username) {
+        String sql = "UPDATE utente SET team_id = NULL WHERE username = ?";
+        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // In produzione usa logger e gestione errori migliore
+        }
+    }
 
-}
+}//Modificato - Fabio (Rimuovi Utente dal team)
