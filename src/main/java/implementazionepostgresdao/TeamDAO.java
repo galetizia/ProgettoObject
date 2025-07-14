@@ -76,4 +76,26 @@ public class TeamDAO implements ITeamDAO {
         }
     }
 
-}//Modificato - Fabio (Rimuovi Utente dal team)
+    @Override
+    public List<Team> getAllTeam() {
+        List<Team> lista = new ArrayList<>();
+        String sql = "SELECT nome FROM team";
+
+        try (Connection conn = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()){
+            while (rs.next()) {
+                Team t = new Team(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getDouble("mediavoti"),
+                        rs.getInt("Hackathon_id")
+                );
+                lista.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+}//Modificato - Fabio (Rimuovi Utente dal team) e getAllTeam()

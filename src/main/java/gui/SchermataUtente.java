@@ -44,8 +44,7 @@ public class SchermataUtente {
         iscrizioneTeamButton.addActionListener(e -> {
             if(utente.getTeamID() != null) JOptionPane.showMessageDialog(mainPanel,"Hai già un team");
 
-            else
-                controller.schermataTeamUtente(utente);
+            else;
         });
 
         iscrizionebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));

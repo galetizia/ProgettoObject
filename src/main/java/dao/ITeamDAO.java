@@ -9,5 +9,9 @@ public interface ITeamDAO {
 
     List<Utente> membriTeam(Integer id);
 
-    void rimuoviUtenteDalTeam(String username);//Modificato - Fabio
+    void rimuoviUtenteDalTeam(String username);
+
+    List<Team> getAllTeam();
+
+    //Modificato - Fabio
 }
