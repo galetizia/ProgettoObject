@@ -7,8 +7,8 @@ public class Utente {
     private final String email;
     private String username;
     private String password;
-    private int hackathonID;
-    private int teamID;
+    private Integer hackathonID;
+    private Integer teamID;
 
     public Utente(String nome, String cognome, String email, String username, String password) {
         this.nome = nome;
@@ -16,6 +16,8 @@ public class Utente {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.hackathonID = null;
+        this.teamID = null;
     }
 
     public Utente login(String username, String password) {
@@ -39,10 +41,10 @@ public class Utente {
     public String getUsername() { return this.username; }
     public String getPassword() { return this.password; }
 
-    public int getHackathonID() { return this.hackathonID; }
+    public Integer getHackathonID() { return this.hackathonID; }
     public void setHackathonID(int hackathonID) { this.hackathonID = hackathonID; }
 
-    public int getTeamID() { return this.teamID; }
+    public Integer getTeamID() { return this.teamID; }
     public void setTeamID(int teamID) { this.teamID = teamID; }
 }
 

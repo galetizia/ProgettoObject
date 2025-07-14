@@ -10,7 +10,7 @@ public class SchermataUtente {
     private JPanel mainPanel;
     private JButton iscrizionebutton;
     private JButton attualebutton;
-    private JButton teambutton;
+    private JButton myTeambutton;
     private JButton informazioniPersonaliButton;
     private JButton problemabutton;
     private JButton logoutButton;
@@ -19,6 +19,7 @@ public class SchermataUtente {
     private JLabel surname;
     private JLabel username;
     private JLabel email;
+    private JButton iscrizioneTeamButton;
 
     public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
@@ -44,9 +45,9 @@ public class SchermataUtente {
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });
 
-        teambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        teambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        teambutton.addActionListener(e -> {
+        myTeambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        myTeambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        myTeambutton.addActionListener(e -> {
             controller.schermataTeamUtente(utente);
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });

@@ -1,6 +1,7 @@
 package controller;
 
 import gui.SchermataUtente;
+import implementazionepostgresdao.TeamDAO;
 import model.*;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ public class ControllerSchermataUtente {
     private final SchermataUtente schermataUtente;
     private ArrayList<Utente> utenti;
     private ArrayList<Organizzatore> organizzatori;
+    TeamDAO tdao= new TeamDAO();
 
     private final MainController mainController;
 
@@ -26,8 +28,10 @@ public class ControllerSchermataUtente {
     public void schermataUtente() {}
 
     public void schermataTeamUtente(Utente utente){
-        if(utente.getTeamID()!=null)
-        mainController.showTeamSchermataUtente(team);
+        if(utente.getTeamID()!=null) {
+            Team team = tdao.getTeamByID(utente.getTeamID());
+            mainController.showTeamSchermataUtente(team);
+        }
     }
 
     public void logout() {

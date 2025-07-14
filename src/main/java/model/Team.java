@@ -2,16 +2,21 @@ package model;
 import java.util.ArrayList;
 
 public class Team {
+    private int id;
+    private Integer hackathonID
     private final String nome;
     public final ArrayList <Utente> componentiTeam;
     private final int maxDimTeam;
     protected ArrayList<Voto> voti= new ArrayList<>();
     protected double mediaVoti=0;
 
-    public Team(String nome, Hackathon hackathon) {
+    public Team(int id, String nome, double mediaVoti, Integer hackathon) {
+        this.id = id;
         this.nome = nome;
         this.componentiTeam= new ArrayList<>();
-        this.maxDimTeam=hackathon.getMaxDimTeam();
+        this.mediaVoti = mediaVoti;
+        this.hackathonID = hackathonID;
+        //this.maxDimTeam=hackathon.getMaxDimTeam();
     }
 
     public void aggiungiMembro(Utente u){

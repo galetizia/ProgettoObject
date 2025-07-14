@@ -16,7 +16,7 @@ public class ControllerTeamSchermataUtente {
 
     private final MainController maincontroller;
 
-    public ControllerTeamSchermataUtente(Team team, MainController maincontroller) {
+    public ControllerTeamSchermataUtente(MainController maincontroller, Team team ) {
         this.teamSchermataUtente = new TeamSchermataUtente(this, team);
         this.maincontroller = maincontroller;
         this.listacomponenti = team.componentiTeam;

@@ -60,7 +60,7 @@ public class MainController {
         setPanel(schermataUtenteController.getSchermataUtente());
     }
     public void showTeamSchermataUtente(Team team){
-        ControllerTeamSchermataUtente teamSchermataUtenteController = new ControllerTeamSchermataUtente(team, this);
+        ControllerTeamSchermataUtente teamSchermataUtenteController = new ControllerTeamSchermataUtente(this, team);
         setPanel(teamSchermataUtenteController.getTeamSchermataUtente());
     }
 
