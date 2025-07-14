@@ -4,6 +4,8 @@ import gui.IscrizioneTeam;
 import implementazionepostgresdao.TeamDAO;
 import model.Utente;
 
+import javax.swing.*;
+
 public class ControllerIscrizioneTeam {
 
     private final IscrizioneTeam schermataIscrizioneTeam;
@@ -14,5 +16,7 @@ public class ControllerIscrizioneTeam {
         this.schermataIscrizioneTeam = new IscrizioneTeam(this, utente);
         this.mainController = mainController;
     }
+
+    public JPanel getIscrizioneTeam() {return schermataIscrizioneTeam.gerMainPanel();}
 
 }

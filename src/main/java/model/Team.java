@@ -61,4 +61,7 @@ public class Team {
 
     public Integer getId(){ return this.id; }
 
+    public int getMaxDimTeam() {
+        return maxDimTeam;
+    }
 }

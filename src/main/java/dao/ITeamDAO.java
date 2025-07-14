@@ -11,7 +11,7 @@ public interface ITeamDAO {
 
     void rimuoviUtenteDalTeam(String username);
 
-    List<Team> getAllTeam();
+    List<Team> getTeamByHackathon(Integer id);
 
     //Modificato - Fabio
 }

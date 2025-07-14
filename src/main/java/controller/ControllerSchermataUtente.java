@@ -27,6 +27,12 @@ public class ControllerSchermataUtente {
         }
     }
 
+    public void schermataIscrizioneTeam(Utente utente){
+        if(utente.getTeamID() == null) {
+            mainController.showIscrizioneTeamUtente(utente);
+        }
+    }
+
     public void logout() {
         mainController.logout();
     }

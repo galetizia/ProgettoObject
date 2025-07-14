@@ -77,25 +77,28 @@ public class TeamDAO implements ITeamDAO {
     }
 
     @Override
-    public List<Team> getAllTeam() {
-        List<Team> lista = new ArrayList<>();
-        String sql = "SELECT nome FROM team";
+    public List<Team> getTeamByHackathon(Integer id) {
+        String sql = "SELECT * FROM team WHERE hackathon_id = ?";
+        List<Team> membri = new ArrayList<>();
+        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
 
-        try (Connection conn = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()){
+            ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 Team t = new Team(
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getDouble("mediavoti"),
-                        rs.getInt("Hackathon_id")
+                        rs.getInt("hackathon_id")
                 );
-                lista.add(t);
+                membri.add(t);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return lista;
+        return membri;
+
     }
 
-}//Modificato - Fabio (Rimuovi Utente dal team) e getAllTeam()
+}//Modificato - Gabriele (modifica cosi da restituire solo i team di un hackathon)

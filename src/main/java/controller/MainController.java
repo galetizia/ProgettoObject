@@ -55,6 +55,11 @@ public class MainController {
         setPanel(teamSchermataUtenteController.getTeamSchermataUtente());
     }
 
+    public void showIscrizioneTeamUtente(Utente utente){
+        ControllerIscrizioneTeam iscrizioneTeamController = new ControllerIscrizioneTeam(this, utente);
+        setPanel(iscrizioneTeamController.getIscrizioneTeam());
+    }
+
     public void logout() {
         showLogin();
     }
