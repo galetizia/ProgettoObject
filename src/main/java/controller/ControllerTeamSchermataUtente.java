@@ -1,8 +1,6 @@
 package controller;
 
-import gui.Login;
 import gui.TeamSchermataUtente;
-import model.Organizzatore;
 import model.Team;
 import model.Utente;
 

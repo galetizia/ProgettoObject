@@ -42,9 +42,9 @@ public class Utente {
     public String getPassword() { return this.password; }
 
     public Integer getHackathonID() { return this.hackathonID; }
-    public void setHackathonID(int hackathonID) { this.hackathonID = hackathonID; }
+    public void setHackathonID(Integer hackathonID) { this.hackathonID = hackathonID; }
 
-    public Integer getTeamID() { return this.teamID; }
-    public void setTeamID(int teamID) { this.teamID = teamID; }
+    public Integer getTeamID() { return teamID; }
+    public void setTeamID(Integer teamID) { this.teamID = teamID; }
 }
-
+//modificato

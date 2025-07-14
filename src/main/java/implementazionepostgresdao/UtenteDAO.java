@@ -21,13 +21,23 @@ public class UtenteDAO implements IUtenteDAO {
 
             if (rs.next()) {
 
-                return new Utente(
+                Utente u = new Utente(
                         rs.getString("nome"),
                         rs.getString("cognome"),
                         rs.getString("email"),
                         rs.getString("username"),
                         rs.getString("password")
                 );
+                int hackathonId = rs.getInt("hackathon_id");
+                if (rs.wasNull()) u.setHackathonID(null);
+                else u.setHackathonID(hackathonId);
+
+
+                int teamId = rs.getInt("team_id");
+                if (rs.wasNull()) u.setTeamID(null);
+                else u.setTeamID(teamId);
+
+                return u;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,6 +72,6 @@ public class UtenteDAO implements IUtenteDAO {
             return false;
         }
     }
-}
+}//modificato
 
 

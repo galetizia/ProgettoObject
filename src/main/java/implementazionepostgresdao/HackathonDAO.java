@@ -83,8 +83,14 @@ public class HackathonDAO implements IHackathonDAO {
                         rs.getString("username"),
                         rs.getString("password")
                 );
-                u.setHackathonID(rs.getInt("hackathon_id"));
-                u.setTeamID(rs.getInt("team_id"));
+                int hackathonId = rs.getInt("hackathon_id");
+                if (rs.wasNull()) u.setHackathonID(null);
+                else u.setHackathonID(hackathonId);
+
+
+                int teamId = rs.getInt("team_id");
+                if (rs.wasNull()) u.setTeamID(null);
+                else u.setTeamID(teamId);
 
                 return u;
             }
@@ -110,7 +116,10 @@ public class HackathonDAO implements IHackathonDAO {
                         rs.getString("username"),
                         rs.getString("password")
                 );
-                o.setHackathonID(rs.getInt("hackathon_id"));
+                int hackathonId = rs.getInt("hackathon_id");
+                if (rs.wasNull()) o.setHackathonID(null);
+                else o.setHackathonID(hackathonId);
+
 
                 return o;
             }

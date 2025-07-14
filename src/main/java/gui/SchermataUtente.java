@@ -25,7 +25,7 @@ public class SchermataUtente {
         mainPanel.setPreferredSize(new Dimension(600, 400));
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(e -> {
             name.setText("Nome: "+utente.getNome());
             surname.setText("Cognome: "+utente.getCognome());
@@ -34,9 +34,17 @@ public class SchermataUtente {
         });
 
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        attualebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        attualebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         attualebutton.addActionListener(e -> {
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
+        });
+
+        iscrizioneTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        iscrizioneTeamButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iscrizioneTeamButton.addActionListener(e -> {
+            if(utente.getTeamID() != null) JOptionPane.showMessageDialog(mainPanel,"Hai già un team");
+
+            else ;
         });
 
         iscrizionebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -48,8 +56,10 @@ public class SchermataUtente {
         myTeambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         myTeambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         myTeambutton.addActionListener(e -> {
+            if(utente.getTeamID() == null) JOptionPane.showMessageDialog(mainPanel,"Non fai ancora parte di un team");
+
             controller.schermataTeamUtente(utente);
-            JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
+
         });
 
         problemabutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -73,4 +83,4 @@ public class SchermataUtente {
         return mainPanel;
     }
 
-}
+}//modificato

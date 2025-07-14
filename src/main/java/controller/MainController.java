@@ -1,23 +1,14 @@
 package controller;
-import gui.*;
 import model.*;
 import javax.swing.*;
-import java.util.ArrayList;
 
 
 public class MainController {
-    private JFrame mainFrame;
-    private ArrayList<Organizzatore> listaOrganizzatori;
-    private ArrayList<Utente> listaUtenti;
-
-    private Organizzatore loggedOrganizzatore=null;
-    private Utente loggedUtente=null;
+    private final JFrame mainFrame;
 
     public MainController(){
-        listaOrganizzatori = new ArrayList<>();
-        listaUtenti = new ArrayList<>();
         mainFrame = new JFrame("Hackathon");
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         mainFrame.setVisible(true);
         showLogin();
@@ -52,11 +43,11 @@ public class MainController {
     }
 
     public void showSchermataOrganizzatore(Organizzatore organizzatore) {
-        ControllerSchermataOrganizzatore schermataOrganizzatoreController = new ControllerSchermataOrganizzatore(listaUtenti,listaOrganizzatori,this,organizzatore);
+        ControllerSchermataOrganizzatore schermataOrganizzatoreController = new ControllerSchermataOrganizzatore(this,organizzatore);
         setPanel(schermataOrganizzatoreController.getSchermataOrganizzatore());
     }
     public void showSchermataUtente(Utente utente) {
-        ControllerSchermataUtente schermataUtenteController = new ControllerSchermataUtente(listaUtenti,listaOrganizzatori,this,utente);
+        ControllerSchermataUtente schermataUtenteController = new ControllerSchermataUtente(this,utente);
         setPanel(schermataUtenteController.getSchermataUtente());
     }
     public void showTeamSchermataUtente(Team team){
@@ -72,4 +63,4 @@ public class MainController {
         SwingUtilities.invokeLater(MainController::new);
     }
 
-}
+} //modificato
