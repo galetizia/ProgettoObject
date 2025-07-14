@@ -11,4 +11,6 @@ public interface IHackathonDAO {
     Utente findUtenteByEmail(String email);
 
     Organizzatore findOrganizzatoreByEmail(String email);
+
+    int getMaxDimTeam(Integer ID);
 }

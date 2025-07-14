@@ -120,5 +120,23 @@ public class HackathonDAO implements IHackathonDAO {
         return null;
     }
 
+    public int getMaxDimTeam(Integer ID) {
+
+        String sql = "SELECT max_dim_team FROM hackathon WHERE id = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, ID);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+               return rs.getInt("max_dim_team");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 
 }

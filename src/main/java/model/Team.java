@@ -1,22 +1,25 @@
 package model;
+import implementazionepostgresdao.HackathonDAO;
+
 import java.util.ArrayList;
 
 public class Team {
     private int id;
-    private Integer hackathonID
+    private Integer hackathonID;
     private final String nome;
     public final ArrayList <Utente> componentiTeam;
     private final int maxDimTeam;
     protected ArrayList<Voto> voti= new ArrayList<>();
     protected double mediaVoti=0;
+    private HackathonDAO hdao = new HackathonDAO();
 
-    public Team(int id, String nome, double mediaVoti, Integer hackathon) {
+    public Team(int id, String nome, double mediaVoti, Integer hackathonID) {
         this.id = id;
         this.nome = nome;
         this.componentiTeam= new ArrayList<>();
         this.mediaVoti = mediaVoti;
         this.hackathonID = hackathonID;
-        //this.maxDimTeam=hackathon.getMaxDimTeam();
+        this.maxDimTeam = hdao.getMaxDimTeam(hackathonID);
     }
 
     public void aggiungiMembro(Utente u){

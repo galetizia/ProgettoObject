@@ -12,7 +12,7 @@ public class ControllerSchermataUtente {
     private final SchermataUtente schermataUtente;
     private ArrayList<Utente> utenti;
     private ArrayList<Organizzatore> organizzatori;
-    TeamDAO tdao= new TeamDAO();
+    TeamDAO tdao = new TeamDAO();
 
     private final MainController mainController;
 
@@ -28,7 +28,7 @@ public class ControllerSchermataUtente {
     public void schermataUtente() {}
 
     public void schermataTeamUtente(Utente utente){
-        if(utente.getTeamID()!=null) {
+        if(utente.getTeamID() != null) {
             Team team = tdao.getTeamByID(utente.getTeamID());
             mainController.showTeamSchermataUtente(team);
         }
