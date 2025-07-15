@@ -1,7 +1,7 @@
 package controller;
 
 import gui.IscrizioneTeam;
-import implementazionepostgresdao.TeamDAO;
+
 import model.Utente;
 
 import javax.swing.*;
