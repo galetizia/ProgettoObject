@@ -26,7 +26,6 @@ public class IscrizioneTeam {
     private JButton indietroButton;
     private JButton hackathonAttiveButton;
 
-
     private DefaultListModel<String> modelLista;
     TeamDAO tdao = new TeamDAO();
     HackathonDAO hdao = new HackathonDAO();
@@ -38,6 +37,35 @@ public class IscrizioneTeam {
         panelIscrizione.setVisible(false);
         modelLista = new DefaultListModel<>();
         listElenchi.setModel(modelLista);
+
+        confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        confermaButton.addActionListener(e -> {
+            String nome = nomeTextField.getText();
+            String idTxt = iscrizioneIDTextField.getText();
+
+            if(nome.isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Inserire un nome");
+                return;
+            }
+            int id;
+            try{
+                id = Integer.parseInt(idTxt);
+
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(mainPanel, "L'ID deve essere un numero intero valido", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+
+            if(hdao.getHackathonByID(id) == null) {
+                JOptionPane.showMessageDialog(mainPanel, "ID hackathon non valido" , "Error", JOptionPane.ERROR_MESSAGE);
+            } else{
+                Team t = new Team(nome,id);
+                tdao.caricaTeamNelDB(t,utente);
+                JOptionPane.showMessageDialog(mainPanel, "Il team caricato con successo","Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         hackathonAttiveButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackathonAttiveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));

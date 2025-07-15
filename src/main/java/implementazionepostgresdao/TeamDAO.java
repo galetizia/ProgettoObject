@@ -34,87 +34,117 @@ public class TeamDAO implements ITeamDAO {
         return null;
     }
 
+    public void caricaTeamNelDB(Team team, Utente utente) {
+        String sql = "INSERT INTO team (nome,mediaVoti,Hackathon_id) VALUES (?,?,?) RETURNING id";
+        String utenteSql = "UPDATE utente SET team_id = ?,hackathon_id=? WHERE username = ?";
 
-    @Override
-    public List<Utente> membriTeam(Integer id){
-        String sql = "SELECT nome,cognome,email,username,password FROM utente WHERE team_id = ?";
-        List<Utente> membri = new ArrayList<>();
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql);
+             PreparedStatement ustmt = con.prepareStatement(utenteSql)) {
 
-            ResultSet rs = stmt.executeQuery();
-
-
-            while (rs.next()) {
-                Utente u = new Utente(
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                );
-
-                membri.add(u);
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return membri;
-    }
-
-    @Override
-    public void rimuoviUtenteDalTeam(String username) {
-        String sql = "UPDATE utente SET team_id = NULL WHERE username = ?";
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<Team> getTeamByHackathon(Integer id) {
-        String sql = "SELECT * FROM team WHERE hackathon_id = ?";
-        List<Team> membri = new ArrayList<>();
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Team t = new Team(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getDouble("mediavoti"),
-                        rs.getInt("hackathon_id")
-                );
-                membri.add(t);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return membri;
-
-    }
-
-    public Integer getHackathonByTeam(Integer id) {
-        String sql = "SELECT hackathon_id FROM team WHERE id = ?";
-        List<Team> membri = new ArrayList<>();
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-
-            ResultSet rs = stmt.executeQuery();
+            stmt.setString(1, team.getNome());
+            stmt.setDouble(2, team.getMediaVoti());
+            stmt.setInt(3, team.getHackathonID());
+            ResultSet rs=stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("hackathon_id");
+                int generatedId = rs.getInt(1);
+                team.setId(generatedId);
+                utente.setTeamID(generatedId);
+            } else {
+                throw new SQLException("Inserimento team fallito, nessun ID restituito.");
             }
+            ustmt.setInt(1, team.getId());
+            ustmt.setInt(2,team.getHackathonID());
+            ustmt.setString(3,utente.getUsername());
+
+            ustmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-    }
 
-}//Modificato - Gabriele (modifica cosi da restituire solo i team di un hackathon)
+}
+
+@Override
+public List<Utente> membriTeam(Integer id){
+    String sql = "SELECT nome,cognome,email,username,password FROM utente WHERE team_id = ?";
+    List<Utente> membri = new ArrayList<>();
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+
+        while (rs.next()) {
+            Utente u = new Utente(
+                    rs.getString("nome"),
+                    rs.getString("cognome"),
+                    rs.getString("email"),
+                    rs.getString("username"),
+                    rs.getString("password")
+            );
+
+            membri.add(u);
+
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return membri;
+}
+
+@Override
+public void rimuoviUtenteDalTeam(String username) {
+    String sql = "UPDATE utente SET team_id = NULL WHERE username = ?";
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setString(1, username);
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+@Override
+public List<Team> getTeamByHackathon(Integer id) {
+    String sql = "SELECT * FROM team WHERE hackathon_id = ?";
+    List<Team> membri = new ArrayList<>();
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Team t = new Team(
+                    rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getDouble("mediavoti"),
+                    rs.getInt("hackathon_id")
+            );
+            membri.add(t);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return membri;
+
+}
+
+public Integer getHackathonByTeam(Integer id) {
+    String sql = "SELECT hackathon_id FROM team WHERE id = ?";
+    List<Team> membri = new ArrayList<>();
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("hackathon_id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+} //Modificato - Gabriele (modifica cosi da restituire solo i team di un hackathon)

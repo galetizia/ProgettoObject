@@ -13,5 +13,6 @@ public interface ITeamDAO {
 
     List<Team> getTeamByHackathon(Integer id);
 
+    void caricaTeamNelDB(Team team, Utente utente);
     //Modificato - Fabio
 }

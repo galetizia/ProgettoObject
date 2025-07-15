@@ -15,6 +15,36 @@ public class HackathonDAO implements IHackathonDAO {
     private Connection connection;
     public HackathonDAO() {}
 
+
+    @Override
+    public Hackathon getHackathonByID(Integer id) {
+        String sql = "SELECT * FROM hackathon WHERE id = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Date sqlDatei =  rs.getDate("data_inizio");
+                LocalDate dataInizio = sqlDatei.toLocalDate();
+
+                Date sqlDatef = rs.getDate("data_fine");
+                LocalDate dataFine = sqlDatef.toLocalDate();
+                return new Hackathon(rs.getString("titolo"),
+                        rs.getString("sede"),
+                        dataInizio,
+                        dataFine,
+                        rs.getString("problema"),
+                        rs.getInt("max_iscritti"),
+                        rs.getInt("max_dim_team"),
+                        rs.getInt("id"
+                        ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public Utente findUtenteByUsername(String username) {
         String sql = "SELECT * FROM utente WHERE username = ?";
 

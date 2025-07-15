@@ -7,12 +7,17 @@ public class Team {
     private int id;
     private Integer hackathonID;
     private final String nome;
-    public final ArrayList <Utente> componentiTeam;
+    public  ArrayList <Utente> componentiTeam;
     private final int maxDimTeam;
     protected ArrayList<Voto> voti= new ArrayList<>();
     protected double mediaVoti=0;
     private HackathonDAO hdao = new HackathonDAO();
 
+    public Team(String nome, Integer hackathonID) { //creazione nuovo team
+        this.nome = nome;
+        this.maxDimTeam = hdao.getMaxDimTeam(hackathonID);
+        this.hackathonID = hackathonID;
+    }
     public Team(int id, String nome, double mediaVoti, Integer hackathonID) {
         this.id = id;
         this.nome = nome;
@@ -64,4 +69,23 @@ public class Team {
     public int getMaxDimTeam() {
         return maxDimTeam;
     }
+
+    public Double getMediaVoti() {
+        return mediaVoti;
+    }
+    public void setMediaVoti(Double mediaVoti) {
+        this.mediaVoti = mediaVoti;
+    }
+
+    public Integer getHackathonID() {
+        return hackathonID;
+    }
+    public void setHackathonID(Integer hackathonID) {
+        this.hackathonID = hackathonID;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
