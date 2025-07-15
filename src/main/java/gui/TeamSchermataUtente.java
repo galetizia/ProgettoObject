@@ -15,11 +15,15 @@ public class TeamSchermataUtente {
     private JList<String> listaUtenti;
     private JScrollPane panelUtenti;
     private JButton indietroButton;
+    private JLabel teamLabelName;
     private DefaultListModel<String> modelListUtenti;
     TeamDAO tdao = new TeamDAO();
 
     public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));
+
+        teamLabelName.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        teamLabelName.setText("Team: " + team.getNome());
 
         modelListUtenti = new DefaultListModel<>();
         listaUtenti.setModel(modelListUtenti);
@@ -68,4 +72,4 @@ public class TeamSchermataUtente {
     public JPanel getMainPanel(){
         return mainPanel;
     }
-}//Modificato - Fabio (AbbandonaButton)
+}//Modificato - Fabio (AbbandonaButton) (Titolo del Team)

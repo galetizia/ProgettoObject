@@ -99,7 +99,7 @@ public class IscrizioneTeam {
                     Team t = tdao.getTeamByID(idteam);
                     udao.changeIDTeam(t, utente);
 
-                    JOptionPane.showMessageDialog(mainPanel, "Sei stato aggiunto al Team: "+t.getNome(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(mainPanel, "Sei stato aggiunto al Team: "+t.getNome(), "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             } catch (NumberFormatException ex) {
