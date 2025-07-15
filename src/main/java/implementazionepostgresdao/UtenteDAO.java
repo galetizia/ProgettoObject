@@ -9,12 +9,13 @@ public class UtenteDAO implements IUtenteDAO {
 
     private Connection connection;
     public UtenteDAO() {}
+    TeamDAO tdao = new TeamDAO();
 
     @Override
     public Utente login(String username, String password){
         String sql="SELECT * FROM utente WHERE username=? AND password=?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
@@ -45,11 +46,28 @@ public class UtenteDAO implements IUtenteDAO {
         return null;
     }
 
+    public void changeIDTeam(Team team, Utente utente){
+        String sql="UPDATE utente SET team_id=?, hackathon_id=? WHERE username=?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, team.getId());
+            stmt.setInt(2, tdao.getHackathonByTeam(team.getId()));
+            stmt.setString(3, utente.getUsername());
+
+            utente.setTeamID(team.getId());
+            utente.setHackathonID(tdao.getHackathonByTeam(team.getId()));
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean signIn(String nome, String cognome, String email, String username, String password){
         String checksql="SELECT * FROM utente WHERE username=? OR email=?";
         String insertsql="INSERT INTO utente(nome,cognome,email,username,password) VALUES(?,?,?,?,?)";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement checkstmt = con.prepareStatement(checksql);
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement checkstmt = con.prepareStatement(checksql);
         PreparedStatement insertstmt = con.prepareStatement(insertsql)) {
             checkstmt.setString(1, username);
             checkstmt.setString(2, email);
@@ -72,6 +90,6 @@ public class UtenteDAO implements IUtenteDAO {
             return false;
         }
     }
-}//modificato
+}
 
 

@@ -15,7 +15,7 @@ public class TeamDAO implements ITeamDAO {
     public Team getTeamByID(Integer id){
         String sql = "SELECT * FROM team WHERE id = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
@@ -39,7 +39,7 @@ public class TeamDAO implements ITeamDAO {
     public List<Utente> membriTeam(Integer id){
         String sql = "SELECT nome,cognome,email,username,password FROM utente WHERE team_id = ?";
         List<Utente> membri = new ArrayList<>();
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
@@ -66,13 +66,12 @@ public class TeamDAO implements ITeamDAO {
     @Override
     public void rimuoviUtenteDalTeam(String username) {
         String sql = "UPDATE utente SET team_id = NULL WHERE username = ?";
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // In produzione usa logger e gestione errori migliore
         }
     }
 
@@ -80,7 +79,7 @@ public class TeamDAO implements ITeamDAO {
     public List<Team> getTeamByHackathon(Integer id) {
         String sql = "SELECT * FROM team WHERE hackathon_id = ?";
         List<Team> membri = new ArrayList<>();
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
@@ -99,6 +98,23 @@ public class TeamDAO implements ITeamDAO {
         }
         return membri;
 
+    }
+
+    public Integer getHackathonByTeam(Integer id) {
+        String sql = "SELECT hackathon_id FROM team WHERE id = ?";
+        List<Team> membri = new ArrayList<>();
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("hackathon_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }//Modificato - Gabriele (modifica cosi da restituire solo i team di un hackathon)

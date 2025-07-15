@@ -14,6 +14,7 @@ public class TeamSchermataUtente {
     private JButton abbandonaButton;
     private JList<String> listaUtenti;
     private JScrollPane panelUtenti;
+    private JButton indietroButton;
     private DefaultListModel<String> modelListUtenti;
     TeamDAO tdao = new TeamDAO();
 
@@ -52,8 +53,14 @@ public class TeamSchermataUtente {
 
             if (conferma == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(mainPanel, "Hai abbandonato il team con successo.");
-                controller.abbandonaTeam(utente); // o utente passato come parametro
+                controller.abbandonaTeam(utente);
             }
+        });
+
+        indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        indietroButton.addActionListener(e -> {
+            controller.showSchermataUtente(utente);
         });
     }
 

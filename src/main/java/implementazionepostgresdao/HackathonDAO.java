@@ -2,10 +2,9 @@ package implementazionepostgresdao;
 
 import dao.IHackathonDAO;
 import model.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class HackathonDAO implements IHackathonDAO {
     public Utente findUtenteByUsername(String username) {
         String sql = "SELECT * FROM utente WHERE username = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
 
@@ -46,7 +45,7 @@ public class HackathonDAO implements IHackathonDAO {
     public Organizzatore findOrganizzatoreByUsername(String username) {
         String sql = "SELECT * FROM organizzatore WHERE username = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
 
@@ -72,7 +71,7 @@ public class HackathonDAO implements IHackathonDAO {
     public Utente findUtenteByEmail(String email) {
         String sql = "SELECT * FROM utente WHERE email = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
@@ -105,7 +104,7 @@ public class HackathonDAO implements IHackathonDAO {
     public Organizzatore findOrganizzatoreByEmail(String email) {
         String sql = "SELECT * FROM organizzatore WHERE email = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
@@ -135,7 +134,7 @@ public class HackathonDAO implements IHackathonDAO {
 
         String sql = "SELECT max_dim_team FROM hackathon WHERE id = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, ID);
             ResultSet rs = stmt.executeQuery();
 
@@ -147,6 +146,38 @@ public class HackathonDAO implements IHackathonDAO {
         }
 
         return 0;
+    }
+
+    public List<Hackathon> getHackathons() {
+
+        String sql = "SELECT * FROM hackathon";
+        List<Hackathon> hackathons = new ArrayList<>();
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Date sqlDatei =  rs.getDate("data_inizio");
+                LocalDate dataInizio = sqlDatei.toLocalDate();
+
+                Date sqlDatef = rs.getDate("data_fine");
+                LocalDate dataFine = sqlDatef.toLocalDate();
+                Hackathon h = new Hackathon(rs.getString("titolo"),
+                        rs.getString("sede"),
+                        dataInizio,
+                        dataFine,
+                        rs.getString("problema"),
+                        rs.getInt("max_iscritti"),
+                        rs.getInt("max_dim_team"),
+                        rs.getInt("id"
+                        ));
+                hackathons.add(h);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return hackathons;
     }
 
 }

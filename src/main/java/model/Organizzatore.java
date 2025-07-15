@@ -22,10 +22,10 @@ public class Organizzatore extends Utente {
             throw new IllegalArgumentException("L'utente selezionato è già un giudice");
     }
 
-    public Hackathon creaHackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam, int hackathonID){
+    public Hackathon creaHackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, String problema, int maxIscritti, int maxDimTeam, int hackathonID){
         if(hackathonID>=0 && this.getHackathonID()==0) {
             this.setHackathonID(hackathonID);
-            return new Hackathon(titolo, sede, dataInizio, dataFine, maxIscritti, maxDimTeam, hackathonID);
+            return new Hackathon(titolo, sede, dataInizio, dataFine, problema, maxIscritti, maxDimTeam, hackathonID);
         }
         return null;
     }

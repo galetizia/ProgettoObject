@@ -18,7 +18,7 @@ public class Hackathon {
     private final ArrayList<Utente> listaUtenti;
     protected final ArrayList<Giudice> listaGiudici;
 
-    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, int maxIscritti, int maxDimTeam, int hackathonID) {
+    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, String problema, int maxIscritti, int maxDimTeam, int hackathonID) {
         this.titolo = titolo;
         this.sede = sede;
         this.dataInizio = dataInizio;
@@ -28,6 +28,7 @@ public class Hackathon {
         this.listaGiudici = new ArrayList<>();
         this.maxIscritti = maxIscritti;
         this.maxDimTeam = maxDimTeam;
+        this.problema = problema;
         this.finePeriodoPrenotazioni = dataInizio.minusDays(2); //le iscrizioni chiudono due giorni prima
         this.hackathonID = hackathonID;
     }
@@ -74,6 +75,7 @@ public class Hackathon {
     }
 
     public int getID(){ return this.hackathonID; }
+    public String getNome(){ return this.titolo; }
 
 
 }

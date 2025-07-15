@@ -15,7 +15,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
     public Organizzatore login(String username, String password) {
         String sql = "SELECT * FROM organizzatore WHERE username = ? AND password = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement stmt = con.prepareStatement(sql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
@@ -41,7 +41,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         String checksql="SELECT * FROM organizzatore WHERE username=? OR email=?";
         String insertsql="INSERT INTO organizzatore(nome,cognome,email,username,password) VALUES(?,?,?,?,?)";
 
-        try (Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement checkstmt = con.prepareStatement(checksql);
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement checkstmt = con.prepareStatement(checksql);
              PreparedStatement insertstmt = con.prepareStatement(insertsql)) {
             checkstmt.setString(1, username);
             checkstmt.setString(2, email);
@@ -75,7 +75,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         String insertsql = "INSERT INTO giudice (nome,cognome,email,username,password,hackathon_id) VALUES (?,?,?,?,?,?)";
         String deletesql = "DELETE FROM utente WHERE username=?";
 
-        try(Connection con = ConnessioneDatabase.getInstance().connection; PreparedStatement insertstmt = con.prepareStatement(insertsql);
+        try(Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement insertstmt = con.prepareStatement(insertsql);
             PreparedStatement deletestmt = con.prepareStatement(deletesql)) {
 
             insertstmt.setString(1, u.getNome());

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 public class ConnessioneDatabase {
 
     private static ConnessioneDatabase instance;
-    public Connection connection = null;
     private static final String  NOME = "postgres";
     private static final String PASS = "Passwordhackathon";
     private static final String URL = "jdbc:postgresql://localhost:5432/Hackathon";
@@ -15,7 +14,6 @@ public class ConnessioneDatabase {
     private ConnessioneDatabase() throws SQLException {
         try{
             Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, NOME, PASS);
         } catch(ClassNotFoundException e){
             System.out.println("Database connection creation failed : " + e.getMessage());
             e.printStackTrace();
@@ -24,10 +22,13 @@ public class ConnessioneDatabase {
 
 
     public static ConnessioneDatabase getInstance() throws SQLException {
-        if(instance == null || instance.connection.isClosed())
+        if(instance == null)
             instance = new ConnessioneDatabase();
         return instance;
     }
 
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, NOME, PASS);
+    }
 
 }

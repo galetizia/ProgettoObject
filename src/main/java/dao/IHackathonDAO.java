@@ -16,4 +16,5 @@ public interface IHackathonDAO {
 
     int getMaxDimTeam(Integer id);
 
+    List<Hackathon> getHackathons();
 }

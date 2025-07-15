@@ -31,4 +31,8 @@ public class ControllerTeamSchermataUtente {
 
     public JPanel getTeamSchermataUtente() { return teamSchermataUtente.getMainPanel(); }
 
+    public void showSchermataUtente(Utente utente) {
+        maincontroller.showSchermataUtente(utente);
+    }
+
 }//Modificato - Fabio (Metodo AbbandonaTeam)
