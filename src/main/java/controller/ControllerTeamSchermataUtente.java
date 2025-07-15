@@ -22,9 +22,10 @@ public class ControllerTeamSchermataUtente {
     }
 
     public void abbandonaTeam(Utente utente) {
-        TeamDAO dao = new TeamDAO();
-        dao.rimuoviUtenteDalTeam(utente.getUsername());
+        TeamDAO tdao = new TeamDAO();
+        tdao.rimuoviUtenteDalTeam(utente.getUsername());
         utente.setTeamID(null);
+        utente.setHackathonID(null);
 
         maincontroller.showSchermataUtente(utente);
     }

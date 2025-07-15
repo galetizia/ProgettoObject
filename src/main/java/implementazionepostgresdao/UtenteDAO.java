@@ -45,6 +45,7 @@ public class UtenteDAO implements IUtenteDAO {
         return null;
     }
 
+    @Override
     public void changeIDTeam(Team team, Utente utente){
         String sql="UPDATE utente SET team_id=?, hackathon_id=? WHERE username=?";
 
@@ -62,6 +63,7 @@ public class UtenteDAO implements IUtenteDAO {
         }
     }
 
+    @Override
     public boolean signIn(String nome, String cognome, String email, String username, String password){
         String checksql="SELECT * FROM utente WHERE username=? OR email=?";
         String insertsql="INSERT INTO utente(nome,cognome,email,username,password) VALUES(?,?,?,?,?)";
@@ -90,6 +92,7 @@ public class UtenteDAO implements IUtenteDAO {
         }
     }
 
+    @Override
     public String getHackathonTitleByID(Integer id){
         String sql="SELECT titolo FROM hackathon WHERE id=?";
 

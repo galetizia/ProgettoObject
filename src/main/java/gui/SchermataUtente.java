@@ -40,7 +40,11 @@ public class SchermataUtente {
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         attualebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         attualebutton.addActionListener(e -> {
-            testoCentrale.setText("Hackathon: "+udao.getHackathonTitleByID(utente.getHackathonID()) + " (ID: "+utente.getHackathonID()+")");
+            if(utente.getHackathonID() != null) {
+                testoCentrale.setText("Hackathon: " + udao.getHackathonTitleByID(utente.getHackathonID()) + " (ID: " + utente.getHackathonID() + ")");
+            } else {
+                JOptionPane.showMessageDialog(mainPanel,"Non partecipi a nessun Hackathon");
+            }
         });
 
         iscrizioneTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

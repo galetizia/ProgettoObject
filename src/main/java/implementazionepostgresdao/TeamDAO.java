@@ -95,7 +95,7 @@ public List<Utente> membriTeam(Integer id){
 
 @Override
 public void rimuoviUtenteDalTeam(String username) {
-    String sql = "UPDATE utente SET team_id = NULL WHERE username = ?";
+    String sql = "UPDATE utente SET team_id = NULL, hackathon_id = NULL WHERE username = ?";
     try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
         stmt.setString(1, username);
         stmt.executeUpdate();
