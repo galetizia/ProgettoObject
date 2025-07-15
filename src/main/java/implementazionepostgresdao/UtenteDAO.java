@@ -111,6 +111,26 @@ public class UtenteDAO implements IUtenteDAO {
         }
         return null;
     }
+
+    @Override
+    public String getHackathonProblemByID(Integer id){
+        String sql="SELECT problema FROM hackathon WHERE id=?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                String problemaHackathon = rs.getString("problema");
+
+                return problemaHackathon;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
 

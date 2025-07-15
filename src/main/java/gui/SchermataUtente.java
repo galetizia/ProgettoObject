@@ -66,17 +66,18 @@ public class SchermataUtente {
         myTeambutton.addActionListener(e -> {
             if(utente.getTeamID() == null)
                 JOptionPane.showMessageDialog(mainPanel,"Non fai ancora parte di un team");
-            else {
+            else
                 controller.schermataTeamUtente(utente);
-
-            }
-
         });
 
         problemabutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         problemabutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         problemabutton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
+            if(utente.getHackathonID() != null) {
+                testoCentrale.setText("Problema: " + udao.getHackathonProblemByID(utente.getHackathonID()));
+            } else {
+                JOptionPane.showMessageDialog(mainPanel,"Non partecipi a nessun Hackathon");
+            }
         });
 
         caricaAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
