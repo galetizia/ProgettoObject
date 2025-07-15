@@ -7,7 +7,6 @@ import java.sql.*;
 
 public class UtenteDAO implements IUtenteDAO {
 
-    private Connection connection;
     public UtenteDAO() {}
     TeamDAO tdao = new TeamDAO();
 
@@ -89,6 +88,25 @@ public class UtenteDAO implements IUtenteDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public String getHackathonTitleByID(Integer id){
+        String sql="SELECT titolo FROM hackathon WHERE id=?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                String titoloHackathon = rs.getString("titolo");
+
+                return titoloHackathon;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 

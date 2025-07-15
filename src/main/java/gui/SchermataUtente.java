@@ -1,6 +1,7 @@
 package gui;
 
 import controller.ControllerSchermataUtente;
+import implementazionepostgresdao.UtenteDAO;
 import model.Utente;
 
 import javax.swing.*;
@@ -20,6 +21,9 @@ public class SchermataUtente {
     private JLabel username;
     private JLabel email;
     private JButton iscrizioneTeamButton;
+    private JLabel testoCentrale;
+
+    UtenteDAO udao = new UtenteDAO();
 
     public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
@@ -36,7 +40,7 @@ public class SchermataUtente {
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         attualebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         attualebutton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
+            testoCentrale.setText("Hackathon: "+udao.getHackathonTitleByID(utente.getHackathonID()) + " (ID: "+utente.getHackathonID()+")");
         });
 
         iscrizioneTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

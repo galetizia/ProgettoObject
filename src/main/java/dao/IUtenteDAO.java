@@ -8,5 +8,7 @@ public interface IUtenteDAO {
     boolean signIn(String nome, String cognome, String email, String username, String password);
 
     void changeIDTeam(Team team, Utente utente);
+
+    String getHackathonTitleByID(Integer id);
 }
 
