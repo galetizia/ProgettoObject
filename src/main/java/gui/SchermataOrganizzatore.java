@@ -1,6 +1,7 @@
 package gui;
 
 import controller.ControllerSchermataOrganizzatore;
+import implementazionepostgresdao.OrganizzatoreDAO;
 import model.*;
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,9 @@ public class SchermataOrganizzatore {
     private JLabel email;
     private JLabel username;
     private JButton logOutButton;
+    private JLabel testoCentrale;
+
+    OrganizzatoreDAO odao = new OrganizzatoreDAO();
 
     public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
@@ -31,7 +35,12 @@ public class SchermataOrganizzatore {
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hackathonAttualeButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
+
+            if(organizzatore.getHackathonID() != null) {
+                testoCentrale.setText("Hackathon: " + odao.getHackathonTitleByID(organizzatore.getHackathonID()) + " (ID: " + organizzatore.getHackathonID() + ")");
+            } else {
+                JOptionPane.showMessageDialog(mainPanel,"Al momento non sta organizzando alcun Hackathon");
+            }
         });
 
         organizzaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

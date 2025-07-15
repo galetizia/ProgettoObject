@@ -42,7 +42,18 @@
         </constraints>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="bf0cc" class="javax.swing.JLabel" binding="testoCentrale">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <text value=""/>
+              <verticalAlignment value="1"/>
+              <verticalTextPosition value="1"/>
+            </properties>
+          </component>
+        </children>
       </scrollpane>
       <component id="a6df8" class="javax.swing.JButton" binding="organizzaHackathonButton" default-binding="true">
         <constraints>
