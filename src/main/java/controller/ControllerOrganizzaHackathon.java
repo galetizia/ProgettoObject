@@ -3,7 +3,6 @@ package controller;
 import gui.OrganizzaHackathon;
 
 import model.Organizzatore;
-import model.Utente;
 
 import javax.swing.*;
 
@@ -20,4 +19,6 @@ public class ControllerOrganizzaHackathon {
         this.schermataOrganizzaHackathon = new OrganizzaHackathon(this, organizzatore);
 
     }
+
+    public JPanel getOrganizzaHackathon() {return schermataOrganizzaHackathon.getMainPanel();}
 }

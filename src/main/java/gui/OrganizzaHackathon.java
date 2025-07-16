@@ -29,4 +29,6 @@ public class OrganizzaHackathon {
         mainPanel.setPreferredSize(new Dimension(600,400));
 
     }
+
+    public JPanel getMainPanel() {return mainPanel;}
 }

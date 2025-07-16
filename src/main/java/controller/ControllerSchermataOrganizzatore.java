@@ -18,6 +18,11 @@ public class ControllerSchermataOrganizzatore {
         return schermataOrganizzatore.getMainPanel();
     }
 
+    public void schermataOrganizzaHackathon(Organizzatore organizzatore) {
+        if(organizzatore.getHackathonID() == null)
+            mainController.showOrganizzaHackathon(organizzatore);
+    }
+
     public void logout() {
         mainController.logout();
     }

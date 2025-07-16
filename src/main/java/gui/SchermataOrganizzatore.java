@@ -46,8 +46,13 @@ public class SchermataOrganizzatore {
         organizzaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         organizzaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         organizzaHackathonButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
+            if(organizzatore.getHackathonID() == null)
+                controller.schermataOrganizzaHackathon(organizzatore);
+            else
+                JOptionPane.showMessageDialog(mainPanel,"è già l'organizzatore di un Hackathon");
+
         });
+
         logOutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         logOutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logOutButton.addActionListener(e -> controller.logout());

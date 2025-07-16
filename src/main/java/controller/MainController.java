@@ -60,6 +60,11 @@ public class MainController {
         setPanel(iscrizioneTeamController.getIscrizioneTeam());
     }
 
+    public void showOrganizzaHackathon(Organizzatore organizzatore) {
+        ControllerOrganizzaHackathon organizzaHackathonController = new ControllerOrganizzaHackathon(this,organizzatore);
+        setPanel(organizzaHackathonController.getOrganizzaHackathon());
+    }
+
     public void logout() {
         showLogin();
     }
