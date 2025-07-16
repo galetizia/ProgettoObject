@@ -1,6 +1,7 @@
 package gui;
 
 import controller.ControllerSchermataOrganizzatore;
+import implementazionepostgresdao.HackathonDAO;
 import implementazionepostgresdao.OrganizzatoreDAO;
 import model.*;
 import javax.swing.*;
@@ -16,9 +17,16 @@ public class SchermataOrganizzatore {
     private JLabel email;
     private JLabel username;
     private JButton logOutButton;
-    private JLabel testoCentrale;
+    private JLabel titolo;
+    private JLabel sede;
+    private JLabel problema;
+    private JLabel dataInizio;
+    private JLabel dataFine;
+    private JLabel maxIscritti;
+    private JLabel maxDimTeam;
 
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
+    HackathonDAO hdao = new HackathonDAO();
 
     public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
@@ -37,7 +45,15 @@ public class SchermataOrganizzatore {
         hackathonAttualeButton.addActionListener(e -> {
 
             if(organizzatore.getHackathonID() != null) {
-                testoCentrale.setText("Hackathon: " + odao.getHackathonTitleByID(organizzatore.getHackathonID()) + " (ID: " + organizzatore.getHackathonID() + ")");
+                Hackathon h = hdao.getHackathonByID(organizzatore.getHackathonID());
+                titolo.setText("Titolo: " +h.getNome());
+                sede.setText("Sede: " +h.getSede());
+                problema.setText("Problema" +h.getProblema());
+                dataInizio.setText("Data Inizio:" +h.getDataInizio().toString());
+                dataFine.setText("Data Fine" +h.getDataFine().toString());
+                maxIscritti.setText("Max Iscritti: " +h.getMaxIscritti());
+                maxDimTeam.setText("Max Dim. Team: " +h.getMaxDimTeam());
+
             } else {
                 JOptionPane.showMessageDialog(mainPanel,"Al momento non sta organizzando alcun Hackathon");
             }

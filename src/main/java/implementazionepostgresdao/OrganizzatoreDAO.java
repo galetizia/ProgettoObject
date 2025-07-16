@@ -22,7 +22,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
             if (rs.next()) {
 
-                return new Organizzatore(
+                Organizzatore o = new Organizzatore(
                         rs.getString("nome"),
                         rs.getString("cognome"),
                         rs.getString("email"),
@@ -30,6 +30,11 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
                         rs.getString("password")
 
                 );
+                int hackathonId = rs.getInt("hackathon_id");
+                if (rs.wasNull()) o.setHackathonID(null);
+                else o.setHackathonID(hackathonId);
+
+                return o;
             }
         } catch (SQLException e) {
             e.printStackTrace();

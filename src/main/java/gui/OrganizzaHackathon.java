@@ -9,6 +9,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class OrganizzaHackathon {
     private JPanel mainPanel;
@@ -17,7 +18,7 @@ public class OrganizzaHackathon {
     private JTextField sedeTextField;
     private JButton confermaButton;
     private JScrollPane panelElenchi;
-    private JList listElenchi;
+    private JList<String> listElenchi;
     private JButton organizzaNuovaHackathonButton;
     private JButton indietroButton;
     private JButton hackathonAttiveButton;
@@ -35,7 +36,6 @@ public class OrganizzaHackathon {
         mainPanel.setPreferredSize(new Dimension(600,400));
 
         panelIscrizione.setVisible(false);
-        listElenchi.setModel(modelLista);
 
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -90,6 +90,7 @@ public class OrganizzaHackathon {
 
         organizzaNuovaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         organizzaNuovaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         organizzaNuovaHackathonButton.addActionListener(e -> {
             panelIscrizione.setVisible(true);
         });
