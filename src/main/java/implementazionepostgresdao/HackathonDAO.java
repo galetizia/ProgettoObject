@@ -210,4 +210,39 @@ public class HackathonDAO implements IHackathonDAO {
         return hackathons;
     }
 
+    public void caricaHackathonDB(Hackathon hackathon, Organizzatore organizzatore) {
+        String sql = "INSERT INTO hackathon (titolo, sede, problema, data_inizio, data_fine, fine_periodo_prenotazioni, max_iscritti, max_dim_team, username_organizzatore) VALUES (?,?,?,?,?,?,?,?,?) RETURNING id";
+        String organizzatoreSQL = "UPDATE organizzatore SET hackathon_id = ? WHERE username = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql);
+             PreparedStatement ostmt = con.prepareStatement(organizzatoreSQL)) {
+
+            stmt.setString(1, hackathon.getNome());
+            stmt.setString(2, hackathon.getSede());
+            stmt.setString(3, hackathon.getProblema());
+            stmt.setDate(4, java.sql.Date.valueOf(hackathon.getDataInizio()));
+            stmt.setDate(5, java.sql.Date.valueOf(hackathon.getDataFine()));
+            stmt.setDate(6, java.sql.Date.valueOf(hackathon.getFinePeriodoPrenotazioni()));
+            stmt.setInt(7, hackathon.getMaxIscritti());
+            stmt.setInt(8, hackathon.getMaxDimTeam());
+            stmt.setString(9, organizzatore.getUsername());
+            ResultSet rs=stmt.executeQuery();
+
+            if (rs.next()) {
+                int generatedId = rs.getInt(1);
+                hackathon.setID(generatedId);
+                organizzatore.setHackathonID(generatedId);
+            } else {
+                throw new SQLException("Inserimento hackathon fallito, nessun ID restituito.");
+            }
+            ostmt.setInt(1, hackathon.getID());
+            ostmt.setString(2, organizzatore.getUsername());
+
+            ostmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

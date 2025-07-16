@@ -13,12 +13,26 @@ public class Hackathon {
     public LocalDate finePeriodoPrenotazioni;
     private final int maxIscritti;
     private final int maxDimTeam;
-    private final int hackathonID;
+    private Integer hackathonID;
     private final ArrayList<Team> listaTeam;
     private final ArrayList<Utente> listaUtenti;
     protected final ArrayList<Giudice> listaGiudici;
 
-    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, String problema, int maxIscritti, int maxDimTeam, int hackathonID) {
+    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, String problema, int maxIscritti, int maxDimTeam) {
+        this.titolo = titolo;
+        this.sede = sede;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.listaTeam = new ArrayList<>();
+        this.listaUtenti = new ArrayList<>();
+        this.listaGiudici = new ArrayList<>();
+        this.maxIscritti = maxIscritti;
+        this.maxDimTeam = maxDimTeam;
+        this.problema = problema;
+        this.finePeriodoPrenotazioni = dataInizio.minusDays(2); //le iscrizioni chiudono due giorni prima
+    }
+
+    public Hackathon(String titolo, String sede, LocalDate dataInizio, LocalDate dataFine, String problema, int maxIscritti, int maxDimTeam, Integer hackathonID) {
         this.titolo = titolo;
         this.sede = sede;
         this.dataInizio = dataInizio;
@@ -55,6 +69,8 @@ public class Hackathon {
 
     public String getProblema() { return problema; }
 
+    public String getSede() { return sede; }
+
     public void pubblicaClassifica() {
         int c = 1;
         // Ordina la lista in base alla media voti in ordine decrescente
@@ -75,7 +91,16 @@ public class Hackathon {
     }
 
     public int getID(){ return this.hackathonID; }
+
+    public void setID(Integer id) {this.hackathonID = id;}
+
     public String getNome(){ return this.titolo; }
+
+    public LocalDate getDataInizio(){ return this.dataInizio; }
+
+    public LocalDate getDataFine(){ return this.dataFine; }
+
+    public LocalDate getFinePeriodoPrenotazioni(){ return this.finePeriodoPrenotazioni; }
 
 
 }
