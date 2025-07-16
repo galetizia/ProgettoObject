@@ -24,6 +24,8 @@ public class SchermataOrganizzatore {
     private JLabel dataFine;
     private JLabel maxIscritti;
     private JLabel maxDimTeam;
+    private JLabel area;
+    private JLabel hackatt;
 
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     HackathonDAO hdao = new HackathonDAO();
@@ -31,6 +33,10 @@ public class SchermataOrganizzatore {
     public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
 
+        hackatt.setVisible(false);
+        hackatt.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(e -> {
@@ -46,11 +52,12 @@ public class SchermataOrganizzatore {
 
             if(organizzatore.getHackathonID() != null) {
                 Hackathon h = hdao.getHackathonByID(organizzatore.getHackathonID());
+                hackatt.setVisible(true);
                 titolo.setText("Titolo: " +h.getNome());
                 sede.setText("Sede: " +h.getSede());
-                problema.setText("Problema" +h.getProblema());
+                problema.setText("Problema: " +h.getProblema());
                 dataInizio.setText("Data Inizio:" +h.getDataInizio().toString());
-                dataFine.setText("Data Fine" +h.getDataFine().toString());
+                dataFine.setText("Data Fine: " +h.getDataFine().toString());
                 maxIscritti.setText("Max Iscritti: " +h.getMaxIscritti());
                 maxDimTeam.setText("Max Dim. Team: " +h.getMaxDimTeam());
 

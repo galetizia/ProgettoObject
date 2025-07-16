@@ -27,6 +27,7 @@ public class OrganizzaHackathon {
     private JTextField dataFineTextField;
     private JTextField maxIscrTextField;
     private JTextField maxDimTeamTextField;
+    private JLabel area;
     private DefaultListModel<String> modelLista;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -34,8 +35,25 @@ public class OrganizzaHackathon {
 
     public OrganizzaHackathon(ControllerOrganizzaHackathon controller, Organizzatore organizzatore) {
         mainPanel.setPreferredSize(new Dimension(600,400));
+        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
         panelIscrizione.setVisible(false);
+
+        modelLista = new DefaultListModel<>();
+        listElenchi.setModel(modelLista);
+
+        hackathonAttiveButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        hackathonAttiveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        hackathonAttiveButton.addActionListener(e -> {
+            List<Hackathon> hackathons = hdao.getHackathons();
+            modelLista.clear();
+            for (Hackathon h : hackathons) {
+                modelLista.addElement(h.getNome()+" (ID:"+h.getID()+")");
+            }
+            listElenchi.revalidate();
+            listElenchi.repaint();
+            panelElenchi.setVisible(true);
+        });
 
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -93,6 +111,12 @@ public class OrganizzaHackathon {
 
         organizzaNuovaHackathonButton.addActionListener(e -> {
             panelIscrizione.setVisible(true);
+        });
+
+        indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        indietroButton.addActionListener(e -> {
+            controller.indietro();
         });
     }
 

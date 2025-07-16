@@ -160,6 +160,58 @@ public class HackathonDAO implements IHackathonDAO {
         return null;
     }
 
+    @Override
+    public Giudice findGiudiceByUsername(String username) {
+        String sql = "SELECT * FROM giudice WHERE username = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                return new Giudice(
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("hackathon_id")
+                );
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Giudice findGiudiceByEmail(String email) {
+        String sql = "SELECT * FROM giudice WHERE email = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                return new Giudice(
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("hackathon_id")
+                );
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public int getMaxDimTeam(Integer ID) {
 
         String sql = "SELECT max_dim_team FROM hackathon WHERE id = ?";

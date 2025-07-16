@@ -22,11 +22,13 @@ public class SignIn {
     private JButton backButton;
     private JCheckBox utenteCheckBox;
     private JCheckBox organizzatoreCheckBox;
+    private JLabel area;
 
 
     public SignIn(ControllerSignIn controller) {
 
         mainPanel.setPreferredSize(new Dimension(600, 400));
+        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
         registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

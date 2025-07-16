@@ -25,6 +25,7 @@ public class IscrizioneTeam {
     private JPanel panelIscrizione;
     private JButton indietroButton;
     private JButton hackathonAttiveButton;
+    private JLabel area;
 
     private DefaultListModel<String> modelLista;
     TeamDAO tdao = new TeamDAO();
@@ -33,6 +34,7 @@ public class IscrizioneTeam {
 
     public IscrizioneTeam(ControllerIscrizioneTeam controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));
+        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
         panelIscrizione.setVisible(false);
         modelLista = new DefaultListModel<>();

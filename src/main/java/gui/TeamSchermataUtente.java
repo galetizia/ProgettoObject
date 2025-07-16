@@ -22,7 +22,7 @@ public class TeamSchermataUtente {
     public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));
 
-        teamLabelName.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        teamLabelName.setFont(new Font("Segoe UI", Font.BOLD, 38));
         teamLabelName.setText("Team: " + team.getNome());
 
         modelListUtenti = new DefaultListModel<>();

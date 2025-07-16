@@ -21,4 +21,8 @@ public class ControllerOrganizzaHackathon {
     }
 
     public JPanel getOrganizzaHackathon() {return schermataOrganizzaHackathon.getMainPanel();}
+
+    public void indietro() {
+        mainController.showSchermataOrganizzatore(organizzatore);
+    }
 }

@@ -19,26 +19,35 @@ public class Login {
     private JCheckBox organizzatoreCheck;
     private JCheckBox utenteCheck;
     private JLabel forgotUser;
+    private JCheckBox giudiceCheckBox;
+    private JLabel area;
 
     public Login(ControllerLogin controller) {
 
         mainPanel.setPreferredSize(new Dimension(400, 300));
-
+        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
         loginButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         utenteCheck.addActionListener(e -> {
-            if (utenteCheck.isSelected()) organizzatoreCheck.setSelected(false);
+            if (utenteCheck.isSelected()) {
+                organizzatoreCheck.setSelected(false); giudiceCheckBox.setSelected(false);}
         });
 
         organizzatoreCheck.addActionListener(e -> {
-            if (organizzatoreCheck.isSelected()) utenteCheck.setSelected(false);
+            if (organizzatoreCheck.isSelected()) {
+                utenteCheck.setSelected(false); giudiceCheckBox.setSelected(false);}
+        });
+
+        giudiceCheckBox.addActionListener(e -> {
+            if (giudiceCheckBox.isSelected()) {
+                utenteCheck.setSelected(false); organizzatoreCheck.setSelected(false);}
         });
 
         loginButton.addActionListener(e -> {
             String username = inpUsername.getText();
             String password = new String(inpPassword.getPassword());
-            controller.login(username, password, utenteCheck.isSelected(), organizzatoreCheck.isSelected());
+            controller.login(username, password, utenteCheck.isSelected(), organizzatoreCheck.isSelected(), giudiceCheckBox.isSelected());
         });
 
         signInButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

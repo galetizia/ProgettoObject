@@ -22,11 +22,13 @@ public class SchermataUtente {
     private JLabel email;
     private JButton iscrizioneTeamButton;
     private JLabel testoCentrale;
+    private JLabel area;
 
     UtenteDAO udao = new UtenteDAO();
 
     public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
+        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));

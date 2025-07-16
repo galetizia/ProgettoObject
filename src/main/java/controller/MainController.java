@@ -1,4 +1,5 @@
 package controller;
+import gui.SchermataGiudice;
 import model.*;
 import javax.swing.*;
 
@@ -63,6 +64,11 @@ public class MainController {
     public void showOrganizzaHackathon(Organizzatore organizzatore) {
         ControllerOrganizzaHackathon organizzaHackathonController = new ControllerOrganizzaHackathon(this,organizzatore);
         setPanel(organizzaHackathonController.getOrganizzaHackathon());
+    }
+
+    public void showSchermataGiudice(Giudice giudice){
+        ControllerSchermataGiudice schermataGiudiceCon = new ControllerSchermataGiudice(this, giudice);
+        setPanel(schermataGiudiceCon.getSchermataGiudice());
     }
 
     public void logout() {

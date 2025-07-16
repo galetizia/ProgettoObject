@@ -12,10 +12,13 @@ public class RecuperoUsername {
     private JTextField emailInput;
     private JPasswordField passwordInput;
     private JButton logoutButton;
+    private JLabel area;
 
     public RecuperoUsername(ControllerRecuperoUsername controller) {
 
-        mainPanel.setPreferredSize(new Dimension(400, 300));
+        mainPanel.setPreferredSize(new Dimension(500, 400));
+        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confermaButton.addActionListener(e -> {

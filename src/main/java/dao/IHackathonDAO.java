@@ -14,6 +14,10 @@ public interface IHackathonDAO {
 
     Organizzatore findOrganizzatoreByEmail(String email);
 
+    Giudice findGiudiceByUsername(String username);
+
+    Giudice findGiudiceByEmail(String email);
+
     int getMaxDimTeam(Integer id);
 
     List<Hackathon> getHackathons();
