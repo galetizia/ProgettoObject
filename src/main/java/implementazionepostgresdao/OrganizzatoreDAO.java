@@ -183,6 +183,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     }
 
+    @Override
     public void terminaHackathon(Integer hackathon_id, String username_organizzatore) {
         String deletesql = "DELETE FROM hackathon WHERE id=?";
         String updatesql = "UPDATE organizzatore SET hackathon_id = null WHERE username=?";

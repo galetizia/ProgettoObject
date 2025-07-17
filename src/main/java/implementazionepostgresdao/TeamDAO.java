@@ -150,4 +150,30 @@ public Integer getHackathonByTeam(Integer id) {
     return null;
 }
 
+@Override
+public void caricaAggiornamentoDB(Team team, Aggiornamento agg) {
+
+    String sql = "INSERT INTO aggiornamento (nome, documento) VALUES (?,?) RETURNING id";
+
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql);){
+
+        stmt.setString(1, agg.getNome());
+        stmt.setString(2, agg.getDocumento());
+
+        ResultSet rs=stmt.executeQuery();
+
+        if (rs.next()) {
+            int generatedId = rs.getInt(1);
+            agg.setIdAggiornamento(generatedId);
+        } else
+            throw new SQLException("Inserimento aggiornamento fallito, nessun ID restituito.");
+
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+
+}
+
 } //Modificato - Gabriele (modifica cosi da restituire solo i team di un hackathon)

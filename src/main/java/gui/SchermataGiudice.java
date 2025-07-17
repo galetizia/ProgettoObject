@@ -25,6 +25,8 @@ public class SchermataGiudice {
     private JLabel attualehack;
     private JLabel area;
     private JButton problemaHackathonButton;
+    private JButton valutaTeamButton;
+    private JButton commentaAggiornamentiButton;
     private boolean infoVisibili = false;
     private boolean hackathonVisibile = false;
 
