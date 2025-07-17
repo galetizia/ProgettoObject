@@ -57,6 +57,9 @@ public class TeamDAO implements ITeamDAO {
             ustmt.setInt(2,team.getHackathonID());
             ustmt.setString(3,utente.getUsername());
 
+            utente.setTeamID(team.getId());
+            utente.setHackathonID(team.getHackathonID());
+
             ustmt.executeUpdate();
 
         } catch (SQLException e) {

@@ -17,7 +17,6 @@ public class TeamSchermataUtente {
     private JButton indietroButton;
     private JLabel teamLabelName;
     private DefaultListModel<String> modelListUtenti;
-    TeamDAO tdao = new TeamDAO();
 
     public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));
@@ -32,33 +31,15 @@ public class TeamSchermataUtente {
         membriButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         membriButton.addActionListener(e -> {
-            List<Utente> membri = tdao.membriTeam(team.getId());
-            modelListUtenti.clear();
-
-            for (Utente u : membri) {
-                modelListUtenti.addElement(u.getNome() + " " + u.getCognome());
-            }
-
-            listaUtenti.revalidate();
-            listaUtenti.repaint();
-            panelUtenti.setVisible(true);
-
+            controller.visualizza(team, listaUtenti, modelListUtenti);
         });
 
         abbandonaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         abbandonaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         abbandonaButton.addActionListener(e -> {
-            int conferma = JOptionPane.showConfirmDialog(
-                    mainPanel,
-                    "Sei sicuro di voler abbandonare il team?",
-                    "Conferma",
-                    JOptionPane.YES_NO_OPTION
-            );
-
-            if (conferma == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(mainPanel, "Hai abbandonato il team con successo.");
-                controller.abbandonaTeam(utente);
-            }
+            int conferma = JOptionPane.showConfirmDialog(mainPanel, "Sei sicuro di voler abbandonare il team?",
+                    "Conferma", JOptionPane.YES_NO_OPTION);
+            controller.abbandonaTeam(utente, conferma);
         });
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -68,8 +49,11 @@ public class TeamSchermataUtente {
         });
     }
 
+    public void setVisiblePanelUtenti() {
+        panelUtenti.setVisible(true);
+    }
 
     public JPanel getMainPanel(){
         return mainPanel;
     }
-}//Modificato - Fabio (AbbandonaButton) (Titolo del Team)
+}

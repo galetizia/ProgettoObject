@@ -7,11 +7,13 @@ import model.Utente;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerTeamSchermataUtente {
 
     private final TeamSchermataUtente teamSchermataUtente;
     private ArrayList<Utente> listacomponenti;
+    TeamDAO tdao = new TeamDAO();
 
     private final MainController maincontroller;
 
@@ -21,12 +23,14 @@ public class ControllerTeamSchermataUtente {
         this.listacomponenti = team.componentiTeam;
     }
 
-    public void abbandonaTeam(Utente utente) {
-        TeamDAO tdao = new TeamDAO();
-        tdao.rimuoviUtenteDalTeam(utente.getUsername());
-        utente.setTeamID(null);
-        utente.setHackathonID(null);
-
+    public void abbandonaTeam(Utente utente, int conferma) {
+        if (conferma == JOptionPane.YES_OPTION) {
+            TeamDAO tdao = new TeamDAO();
+            tdao.rimuoviUtenteDalTeam(utente.getUsername());
+            utente.setTeamID(null);
+            utente.setHackathonID(null);
+            JOptionPane.showMessageDialog(teamSchermataUtente.getMainPanel(), "Hai abbandonato il team con successo.");
+        }
         maincontroller.showSchermataUtente(utente);
     }
 
@@ -36,4 +40,17 @@ public class ControllerTeamSchermataUtente {
         maincontroller.showSchermataUtente(utente);
     }
 
-}//Modificato - Fabio (Metodo AbbandonaTeam)
+    public void visualizza(Team team, JList<String> listaUtenti, DefaultListModel<String> modelListUtenti) {
+        List<Utente> membri = tdao.membriTeam(team.getId());
+        modelListUtenti.clear();
+
+        for (Utente u : membri) {
+            modelListUtenti.addElement(u.getNome() + " " + u.getCognome());
+        }
+
+        listaUtenti.revalidate();
+        listaUtenti.repaint();
+        teamSchermataUtente.setVisiblePanelUtenti();
+    }
+
+}

@@ -21,16 +21,12 @@ public class SchermataUtente {
     private JLabel username;
     private JLabel email;
     private JButton iscrizioneTeamButton;
-    private JLabel testoCentrale;
+    private JTextArea testoCentrale;
     private JLabel area;
-
-    UtenteDAO udao = new UtenteDAO();
 
     public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
-
-
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -44,58 +40,36 @@ public class SchermataUtente {
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         attualebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         attualebutton.addActionListener(e -> {
-            mainPanel.repaint();
-            mainPanel.revalidate();
-            if(utente.getHackathonID() != null) {
-                testoCentrale.setText("Hackathon: " + udao.getHackathonTitleByID(utente.getHackathonID()) + " (ID: " + utente.getHackathonID() + ")");
-            } else {
-                JOptionPane.showMessageDialog(mainPanel,"Non partecipi a nessun Hackathon");
-            }
+            controller.hackathonAttuale(utente, testoCentrale);
         });
 
         iscrizioneTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         iscrizioneTeamButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iscrizioneTeamButton.addActionListener(e -> {
-            if(utente.getTeamID() != null) JOptionPane.showMessageDialog(mainPanel,"Hai già un team");
-
-            else controller.schermataIscrizioneTeam(utente);
+            controller.schermataIscrizioneTeam(utente);
         });
 
         iscrizionebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         iscrizionebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iscrizionebutton.addActionListener(e -> {
-            mainPanel.repaint();
-            mainPanel.revalidate();
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });
 
         myTeambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         myTeambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         myTeambutton.addActionListener(e -> {
-            if(utente.getTeamID() == null)
-                JOptionPane.showMessageDialog(mainPanel,"Non fai ancora parte di un team");
-            else
                 controller.schermataTeamUtente(utente);
         });
 
         problemabutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         problemabutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         problemabutton.addActionListener(e -> {
-            mainPanel.repaint();
-            mainPanel.revalidate();
-            if(utente.getHackathonID() != null) {
-                testoCentrale.setText("Problema: " + udao.getHackathonProblemByID(utente.getHackathonID()));
-            } else {
-                JOptionPane.showMessageDialog(mainPanel,"Non partecipi a nessun Hackathon");
-            }
+            controller.mostraProblemaHackathon(utente, testoCentrale);
         });
 
         caricaAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         caricaAggiornamentoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         caricaAggiornamentoButton.addActionListener(e -> {
-            mainPanel.repaint();
-            mainPanel.revalidate();
-
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });
 
