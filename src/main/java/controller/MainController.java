@@ -71,6 +71,11 @@ public class MainController {
         setPanel(schermataGiudiceCon.getSchermataGiudice());
     }
 
+    public void showSchermataGestioneHack(Organizzatore organizzatore){
+        ControllerGestioneHackathon gestioneHackathonController = new ControllerGestioneHackathon(this,organizzatore);
+        setPanel(gestioneHackathonController.getGestioneHackathon());
+    }
+
     public void logout() {
         showLogin();
     }

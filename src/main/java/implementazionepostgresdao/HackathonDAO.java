@@ -37,8 +37,8 @@ public class HackathonDAO implements IHackathonDAO {
                         rs.getString("problema"),
                         rs.getInt("max_iscritti"),
                         rs.getInt("max_dim_team"),
-                        rs.getInt("id"
-                        ));
+                        rs.getInt("id")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -296,5 +296,61 @@ public class HackathonDAO implements IHackathonDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Utente> getUtenti(Integer id) {
+        String sql = "SELECT * FROM utente WHERE hackathon_id = ?";
+        List<Utente> utenti = new ArrayList<>();
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Utente u = new Utente(
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                );
+                u.setHackathonID(rs.getInt("hackathon_id"));
+                int teamId = rs.getInt("team_id");
+                if (rs.wasNull()) u.setTeamID(null);
+                else u.setTeamID(teamId);
+
+                utenti.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return utenti;
+    }
+
+
+    public List<Giudice> getGiudici(Integer id) {
+        String sql = "SELECT * FROM giudice WHERE hackathon_id = ?";
+        List<Giudice> giudici = new ArrayList<>();
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Giudice g = new Giudice(
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("hackathon_id")
+                );
+                giudici.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return giudici;
+    }
+
 
 }

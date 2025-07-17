@@ -103,7 +103,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
         return null;
 
-        }
+    }
 
     @Override
     public String getHackathonTitleByID(Integer id){
@@ -124,4 +124,60 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
         return null;
     }
+
+
+    public void removeUtente(String username) {
+        String sql = "UPDATE utente SET hackathon_id = null, team_id = null WHERE username = ?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+    public void removeGiudice(String username) {
+        String selectSql = "SELECT * FROM giudice WHERE username = ?";
+        String deleteSql = "DELETE FROM giudice WHERE username = ?";
+        String insertSql = "INSERT INTO utente (nome, cognome, email, username, password) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement selectstmt = con.prepareStatement(selectSql); PreparedStatement deletestmt = con.prepareStatement(deleteSql);
+             PreparedStatement insertstmt = con.prepareStatement(insertSql)) {
+            selectstmt.setString(1, username);
+            ResultSet rs = selectstmt.executeQuery();
+
+            if(rs.next()) {
+                insertstmt.setString(1, rs.getString("nome"));
+                insertstmt.setString(2, rs.getString("cognome"));
+                insertstmt.setString(3, rs.getString("email"));
+                insertstmt.setString(4, rs.getString("username"));
+                insertstmt.setString(5, rs.getString("password"));
+                insertstmt.executeUpdate();
+
+                deletestmt.setString(1, username);
+                deletestmt.executeUpdate();
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeTeam(Integer id) {
+        String sql = "DELETE FROM team WHERE id = ?";
+        String updatesql = "UPDATE utente SET hackathon_id = null WHERE team_id = ?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql); PreparedStatement updatestmt = con.prepareStatement(updatesql)) {
+            updatestmt.setInt(1, id);
+            updatestmt.executeUpdate();
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+}

@@ -26,6 +26,7 @@ public class SchermataOrganizzatore {
     private JLabel maxDimTeam;
     private JLabel area;
     private JLabel hackatt;
+    private JButton gestioneHackathonButton;
 
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     HackathonDAO hdao = new HackathonDAO();
@@ -37,6 +38,15 @@ public class SchermataOrganizzatore {
         hackatt.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+
+        gestioneHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        gestioneHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        gestioneHackathonButton.addActionListener(e -> {
+            if(organizzatore.getHackathonID() != null) {
+                controller.getSchermataGestioneHack(organizzatore);
+            }
+        });
+
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(e -> {

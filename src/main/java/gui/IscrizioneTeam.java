@@ -7,7 +7,6 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-//import java.util.concurrent.atomic.AtomicReference;
 
 public class IscrizioneTeam {
 
@@ -53,7 +52,6 @@ public class IscrizioneTeam {
             int id;
             try{
                 id = Integer.parseInt(idTxt);
-
             }catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(mainPanel, "L'ID deve essere un numero intero valido", "Errore di formato", JOptionPane.ERROR_MESSAGE);
                 return;

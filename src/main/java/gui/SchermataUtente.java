@@ -30,6 +30,8 @@ public class SchermataUtente {
         mainPanel.setPreferredSize(new Dimension(600, 400));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
+
+
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(e -> {
@@ -42,6 +44,8 @@ public class SchermataUtente {
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         attualebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         attualebutton.addActionListener(e -> {
+            mainPanel.repaint();
+            mainPanel.revalidate();
             if(utente.getHackathonID() != null) {
                 testoCentrale.setText("Hackathon: " + udao.getHackathonTitleByID(utente.getHackathonID()) + " (ID: " + utente.getHackathonID() + ")");
             } else {
@@ -60,6 +64,8 @@ public class SchermataUtente {
         iscrizionebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         iscrizionebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iscrizionebutton.addActionListener(e -> {
+            mainPanel.repaint();
+            mainPanel.revalidate();
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });
 
@@ -75,6 +81,8 @@ public class SchermataUtente {
         problemabutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         problemabutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         problemabutton.addActionListener(e -> {
+            mainPanel.repaint();
+            mainPanel.revalidate();
             if(utente.getHackathonID() != null) {
                 testoCentrale.setText("Problema: " + udao.getHackathonProblemByID(utente.getHackathonID()));
             } else {
@@ -85,6 +93,9 @@ public class SchermataUtente {
         caricaAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         caricaAggiornamentoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         caricaAggiornamentoButton.addActionListener(e -> {
+            mainPanel.repaint();
+            mainPanel.revalidate();
+
             JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });
 

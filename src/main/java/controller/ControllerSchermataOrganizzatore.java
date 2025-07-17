@@ -27,4 +27,8 @@ public class ControllerSchermataOrganizzatore {
         mainController.logout();
     }
 
+    public void getSchermataGestioneHack(Organizzatore organizzatore) {
+        mainController.showSchermataGestioneHack(organizzatore);
+    }
+
 } //modificato
