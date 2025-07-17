@@ -25,6 +25,7 @@ public class SchermataGiudice {
     private JButton logoutButton;
     private JLabel attualehack;
     private JLabel area;
+    private boolean infoVisibili = false;
 
 
     GiudiceDAO gdao = new GiudiceDAO();
@@ -40,10 +41,31 @@ public class SchermataGiudice {
         infoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         infoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         infoButton.addActionListener(e -> {
-            name.setText("Nome: "+giudice.getNome());
-            surname.setText("Cognome: "+giudice.getCognome());
-            email.setText("Email: "+giudice.getEmail());
-            username.setText("Username: "+giudice.getUsername());
+            if (!infoVisibili) {
+                // Primo clic: imposto i testi e rendo visibili
+                name.setText("Nome: " + giudice.getNome());
+                surname.setText("Cognome: " + giudice.getCognome());
+                email.setText("Email: " + giudice.getEmail());
+                username.setText("Username: " + giudice.getUsername());
+
+                name.setVisible(true);
+                surname.setVisible(true);
+                email.setVisible(true);
+                username.setVisible(true);
+
+                infoVisibili = true; // Ricorda che ora sono visibili
+            } else {
+                // Se già visibili, li nascondo
+                name.setVisible(false);
+                surname.setVisible(false);
+                email.setVisible(false);
+                username.setVisible(false);
+
+                infoVisibili = false; // Ricorda che ora sono nascosti
+            }
+
+            mainpanel.revalidate();
+            mainpanel.repaint();
         });
 
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

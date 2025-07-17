@@ -27,6 +27,7 @@ public class SchermataOrganizzatore {
     private JLabel area;
     private JLabel hackatt;
     private JButton gestioneHackathonButton;
+    private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
 
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     HackathonDAO hdao = new HackathonDAO();
@@ -50,10 +51,31 @@ public class SchermataOrganizzatore {
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(e -> {
-            name.setText("Nome: "+organizzatore.getNome());
-            surname.setText("Cognome: "+organizzatore.getCognome());
-            email.setText("Email: "+organizzatore.getEmail());
-            username.setText("Username: "+organizzatore.getUsername());
+            if (!infoVisibili) {
+                // Primo clic: imposto i testi e rendo visibili
+                name.setText("Nome: " + organizzatore.getNome());
+                surname.setText("Cognome: " + organizzatore.getCognome());
+                email.setText("Email: " + organizzatore.getEmail());
+                username.setText("Username: " + organizzatore.getUsername());
+
+                name.setVisible(true);
+                surname.setVisible(true);
+                email.setVisible(true);
+                username.setVisible(true);
+
+                infoVisibili = true; // Ora le info sono visibili
+            } else {
+                // Se già visibili, li nascondo
+                name.setVisible(false);
+                surname.setVisible(false);
+                email.setVisible(false);
+                username.setVisible(false);
+
+                infoVisibili = false; // Ora le info sono nascoste
+            }
+
+            mainPanel.revalidate();
+            mainPanel.repaint();
         });
 
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

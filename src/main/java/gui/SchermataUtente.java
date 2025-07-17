@@ -9,13 +9,11 @@ import java.awt.*;
 
 public class SchermataUtente {
     private JPanel mainPanel;
-    private JButton iscrizionebutton;
     private JButton attualebutton;
     private JButton myTeambutton;
     private JButton informazioniPersonaliButton;
     private JButton problemabutton;
     private JButton logoutButton;
-    private JButton caricaAggiornamentoButton;
     private JLabel name;
     private JLabel surname;
     private JLabel username;
@@ -23,6 +21,7 @@ public class SchermataUtente {
     private JButton iscrizioneTeamButton;
     private JTextArea testoCentrale;
     private JLabel area;
+    private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
 
     public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
@@ -31,10 +30,32 @@ public class SchermataUtente {
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(e -> {
-            name.setText("Nome: "+utente.getNome());
-            surname.setText("Cognome: "+utente.getCognome());
-            email.setText("Email: "+utente.getEmail());
-            username.setText("Username: "+utente.getUsername());
+
+            if (!infoVisibili) {
+                // Primo clic: imposto i testi e rendo visibili
+                name.setText("Nome: " + utente.getNome());
+                surname.setText("Cognome: " + utente.getCognome());
+                email.setText("Email: " + utente.getEmail());
+                username.setText("Username: " + utente.getUsername());
+
+                name.setVisible(true);
+                surname.setVisible(true);
+                email.setVisible(true);
+                username.setVisible(true);
+
+                infoVisibili = true; // Ricorda che ora sono visibili
+            } else {
+                // Se già visibili, li nascondo
+                name.setVisible(false);
+                surname.setVisible(false);
+                email.setVisible(false);
+                username.setVisible(false);
+
+                infoVisibili = false; // Ricorda che ora sono nascosti
+            }
+
+            mainPanel.revalidate();
+            mainPanel.repaint();
         });
 
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -49,12 +70,6 @@ public class SchermataUtente {
             controller.schermataIscrizioneTeam(utente);
         });
 
-        iscrizionebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        iscrizionebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iscrizionebutton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
-        });
-
         myTeambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         myTeambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         myTeambutton.addActionListener(e -> {
@@ -65,12 +80,6 @@ public class SchermataUtente {
         problemabutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         problemabutton.addActionListener(e -> {
             controller.mostraProblemaHackathon(utente, testoCentrale);
-        });
-
-        caricaAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        caricaAggiornamentoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        caricaAggiornamentoButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(mainPanel,"Funzionalità presto in arrivo");
         });
 
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
