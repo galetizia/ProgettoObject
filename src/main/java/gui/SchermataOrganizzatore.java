@@ -19,7 +19,6 @@ public class SchermataOrganizzatore {
     private JButton logOutButton;
     private JLabel titolo;
     private JLabel sede;
-    private JLabel problema;
     private JLabel dataInizio;
     private JLabel dataFine;
     private JLabel maxIscritti;
@@ -27,7 +26,9 @@ public class SchermataOrganizzatore {
     private JLabel area;
     private JLabel hackatt;
     private JButton gestioneHackathonButton;
+    private JButton problemaHackathonButton;
     private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
+    private boolean hackathonVisibili = false;
 
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     HackathonDAO hdao = new HackathonDAO();
@@ -83,21 +84,45 @@ public class SchermataOrganizzatore {
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hackathonAttualeButton.addActionListener(e -> {
-
             if(organizzatore.getHackathonID() != null) {
                 Hackathon h = hdao.getHackathonByID(organizzatore.getHackathonID());
-                hackatt.setVisible(true);
                 titolo.setText("Titolo: " +h.getNome());
                 sede.setText("Sede: " +h.getSede());
-                problema.setText("Problema: " +h.getProblema());
                 dataInizio.setText("Data Inizio:" +h.getDataInizio().toString());
                 dataFine.setText("Data Fine: " +h.getDataFine().toString());
                 maxIscritti.setText("Max Iscritti: " +h.getMaxIscritti());
                 maxDimTeam.setText("Max Dim. Team: " +h.getMaxDimTeam());
 
-            } else {
-                JOptionPane.showMessageDialog(mainPanel,"Al momento non sta gestendo alcun Hackathon");
+                if(!hackathonVisibili){
+                    hackatt.setVisible(true);
+                    titolo.setVisible(true);
+                    sede.setVisible(true);
+                    dataInizio.setVisible(true);
+                    dataFine.setVisible(true);
+                    maxIscritti.setVisible(true);
+                    maxDimTeam.setVisible(true);
+
+                    hackathonVisibili = true;
+                } else {
+                    hackatt.setVisible(false);
+                    titolo.setVisible(false);
+                    sede.setVisible(false);
+                    dataInizio.setVisible(false);
+                    dataFine.setVisible(false);
+                    maxIscritti.setVisible(false);
+                    maxDimTeam.setVisible(false);
+                    hackathonVisibili = false;
+                }
+                return;
             }
+            JOptionPane.showMessageDialog(mainPanel,"Al momento non sta gestendo alcun Hackathon");
+
+        });
+
+        problemaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        problemaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        problemaHackathonButton.addActionListener(e -> {
+            controller.mostraProblemaHackathon(organizzatore);
         });
 
         organizzaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -105,8 +130,8 @@ public class SchermataOrganizzatore {
         organizzaHackathonButton.addActionListener(e -> {
             if(organizzatore.getHackathonID() == null)
                 controller.schermataOrganizzaHackathon(organizzatore);
-            else
-                JOptionPane.showMessageDialog(mainPanel,"è già l'organizzatore di un Hackathon");
+
+            JOptionPane.showMessageDialog(mainPanel,"è già l'organizzatore di un Hackathon");
 
         });
 

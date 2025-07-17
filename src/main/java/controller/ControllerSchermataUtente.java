@@ -12,6 +12,7 @@ public class ControllerSchermataUtente {
     private final SchermataUtente schermataUtente;
     TeamDAO tdao = new TeamDAO();
     UtenteDAO udao = new UtenteDAO();
+    HackathonDAO hdao = new HackathonDAO();
 
     private final MainController mainController;
 
@@ -31,14 +32,13 @@ public class ControllerSchermataUtente {
         }
     }
 
-    public void mostraProblemaHackathon(Utente utente,JTextArea testoCentrale){
+    public void mostraProblemaHackathon(Utente utente){
 
         if(utente.getHackathonID() != null) {
-            String problema = udao.getHackathonProblemByID(utente.getHackathonID());
-            testoCentrale.setText("Problema:\n" + problema);
-            testoCentrale.setLineWrap(true);
-            testoCentrale.setWrapStyleWord(true);
-            testoCentrale.setEditable(false);
+            Hackathon h = hdao.getHackathonByID(utente.getHackathonID());
+            String problema = h.getProblema();
+            String problemaHTML = "<html>" + problema.replaceAll("(.{50})", "$1<br>") + "</html>";
+            JOptionPane.showMessageDialog(schermataUtente.getMainPanel(), problemaHTML);
         } else {
             JOptionPane.showMessageDialog(schermataUtente.getMainPanel(),"Non partecipi a nessun Hackathon");
         }
@@ -51,17 +51,6 @@ public class ControllerSchermataUtente {
 
     }
 
-    public void hackathonAttuale(Utente utente, JTextArea testoCentrale){
-        if(utente.getHackathonID() != null) {
-            String titolo = udao.getHackathonTitleByID(utente.getHackathonID());
-            testoCentrale.setText("Hackathon: \n" + titolo + " (ID: " + utente.getHackathonID() + ")");
-            testoCentrale.setLineWrap(true);
-            testoCentrale.setWrapStyleWord(true);
-            testoCentrale.setEditable(false);
-        } else {
-            JOptionPane.showMessageDialog(schermataUtente.getMainPanel(),"Non partecipi a nessun Hackathon");
-        }
-    }
     public void logout() {
         mainController.logout();
     }

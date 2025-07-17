@@ -1,7 +1,9 @@
 package gui;
 
 import controller.ControllerSchermataUtente;
+import implementazionepostgresdao.HackathonDAO;
 import implementazionepostgresdao.UtenteDAO;
+import model.Hackathon;
 import model.Utente;
 
 import javax.swing.*;
@@ -19,13 +21,24 @@ public class SchermataUtente {
     private JLabel username;
     private JLabel email;
     private JButton iscrizioneTeamButton;
-    private JTextArea testoCentrale;
     private JLabel area;
-    private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
+    private JLabel titolo;
+    private JLabel sede;
+    private JLabel dataInizio;
+    private JLabel dataFine;
+    private JLabel maxIscritti;
+    private JLabel maxDimTeam;
+    private JPanel panelHackAtt;
+    private JLabel hackText;
+    private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali;
+    private boolean hackathonVisibile= false;
+    HackathonDAO hdao = new HackathonDAO();
 
     public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
-        mainPanel.setPreferredSize(new Dimension(600, 400));
+        mainPanel.setPreferredSize(new Dimension(600, 300));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        hackText.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        hackText.setVisible(false);
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -61,7 +74,39 @@ public class SchermataUtente {
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         attualebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         attualebutton.addActionListener(e -> {
-            controller.hackathonAttuale(utente, testoCentrale);
+            if(utente.getHackathonID() != null) {
+                Hackathon h = hdao.getHackathonByID(utente.getHackathonID());
+                titolo.setText("Titolo: " +h.getNome());
+                sede.setText("Sede: " +h.getSede());
+                dataInizio.setText("Data Inizio:" +h.getDataInizio().toString());
+                dataFine.setText("Data Fine: " +h.getDataFine().toString());
+                maxIscritti.setText("Max Iscritti: " +h.getMaxIscritti());
+                maxDimTeam.setText("Max Dim. Team: " +h.getMaxDimTeam());
+
+                if(!hackathonVisibile){
+                    hackText.setVisible(true);
+                    titolo.setVisible(true);
+                    sede.setVisible(true);
+                    dataInizio.setVisible(true);
+                    dataFine.setVisible(true);
+                    maxIscritti.setVisible(true);
+                    maxDimTeam.setVisible(true);
+
+                    hackathonVisibile = true;
+                } else {
+                    hackText.setVisible(false);
+                    titolo.setVisible(false);
+                    sede.setVisible(false);
+                    dataInizio.setVisible(false);
+                    dataFine.setVisible(false);
+                    maxIscritti.setVisible(false);
+                    maxDimTeam.setVisible(false);
+                    hackathonVisibile = false;
+                }
+                return;
+            }
+            JOptionPane.showMessageDialog(mainPanel,"Non partecipi a nessun Hackathon");
+
         });
 
         iscrizioneTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -79,7 +124,7 @@ public class SchermataUtente {
         problemabutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         problemabutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         problemabutton.addActionListener(e -> {
-            controller.mostraProblemaHackathon(utente, testoCentrale);
+            controller.mostraProblemaHackathon(utente);
         });
 
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
