@@ -46,6 +46,8 @@ public class SchermataOrganizzatore {
             if(organizzatore.getHackathonID() != null) {
                 controller.getSchermataGestioneHack(organizzatore);
             }
+            else
+                JOptionPane.showMessageDialog(mainPanel,"Al momento non sta gestendo alcun Hackathon");
         });
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -94,7 +96,7 @@ public class SchermataOrganizzatore {
                 maxDimTeam.setText("Max Dim. Team: " +h.getMaxDimTeam());
 
             } else {
-                JOptionPane.showMessageDialog(mainPanel,"Al momento non sta organizzando alcun Hackathon");
+                JOptionPane.showMessageDialog(mainPanel,"Al momento non sta gestendo alcun Hackathon");
             }
         });
 

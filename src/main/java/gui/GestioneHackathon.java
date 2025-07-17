@@ -24,6 +24,8 @@ public class GestioneHackathon {
     private JCheckBox utenteCheckBox;
     private JCheckBox giudiceCheckBox;
     private JCheckBox teamCheckBox;
+    private JButton terminaHackathonButton;
+    private boolean rimozioniVisibili = false;
 
     private DefaultListModel<String> modelList;
     TeamDAO tdao = new TeamDAO();
@@ -86,15 +88,42 @@ public class GestioneHackathon {
             panelHackathon.setVisible(true);
         });
 
+        terminaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        terminaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        terminaHackathonButton.addActionListener(e -> {
+
+            int conferma = JOptionPane.showConfirmDialog(mainpanel, "Sei sicuro di voler terminare l'Hackathon prima della data finale?", "Conferma", JOptionPane.YES_NO_OPTION);
+
+            controller.terminaHackathon(conferma);
+
+        });
+
         rimozioneUtenteGiudiceTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         rimozioneUtenteGiudiceTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rimozioneUtenteGiudiceTeamButton.addActionListener(e -> {
-            idLabel.setVisible(true);
-            idTextField.setVisible(true);
-            confermaButton.setVisible(true);
-            utenteCheckBox.setVisible(true);
-            giudiceCheckBox.setVisible(true);
-            teamCheckBox.setVisible(true);
+
+            if(!rimozioniVisibili) {
+                idLabel.setVisible(true);
+                idTextField.setVisible(true);
+                confermaButton.setVisible(true);
+                utenteCheckBox.setVisible(true);
+                giudiceCheckBox.setVisible(true);
+                teamCheckBox.setVisible(true);
+
+                rimozioniVisibili = true;
+            }else{
+                idLabel.setVisible(false);
+                idTextField.setVisible(false);
+                confermaButton.setVisible(false);
+                utenteCheckBox.setVisible(false);
+                giudiceCheckBox.setVisible(false);
+                teamCheckBox.setVisible(false);
+
+                rimozioniVisibili = false;
+            }
+
+            mainpanel.revalidate();
+            mainpanel.repaint();
         });
 
         utenteCheckBox.addActionListener(e -> {

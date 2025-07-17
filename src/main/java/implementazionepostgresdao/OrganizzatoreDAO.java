@@ -125,7 +125,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         return null;
     }
 
-
+    @Override
     public void removeUtente(String username) {
         String sql = "UPDATE utente SET hackathon_id = null, team_id = null WHERE username = ?";
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -137,6 +137,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
+    @Override
     public void removeGiudice(String username) {
         String selectSql = "SELECT * FROM giudice WHERE username = ?";
         String deleteSql = "DELETE FROM giudice WHERE username = ?";
@@ -165,6 +166,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
+    @Override
     public void removeTeam(Integer id) {
         String sql = "DELETE FROM team WHERE id = ?";
         String updatesql = "UPDATE utente SET hackathon_id = null WHERE team_id = ?";
@@ -179,5 +181,21 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public void terminaHackathon(Integer hackathon_id, String username_organizzatore) {
+        String deletesql = "DELETE FROM hackathon WHERE id=?";
+        String updatesql = "UPDATE organizzatore SET hackathon_id = null WHERE username=?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(deletesql); PreparedStatement updatestmt = con.prepareStatement(updatesql)) {
+            updatestmt.setString(1, username_organizzatore);
+            updatestmt.executeUpdate();
+
+            stmt.setInt(1, hackathon_id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
