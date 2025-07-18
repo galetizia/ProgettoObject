@@ -30,6 +30,7 @@ public class SchermataOrganizzatore {
     private JButton gestioneHackathonButton;
     private JButton problemaHackathonButton;
     private JButton pubblicaClassificaButton;
+    private JButton visualizzaClassificaButton;
     private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
     private boolean hackathonVisibili = false;
     private OrganizzatoreDAO odao = new OrganizzatoreDAO();
@@ -44,6 +45,15 @@ public class SchermataOrganizzatore {
         hackatt.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+
+        visualizzaClassificaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        visualizzaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        visualizzaClassificaButton.addActionListener(e ->{
+            if(!hdao.isClassificaPubblicata(organizzatore.getHackathonID())){
+                JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        });
 
         gestioneHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         gestioneHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));

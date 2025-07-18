@@ -28,6 +28,7 @@ public class SchermataUtente {
     private JLabel maxIscritti;
     private JLabel maxDimTeam;
     private JLabel hackText;
+    private JButton classificaHackathonButton;
     private boolean hackathonVisibile= false;
     HackathonDAO hdao = new HackathonDAO();
 
@@ -37,6 +38,15 @@ public class SchermataUtente {
         hackText.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackText.setVisible(false);
         name.setVisible(false);
+
+        classificaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        classificaHackathonButton.addActionListener(e ->{
+            if(!hdao.isClassificaPubblicata(utente.getHackathonID())){
+                JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        });
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));

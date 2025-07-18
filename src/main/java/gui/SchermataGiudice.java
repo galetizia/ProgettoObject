@@ -25,7 +25,7 @@ public class SchermataGiudice {
     private JLabel area;
     private JButton problemaHackathonButton;
     private JButton votazioniCommentiButton;
-    private JButton classificaButton;
+    private JButton classificaHackathonButton;
 
     HackathonDAO hdao = new HackathonDAO();
 
@@ -34,6 +34,15 @@ public class SchermataGiudice {
         Hackathon h = hdao.getHackathonByID(giudice.getHackathonID());
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
         name.setVisible(false);
+
+        classificaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        classificaHackathonButton.addActionListener(e ->{
+            if(!hdao.isClassificaPubblicata(giudice.getHackathonID())){
+                JOptionPane.showMessageDialog(mainpanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        });
 
         attualehack.setVisible(false);
         attualehack.setFont(new Font("Segoe UI", Font.BOLD, 14));

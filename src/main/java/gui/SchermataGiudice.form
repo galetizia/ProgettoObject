@@ -136,12 +136,12 @@
               <text value="Votazioni/Commenti"/>
             </properties>
           </component>
-          <component id="bbf79" class="javax.swing.JButton" binding="classificaButton" default-binding="true">
+          <component id="bbf79" class="javax.swing.JButton" binding="classificaHackathonButton" default-binding="true">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Classifica"/>
+              <text value="Classifica Hackathon"/>
             </properties>
           </component>
         </children>
