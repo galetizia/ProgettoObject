@@ -166,12 +166,19 @@ public class SchermataVotiCommenti {
                 JOptionPane.showMessageDialog(mainPanel, "L'ID deve essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            Integer idAgg = tdao.getIdAggiornamentoByTeam(id);
+            if (idAgg == null) {
+                JOptionPane.showMessageDialog(mainPanel, "Questo team non ha ancora caricato aggiornamenti.\nImpossibile commentare.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             if (!gdao.haCommentatoAggiornamento(id,giudice)){
                 gdao.saveCommento(commentoTxt, id, giudice);
                 JOptionPane.showMessageDialog(mainPanel, "Commento salvato","Success", JOptionPane.INFORMATION_MESSAGE);
-                return;
             }
-            JOptionPane.showMessageDialog(mainPanel, "Hai già commentato questo team!", "Errore", JOptionPane.ERROR_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(mainPanel, "Hai già commentato questo team!", "Errore", JOptionPane.ERROR_MESSAGE);
 
 
         });
