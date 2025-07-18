@@ -1,6 +1,7 @@
 package gui;
 
 import controller.ControllerTeamSchermataUtente;
+import implementazionepostgresdao.HackathonDAO;
 import implementazionepostgresdao.TeamDAO;
 import model.*;
 import javax.swing.*;
@@ -27,6 +28,8 @@ public class TeamSchermataUtente {
     private boolean aggiornamentoVisibile = false;
 
     TeamDAO tdao = new TeamDAO();
+    HackathonDAO hdao = new HackathonDAO();
+
 
     public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));
@@ -52,6 +55,10 @@ public class TeamSchermataUtente {
         caricaAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         caricaAggiornamentoButton.addActionListener(e -> {
 
+            if(hdao.isClassificaPubblicata(utente.getHackathonID())) {
+                JOptionPane.showMessageDialog(mainPanel, "Classifica già pubblicata.\nImpossibile inserire nuovi aggiornamenti.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             if(!aggiornamentoVisibile) {
                 nomeTextField.setVisible(true);
                 documentoTextField.setVisible(true);
@@ -78,7 +85,7 @@ public class TeamSchermataUtente {
         confermaButton.addActionListener(e -> {
 
             if(tdao.getElaboratoFinaleUltimoAggiornamento(utente.getTeamID())){
-                JOptionPane.showMessageDialog(mainPanel, "Il team a cui appartieni ha già caricato l'elaborato finale!", "Impossibile caricare", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(mainPanel, "Il team a cui appartieni ha già caricato l'elaborato finale!", "Impossibile caricare", JOptionPane.WARNING_MESSAGE);
                 nomeTextField.setText("");
                 documentoTextField.setText("");
                 return;
@@ -107,7 +114,7 @@ public class TeamSchermataUtente {
                 }
             }
             else{
-                JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!", "Error", JOptionPane.WARNING_MESSAGE);
             }
         });
 
@@ -132,7 +139,7 @@ public class TeamSchermataUtente {
                 JOptionPane.showMessageDialog(mainPanel, aggiornamentoHTML, "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(mainPanel, "Nessun aggiornamento presente!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mainPanel, "Nessun aggiornamento presente!", "Error", JOptionPane.WARNING_MESSAGE);
         });
     }
 
