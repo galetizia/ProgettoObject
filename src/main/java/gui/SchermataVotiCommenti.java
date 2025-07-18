@@ -242,7 +242,12 @@ public class SchermataVotiCommenti {
                 JOptionPane.showMessageDialog(mainPanel, "Entrambi i campi devono essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            if(hdao.isClassificaPubblicata(giudice.getHackathonID())){
+                JOptionPane.showMessageDialog(mainPanel, "Classifica già pubblicata.\nImpossibile valutare.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                idTeamField.setText("");
+                votoField.setText("");
+                return;
+            }
             if (!gdao.isElaboratoFinale(idTeam)) {
                 JOptionPane.showMessageDialog(mainPanel, "Questo team non ha caricato l'elaborato finale.\nImpossibile valutare.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
                 idTeamField.setText("");
