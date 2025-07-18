@@ -156,9 +156,11 @@ public void caricaAggiornamentoDB(Utente utente, Aggiornamento agg) {
     String checksql = "SELECT id FROM aggiornamento WHERE team_id=?";
     String insertsql = "INSERT INTO aggiornamento (nome, documento,team_id,utente_username) VALUES (?,?,?,?) RETURNING id";
     String updatesql = "UPDATE aggiornamento SET nome=?,documento=?,utente_username=? WHERE team_id=? RETURNING id";
+    String deletesql = "DELETE FROM commenti WHERE team_id=?";
 
     try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement checkstmt = con.prepareStatement(checksql);
-    PreparedStatement insertstmt = con.prepareStatement(insertsql); PreparedStatement updatestmt = con.prepareStatement(updatesql)) {
+    PreparedStatement insertstmt = con.prepareStatement(insertsql); PreparedStatement updatestmt = con.prepareStatement(updatesql);
+    PreparedStatement deletestmt = con.prepareStatement(deletesql)){
 
         checkstmt.setInt(1, agg.getTeamID());
         ResultSet rs=checkstmt.executeQuery();
@@ -174,6 +176,10 @@ public void caricaAggiornamentoDB(Utente utente, Aggiornamento agg) {
                 int id = updateRs.getInt(1);
                 agg.setIdAggiornamento(id);
             }
+
+            deletestmt.setInt(1, agg.getTeamID());
+            deletestmt.executeUpdate();
+
         } else {
             insertstmt.setString(1, agg.getNome());
             insertstmt.setString(2, agg.getDocumento());
