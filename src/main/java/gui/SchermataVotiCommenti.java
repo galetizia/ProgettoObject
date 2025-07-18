@@ -205,7 +205,7 @@ public class SchermataVotiCommenti {
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(e -> {
-
+            controller.getSchermataGiudice();
         });
 
         confermavotoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

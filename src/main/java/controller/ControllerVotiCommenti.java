@@ -40,4 +40,6 @@ public class ControllerVotiCommenti {
         return votiCommenti.getMainPanel();
     }
 
+    public void getSchermataGiudice() {mainController.showSchermataGiudice(giudice);}
+
 }
