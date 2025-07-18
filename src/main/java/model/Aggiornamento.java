@@ -6,7 +6,8 @@ public class Aggiornamento {
     private Integer teamID;
     private String usernameUtente;
     private String nome;
-    private String documento; //deve essere caricato dal team
+    private String documento;
+    private boolean isElaboratoFinale = false;
 
 
     public Aggiornamento(String nome, String documento, Integer teamID, String usernameUtente) {
@@ -30,6 +31,8 @@ public class Aggiornamento {
     public void setUsernameUtente(String usernameUtente) {this.usernameUtente = usernameUtente;}
     public String getUsernameUtente() {return this.usernameUtente;}
 
+    public void setElaboratoFinale(boolean isElaboratoFinale) {this.isElaboratoFinale = isElaboratoFinale;}
+    public boolean getElaboratoFinale() {return this.isElaboratoFinale;}
 
 
 }

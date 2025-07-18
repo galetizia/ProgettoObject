@@ -15,7 +15,7 @@ public interface ITeamDAO {
 
     void caricaTeamNelDB(Team team, Utente utente);
 
-    void caricaAggiornamentoDB(Utente utente, Aggiornamento aggiornamento);
+    void caricaAggiornamentoDB(Utente utente, Aggiornamento aggiornamento, boolean isElaboratoFinale);
 
     String getUltimoAggiornamento(Integer id);
 
@@ -24,4 +24,8 @@ public interface ITeamDAO {
     List<Double> getVotiPerTeam(Integer id);
 
     void setVotiPerTeam(Integer id, Double media);
+
+    Integer getHackathonByTeam(Integer id);
+
+    boolean getElaboratoFinaleUltimoAggiornamento(Integer id);
 }

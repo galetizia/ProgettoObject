@@ -237,6 +237,14 @@ public class SchermataVotiCommenti {
                 return;
             }
 
+            /*Integer idAgg = tdao.getIdAggiornamentoByTeam(idTeam);
+            if (idAgg == null) {
+                JOptionPane.showMessageDialog(mainPanel, "Questo team non ha caricato aggiornamenti.\nImpossibile valutare.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
+                idTeamField.setText("");
+                votoField.setText("");
+                return;
+            }*/
+
             if(!gdao.controlloVotoTeam(idTeam,giudice.getUsername())) {
                 if (valutazione < 0 || valutazione > 10) {
                     JOptionPane.showMessageDialog(mainPanel, "Entrambi i campi devono essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);

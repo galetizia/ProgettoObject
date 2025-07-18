@@ -22,6 +22,7 @@ public class TeamSchermataUtente {
     private JButton visualizzaUltimoAggiornamentoButton;
     private JLabel nome;
     private JLabel documento;
+    private JCheckBox elaboratoFinaleCheckBox;
     private final DefaultListModel<String> modelListUtenti;
     private boolean aggiornamentoVisibile = false;
 
@@ -41,6 +42,7 @@ public class TeamSchermataUtente {
         confermaButton.setVisible(false);
         nome.setVisible(false);
         documento.setVisible(false);
+        elaboratoFinaleCheckBox.setVisible(false);
 
         membriButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         membriButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -56,6 +58,7 @@ public class TeamSchermataUtente {
                 confermaButton.setVisible(true);
                 nome.setVisible(true);
                 documento.setVisible(true);
+                elaboratoFinaleCheckBox.setVisible(true);
 
                 aggiornamentoVisibile = true;
             }
@@ -74,15 +77,34 @@ public class TeamSchermataUtente {
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermaButton.addActionListener(e -> {
 
+            if(tdao.getElaboratoFinaleUltimoAggiornamento(utente.getTeamID())){
+                JOptionPane.showMessageDialog(mainPanel, "Il team a cui appartieni ha già caricato l'elaborato finale!", "Impossibile caricare", JOptionPane.ERROR_MESSAGE);
+                nomeTextField.setText("");
+                documentoTextField.setText("");
+                return;
+            }
+
             String nomeAggiornamento = nomeTextField.getText();
             String documentoAggiornamento = documentoTextField.getText();
 
             if(!nomeAggiornamento.isEmpty() && !documentoAggiornamento.isEmpty()) {
-                Aggiornamento aggiornamento = new Aggiornamento(nomeAggiornamento, documentoAggiornamento, utente.getTeamID(), utente.getUsername());
-                tdao.caricaAggiornamentoDB(utente, aggiornamento);
-                nomeTextField.setText("");
-                documentoTextField.setText("");
-                JOptionPane.showMessageDialog(mainPanel, "Aggiornamento Caricato!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                if(!elaboratoFinaleCheckBox.isSelected()) {
+                    Aggiornamento aggiornamento = new Aggiornamento(nomeAggiornamento, documentoAggiornamento, utente.getTeamID(), utente.getUsername());
+                    tdao.caricaAggiornamentoDB(utente, aggiornamento, false);
+                    nomeTextField.setText("");
+                    documentoTextField.setText("");
+                    JOptionPane.showMessageDialog(mainPanel, "Aggiornamento Caricato!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    Aggiornamento aggiornamento = new Aggiornamento(nomeAggiornamento, documentoAggiornamento, utente.getTeamID(), utente.getUsername());
+                    aggiornamento.setElaboratoFinale(true);
+
+                    tdao.caricaAggiornamentoDB(utente, aggiornamento, true);
+                    nomeTextField.setText("");
+                    documentoTextField.setText("");
+                    JOptionPane.showMessageDialog(mainPanel, "Elaborato Finale Caricato!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             else{
                 JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!", "Error", JOptionPane.ERROR_MESSAGE);
