@@ -6,6 +6,7 @@ import implementazionepostgresdao.HackathonDAO;
 import implementazionepostgresdao.TeamDAO;
 import model.Aggiornamento;
 import model.Giudice;
+import model.Voto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -170,7 +171,7 @@ public class SchermataVotiCommenti {
                 JOptionPane.showMessageDialog(mainPanel, "Commento salvato","Success", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(mainPanel, "Hai già commentato questo team!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mainPanel, "Hai già commentato questo team!", "Errore", JOptionPane.ERROR_MESSAGE);
 
 
         });
@@ -211,6 +212,43 @@ public class SchermataVotiCommenti {
         confermavotoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermavotoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermavotoButton.addActionListener(e -> {
+
+            String idTeamText = idTeamField.getText();
+            String votoText = votoField.getText();
+
+            if(idTeamText.isEmpty() || votoText.isEmpty()){
+                JOptionPane.showMessageDialog(mainPanel, "Compilare tutti i campi!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int idTeam;
+            int valutazione;
+
+            try {
+                idTeam = Integer.parseInt(idTeamText);
+                valutazione = Integer.parseInt(votoText);
+            }catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(mainPanel, "Entrambi i campi devono essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if(!gdao.controlloVotoTeam(idTeam)) {
+
+                if (valutazione < 0 || valutazione > 10)
+                    JOptionPane.showMessageDialog(mainPanel, "Entrambi i campi devono essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+                else {
+                    Voto voto = new Voto(valutazione, giudice, tdao.getTeamByID(idTeam));
+                    gdao.caricaVoto(voto);
+
+                    idTeamField.setText("");
+                    votoField.setText("");
+                    JOptionPane.showConfirmDialog(mainPanel, "Voto caricato con successo!", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            }
+            JOptionPane.showMessageDialog(mainPanel, "Il team inserito ha già ricevuto una valutazione!", "Errore", JOptionPane.ERROR_MESSAGE);
+            idTeamField.setText("");
+            votoField.setText("");
 
         });
 

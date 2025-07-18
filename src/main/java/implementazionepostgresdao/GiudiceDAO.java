@@ -4,6 +4,7 @@ import dao.IGiudiceDAO;
 import database.ConnessioneDatabase;
 import model.Giudice;
 import model.Organizzatore;
+import model.Voto;
 
 import java.sql.*;
 public class GiudiceDAO implements IGiudiceDAO {
@@ -39,7 +40,7 @@ public class GiudiceDAO implements IGiudiceDAO {
         return null;
     }
 
-
+    @Override
     public void saveCommento(String commento, Integer id, Giudice giudice) {
         String inssql = "INSERT INTO commenti(commento,giudice_id,team_id,aggiornamento_id) VALUES (?,?,?,?)";
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(inssql)) {
@@ -57,6 +58,7 @@ public class GiudiceDAO implements IGiudiceDAO {
         }
     }
 
+    @Override
     public boolean haCommentatoAggiornamento(Integer id,Giudice giudice) {
         String sql = "SELECT id FROM commenti WHERE giudice_id = ? AND aggiornamento_id = ?";
 
@@ -72,6 +74,45 @@ public class GiudiceDAO implements IGiudiceDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean controlloVotoTeam(Integer team_id) {
+        String checksql = "SELECT id FROM voti WHERE team_id = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(checksql)) {
+
+            stmt.setInt(1, team_id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next())
+                return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    @Override
+    public void caricaVoto(Voto voto) {
+        String insertsql = "INSERT INTO voti (team_id, voto, giudice_id) VALUES (?,?,?) RETURNING id";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection();
+             PreparedStatement insertstmt = con.prepareStatement(insertsql)){
+
+            insertstmt.setInt(1, voto.getTeam().getId());
+            insertstmt.setInt(2, voto.getValutazione());
+            insertstmt.setString(3, voto.getGiudice().getUsername());
+
+            insertstmt.executeQuery();
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

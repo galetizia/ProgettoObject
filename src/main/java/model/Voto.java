@@ -6,7 +6,7 @@ public class Voto {
         private final Giudice giudice;
         private final Team team;
 
-        protected Voto(int valutazione, Giudice giudice, Team team) {
+        public Voto(int valutazione, Giudice giudice, Team team) {
             this.valutazione = valutazione;
             this.giudice = giudice;
             this.team = team;
