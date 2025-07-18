@@ -2,7 +2,6 @@ package gui;
 
 import controller.ControllerSchermataUtente;
 import implementazionepostgresdao.HackathonDAO;
-import implementazionepostgresdao.UtenteDAO;
 import model.Hackathon;
 import model.Utente;
 
@@ -28,9 +27,7 @@ public class SchermataUtente {
     private JLabel dataFine;
     private JLabel maxIscritti;
     private JLabel maxDimTeam;
-    private JPanel panelHackAtt;
     private JLabel hackText;
-    private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali;
     private boolean hackathonVisibile= false;
     HackathonDAO hdao = new HackathonDAO();
 
@@ -39,13 +36,13 @@ public class SchermataUtente {
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
         hackText.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackText.setVisible(false);
+        name.setVisible(false);
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(e -> {
 
-            if (!infoVisibili) {
-                // Primo clic: imposto i testi e rendo visibili
+            if (!name.isVisible()) {
                 name.setText("Nome: " + utente.getNome());
                 surname.setText("Cognome: " + utente.getCognome());
                 email.setText("Email: " + utente.getEmail());
@@ -56,15 +53,11 @@ public class SchermataUtente {
                 email.setVisible(true);
                 username.setVisible(true);
 
-                infoVisibili = true; // Ricorda che ora sono visibili
             } else {
-                // Se già visibili, li nascondo
                 name.setVisible(false);
                 surname.setVisible(false);
                 email.setVisible(false);
                 username.setVisible(false);
-
-                infoVisibili = false; // Ricorda che ora sono nascosti
             }
 
             mainPanel.revalidate();
@@ -111,21 +104,15 @@ public class SchermataUtente {
 
         iscrizioneTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         iscrizioneTeamButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iscrizioneTeamButton.addActionListener(e -> {
-            controller.schermataIscrizioneTeam(utente);
-        });
+        iscrizioneTeamButton.addActionListener(e -> controller.schermataIscrizioneTeam(utente));
 
         myTeambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         myTeambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        myTeambutton.addActionListener(e -> {
-                controller.schermataTeamUtente(utente);
-        });
+        myTeambutton.addActionListener(e -> controller.schermataTeamUtente(utente));
 
         problemabutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         problemabutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        problemabutton.addActionListener(e -> {
-            controller.mostraProblemaHackathon(utente);
-        });
+        problemabutton.addActionListener(e -> controller.mostraProblemaHackathon(utente));
 
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

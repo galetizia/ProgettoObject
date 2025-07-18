@@ -93,8 +93,8 @@ public class UtenteDAO implements IUtenteDAO {
     }
 
     @Override
-    public String getHackathonTitleByID(Integer id){
-        String sql="SELECT titolo FROM hackathon WHERE id=?";
+    public String getHackathonCampodByID(Integer id, String campo){
+        String sql="SELECT" +campo +"FROM hackathon WHERE id=?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -102,29 +102,7 @@ public class UtenteDAO implements IUtenteDAO {
 
             if (rs.next()) {
 
-                String titoloHackathon = rs.getString("titolo");
-
-                return titoloHackathon;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public String getHackathonProblemByID(Integer id){
-        String sql="SELECT problema FROM hackathon WHERE id=?";
-
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-
-                String problemaHackathon = rs.getString("problema");
-
-                return problemaHackathon;
+                return rs.getString(campo);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -62,7 +62,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="f4c78" class="javax.swing.JLabel" binding="name">
+          <component id="f4c78" class="javax.swing.JLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -70,7 +70,7 @@
               <text value="Nome"/>
             </properties>
           </component>
-          <component id="81fbe" class="javax.swing.JLabel" binding="surname">
+          <component id="81fbe" class="javax.swing.JLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -94,7 +94,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="eb5de" class="javax.swing.JLabel" binding="email">
+          <component id="eb5de" class="javax.swing.JLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -102,7 +102,7 @@
               <text value="Email"/>
             </properties>
           </component>
-          <component id="d042b" class="javax.swing.JLabel" binding="username">
+          <component id="d042b" class="javax.swing.JLabel">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

@@ -1,8 +1,6 @@
 package gui;
 
 import controller.ControllerRecuperoPassword;
-import controller.ControllerRecuperoUsername;
-import model.*;
 import javax.swing.*;
 import java.awt.*;
 

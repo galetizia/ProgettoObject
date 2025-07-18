@@ -1,12 +1,10 @@
 package gui;
 
 import controller.ControllerIscrizioneTeam;
-import implementazionepostgresdao.*;
 import model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class IscrizioneTeam {
 
@@ -46,9 +44,7 @@ public class IscrizioneTeam {
 
         hackathonAttiveButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackathonAttiveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        hackathonAttiveButton.addActionListener(e -> {
-            controller.visualizzaHackathonAttive(listElenchi, modelLista);
-        });
+        hackathonAttiveButton.addActionListener(e -> controller.visualizzaHackathonAttive(listElenchi, modelLista));
 
         iscrivitiAdUnTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         iscrivitiAdUnTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -66,9 +62,7 @@ public class IscrizioneTeam {
         });
         creaTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         creaTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        creaTeamButton.addActionListener(e -> {
-            panelIscrizione.setVisible(true);
-        });
+        creaTeamButton.addActionListener(e -> panelIscrizione.setVisible(true));
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));

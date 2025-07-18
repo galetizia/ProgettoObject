@@ -2,7 +2,6 @@ package gui;
 import controller.ControllerSchermataGiudice;
 import implementazionepostgresdao.HackathonDAO;
 import model.*;
-import implementazionepostgresdao.GiudiceDAO;
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,24 +26,21 @@ public class SchermataGiudice {
     private JButton problemaHackathonButton;
     private JButton votazioniCommentiButton;
     private JButton classificaButton;
-    private boolean infoVisibili = false;
-    private boolean hackathonVisibile = false;
 
-
-    GiudiceDAO gdao = new GiudiceDAO();
     HackathonDAO hdao = new HackathonDAO();
 
     public SchermataGiudice(ControllerSchermataGiudice controller, Giudice giudice) {
         mainpanel.setPreferredSize(new Dimension(600, 400));
         Hackathon h = hdao.getHackathonByID(giudice.getHackathonID());
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        name.setVisible(false);
 
         attualehack.setVisible(false);
         attualehack.setFont(new Font("Segoe UI", Font.BOLD, 14));
         infoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         infoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         infoButton.addActionListener(e -> {
-            if (!infoVisibili) {
+            if (!name.isVisible()) {
                 // Primo clic: imposto i testi e rendo visibili
                 name.setText("Nome: " + giudice.getNome());
                 surname.setText("Cognome: " + giudice.getCognome());
@@ -55,16 +51,11 @@ public class SchermataGiudice {
                 surname.setVisible(true);
                 email.setVisible(true);
                 username.setVisible(true);
-
-                infoVisibili = true; // Ricorda che ora sono visibili
             } else {
-                // Se già visibili, li nascondo
                 name.setVisible(false);
                 surname.setVisible(false);
                 email.setVisible(false);
                 username.setVisible(false);
-
-                infoVisibili = false; // Ricorda che ora sono nascosti
             }
 
             mainpanel.revalidate();
@@ -72,9 +63,7 @@ public class SchermataGiudice {
         });
         votazioniCommentiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         votazioniCommentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        votazioniCommentiButton.addActionListener(e -> {
-            controller.showSchermataVotiCommenti(giudice);
-        });
+        votazioniCommentiButton.addActionListener(e -> controller.showSchermataVotiCommenti(giudice));
 
 
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -86,7 +75,7 @@ public class SchermataGiudice {
             dataFine.setText("Data Fine: " +h.getDataFine().toString());
             maxIscritti.setText("Max Iscritti: " +h.getMaxIscritti());
             maxDimTeam.setText("Max Dim. Team: " +h.getMaxDimTeam());
-            if(!hackathonVisibile){
+            if(!attualehack.isVisible()) {
                 attualehack.setVisible(true);
                 titolo.setVisible(true);
                 sede.setVisible(true);
@@ -94,8 +83,6 @@ public class SchermataGiudice {
                 dataFine.setVisible(true);
                 maxIscritti.setVisible(true);
                 maxDimTeam.setVisible(true);
-
-                hackathonVisibile = true;
             } else {
                 attualehack.setVisible(false);
                 titolo.setVisible(false);
@@ -104,9 +91,7 @@ public class SchermataGiudice {
                 dataFine.setVisible(false);
                 maxIscritti.setVisible(false);
                 maxDimTeam.setVisible(false);
-                hackathonVisibile = false;
             }
-            return;
         });
 
         problemaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -123,9 +108,7 @@ public class SchermataGiudice {
 
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         logoutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        logoutButton.addActionListener(e -> {
-            controller.logout();
-        });
+        logoutButton.addActionListener(e -> controller.logout());
     }
 
     public JPanel getMainPanel(){

@@ -31,15 +31,16 @@ public class HackathonDAO implements IHackathonDAO {
 
                 Date sqlDatef = rs.getDate("data_fine");
                 LocalDate dataFine = sqlDatef.toLocalDate();
-                return new Hackathon(rs.getString("titolo"),
+                Hackathon h = new Hackathon(rs.getString("titolo"),
                         rs.getString("sede"),
                         dataInizio,
                         dataFine,
                         rs.getString("problema"),
                         rs.getInt("max_iscritti"),
-                        rs.getInt("max_dim_team"),
-                        rs.getInt("id")
+                        rs.getInt("max_dim_team")
                 );
+                h.setID(rs.getInt("id"));
+                return h;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -251,9 +252,8 @@ public class HackathonDAO implements IHackathonDAO {
                         dataFine,
                         rs.getString("problema"),
                         rs.getInt("max_iscritti"),
-                        rs.getInt("max_dim_team"),
-                        rs.getInt("id"
-                        ));
+                        rs.getInt("max_dim_team"));
+                h.setID(rs.getInt("id"));
                 hackathons.add(h);
             }
         } catch (SQLException e) {

@@ -15,10 +15,6 @@ public class SignIn {
     private JPasswordField inpPassword;
     private JPasswordField inpPassConfirm;
     private JButton registerButton;
-    private JLabel name;
-    private JLabel surname;
-    private JLabel email;
-    private JLabel username;
     private JButton backButton;
     private JCheckBox utenteCheckBox;
     private JCheckBox organizzatoreCheckBox;

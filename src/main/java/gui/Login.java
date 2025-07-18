@@ -9,8 +9,6 @@ import java.awt.event.MouseEvent;
 
 public class Login {
     private JPanel mainPanel;
-    private JLabel username;
-    private JLabel password;
     private JTextField inpUsername;
     private JPasswordField inpPassword;
     private JButton loginButton;

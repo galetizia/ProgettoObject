@@ -27,7 +27,7 @@ public class GestioneHackathon {
     private JButton terminaHackathonButton;
     private boolean rimozioniVisibili = false;
 
-    private DefaultListModel<String> modelList;
+    private final DefaultListModel<String> modelList;
     TeamDAO tdao = new TeamDAO();
     HackathonDAO hdao = new HackathonDAO();
     UtenteDAO udao = new UtenteDAO();
@@ -220,9 +220,7 @@ public class GestioneHackathon {
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        indietroButton.addActionListener(e -> {
-            controller.getSchermataOrganizzatore();
-        });
+        indietroButton.addActionListener(e -> controller.getSchermataOrganizzatore());
 
 
     }

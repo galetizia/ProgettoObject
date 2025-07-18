@@ -1,8 +1,6 @@
 package gui;
 
 import controller.ControllerRecuperoUsername;
-import controller.MainController;
-import model.*;
 import javax.swing.*;
 import java.awt.*;
 

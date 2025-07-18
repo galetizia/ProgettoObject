@@ -5,8 +5,6 @@ import implementazionepostgresdao.*;
 import model.*;
 
 import javax.swing.*;
-import javax.swing.text.html.HTMLEditorKit;
-import java.awt.*;
 
 public class ControllerSchermataUtente {
     private final SchermataUtente schermataUtente;

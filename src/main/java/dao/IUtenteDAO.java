@@ -9,8 +9,5 @@ public interface IUtenteDAO {
 
     void changeIDTeam(Team team, Utente utente);
 
-    String getHackathonTitleByID(Integer id);
-
-    String getHackathonProblemByID(Integer id);
+    String getHackathonCampodByID(Integer id, String campo);
 }
-

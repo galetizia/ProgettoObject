@@ -11,7 +11,7 @@ public class ConnessioneDatabase {
     private static final String URL = "jdbc:postgresql://localhost:5432/Hackathon";
     private static final String DRIVER = "org.postgresql.Driver";
 
-    private ConnessioneDatabase() throws SQLException {
+    private ConnessioneDatabase() {
         try{
             Class.forName(DRIVER);
         } catch(ClassNotFoundException e){
@@ -21,7 +21,7 @@ public class ConnessioneDatabase {
     }
 
 
-    public static ConnessioneDatabase getInstance() throws SQLException {
+    public static ConnessioneDatabase getInstance() {
         if(instance == null)
             instance = new ConnessioneDatabase();
         return instance;

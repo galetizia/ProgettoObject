@@ -8,7 +8,6 @@ public class Aggiornamento {
     private String nome;
     private String documento; //deve essere caricato dal team
 
-    public String commento; //deve essere caricato dal giudice
 
     public Aggiornamento(String nome, String documento, Integer teamID, String usernameUtente) {
         this.nome = nome;

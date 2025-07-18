@@ -2,7 +2,6 @@ package gui;
 
 import controller.ControllerSchermataOrganizzatore;
 import implementazionepostgresdao.HackathonDAO;
-import implementazionepostgresdao.OrganizzatoreDAO;
 import model.*;
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +29,6 @@ public class SchermataOrganizzatore {
     private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
     private boolean hackathonVisibili = false;
 
-    OrganizzatoreDAO odao = new OrganizzatoreDAO();
     HackathonDAO hdao = new HackathonDAO();
 
     public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
@@ -121,9 +119,7 @@ public class SchermataOrganizzatore {
 
         problemaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         problemaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        problemaHackathonButton.addActionListener(e -> {
-            controller.mostraProblemaHackathon(organizzatore);
-        });
+        problemaHackathonButton.addActionListener(e -> controller.mostraProblemaHackathon(organizzatore));
 
         organizzaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         organizzaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

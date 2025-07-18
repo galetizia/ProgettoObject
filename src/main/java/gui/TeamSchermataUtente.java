@@ -22,7 +22,7 @@ public class TeamSchermataUtente {
     private JButton visualizzaUltimoAggiornamentoButton;
     private JLabel nome;
     private JLabel documento;
-    private DefaultListModel<String> modelListUtenti;
+    private final DefaultListModel<String> modelListUtenti;
     private boolean aggiornamentoVisibile = false;
 
     TeamDAO tdao = new TeamDAO();
@@ -44,10 +44,7 @@ public class TeamSchermataUtente {
 
         membriButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         membriButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        membriButton.addActionListener(e -> {
-            controller.visualizza(team, listaUtenti, modelListUtenti);
-        });
+        membriButton.addActionListener(e -> controller.visualizza(team, listaUtenti, modelListUtenti));
 
         caricaAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         caricaAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -102,9 +99,7 @@ public class TeamSchermataUtente {
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        indietroButton.addActionListener(e -> {
-            controller.showSchermataUtente(utente);
-        });
+        indietroButton.addActionListener(e -> controller.showSchermataUtente(utente));
 
         visualizzaUltimoAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         visualizzaUltimoAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
