@@ -8,9 +8,10 @@ import java.sql.*;
 public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     private Connection connection;
-    HackathonDAO dao = new HackathonDAO();
+    HackathonDAO hdao = new HackathonDAO();
 
     public OrganizzatoreDAO() {}
+
 
     public Organizzatore login(String username, String password) {
         String sql = "SELECT * FROM organizzatore WHERE username = ? AND password = ?";
@@ -70,11 +71,10 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
-    public Giudice aggiungiGiudice(String username, Hackathon h){
-        Utente u = dao.findUtenteByUsername(username);
+    public boolean aggiungiGiudice(String username, Integer idHackathon){
+        Utente u = hdao.findUtenteByUsername(username);
         if (u == null) {
-            System.out.println("User not found");
-            return null;
+            return false;
         }
 
         String insertsql = "INSERT INTO giudice (nome,cognome,email,username,password,hackathon_id) VALUES (?,?,?,?,?,?)";
@@ -88,20 +88,20 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             insertstmt.setString(3, u.getEmail());
             insertstmt.setString(4, u.getUsername());
             insertstmt.setString(5, u.getPassword());
-            insertstmt.setInt(6, h.getID());
+            insertstmt.setInt(6, idHackathon);
 
             int rows = insertstmt.executeUpdate();
             if (rows > 0) {
 
                 deletestmt.setString(1, u.getUsername());
                 deletestmt.executeUpdate();
-                return new Giudice(u.getNome(), u.getCognome(), u.getEmail(), u.getUsername(), u.getPassword(), h.getID());
+                return true;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
 
     }
 

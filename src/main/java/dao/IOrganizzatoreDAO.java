@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IOrganizzatoreDAO {
 
-    Giudice aggiungiGiudice(String username, Hackathon hackathon);
+    boolean aggiungiGiudice(String username, Integer idHackathon);
 
     Organizzatore login(String username, String password);
 

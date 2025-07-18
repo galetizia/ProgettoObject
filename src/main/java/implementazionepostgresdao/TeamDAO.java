@@ -34,6 +34,34 @@ public class TeamDAO implements ITeamDAO {
         return null;
     }
 
+    public List<Double> getVotiPerTeam(Integer id){
+        List<Double> votiPerTeam = new ArrayList<>();
+        String sql = "SELECT voto FROM voti WHERE team_id = ?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                votiPerTeam.add(rs.getDouble("voto"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return votiPerTeam;
+    }
+
+    public void setVotiPerTeam(Integer id, Double media){
+        String sql = "UPDATE team SET mediavoti=? WHERE id = ?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setDouble(1, media);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void caricaTeamNelDB(Team team, Utente utente) {
         String sql = "INSERT INTO team (nome,mediaVoti,Hackathon_id) VALUES (?,?,?) RETURNING id";
         String utenteSql = "UPDATE utente SET team_id = ?,hackathon_id=? WHERE username = ?";

@@ -13,5 +13,5 @@ public interface IGiudiceDAO {
 
     void caricaVoto(Voto voto);
 
-    boolean controlloVotoTeam(Integer team_id);
+    boolean controlloVotoTeam(Integer team_id, String giudiceID);
 }

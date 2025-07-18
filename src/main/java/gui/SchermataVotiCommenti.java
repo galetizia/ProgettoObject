@@ -220,10 +220,8 @@ public class SchermataVotiCommenti {
                 JOptionPane.showMessageDialog(mainPanel, "Compilare tutti i campi!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             int idTeam;
             int valutazione;
-
             try {
                 idTeam = Integer.parseInt(idTeamText);
                 valutazione = Integer.parseInt(votoText);
@@ -232,21 +230,20 @@ public class SchermataVotiCommenti {
                 return;
             }
 
-            if(!gdao.controlloVotoTeam(idTeam)) {
-
-                if (valutazione < 0 || valutazione > 10)
+            if(!gdao.controlloVotoTeam(idTeam,giudice.getUsername())) {
+                if (valutazione < 0 || valutazione > 10) {
                     JOptionPane.showMessageDialog(mainPanel, "Entrambi i campi devono essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
-                else {
-                    Voto voto = new Voto(valutazione, giudice, tdao.getTeamByID(idTeam));
-                    gdao.caricaVoto(voto);
-
-                    idTeamField.setText("");
-                    votoField.setText("");
-                    JOptionPane.showConfirmDialog(mainPanel, "Voto caricato con successo!", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
+                Voto voto = new Voto(valutazione, giudice, tdao.getTeamByID(idTeam));
+                gdao.caricaVoto(voto);
+
+                idTeamField.setText("");
+                votoField.setText("");
+                JOptionPane.showConfirmDialog(mainPanel, "Voto caricato con successo!", "Success", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
-            JOptionPane.showMessageDialog(mainPanel, "Il team inserito ha già ricevuto una valutazione!", "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mainPanel, "Hai già votato questo team!", "Errore", JOptionPane.ERROR_MESSAGE);
             idTeamField.setText("");
             votoField.setText("");
 

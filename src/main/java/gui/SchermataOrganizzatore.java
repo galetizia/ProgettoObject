@@ -2,9 +2,11 @@ package gui;
 
 import controller.ControllerSchermataOrganizzatore;
 import implementazionepostgresdao.HackathonDAO;
+import implementazionepostgresdao.TeamDAO;
 import model.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class SchermataOrganizzatore {
     private JPanel mainPanel;
@@ -26,10 +28,12 @@ public class SchermataOrganizzatore {
     private JLabel hackatt;
     private JButton gestioneHackathonButton;
     private JButton problemaHackathonButton;
+    private JButton calcolaClassificaButton;
     private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
     private boolean hackathonVisibili = false;
 
     HackathonDAO hdao = new HackathonDAO();
+    TeamDAO tdao = new TeamDAO();
 
     public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
         mainPanel.setPreferredSize(new Dimension(600, 400));
@@ -47,6 +51,27 @@ public class SchermataOrganizzatore {
             }
             else
                 JOptionPane.showMessageDialog(mainPanel,"Al momento non sta gestendo alcun Hackathon");
+        });
+
+        calcolaClassificaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        calcolaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        calcolaClassificaButton.addActionListener(e -> {
+           List<Team> teams = tdao.getTeamByHackathon(organizzatore.getHackathonID());
+
+           for(Team team : teams) {
+               int teamID = team.getId();
+               String nome = team.getNome();
+
+               List<Double> votiPerTeam = tdao.getVotiPerTeam(teamID);
+               if (votiPerTeam.isEmpty()) { continue; }
+
+               double somma = 0;
+               for(Double voti : votiPerTeam) {
+                   somma += voti;
+               }
+               double media = somma / votiPerTeam.size();
+               tdao.setVotiPerTeam(teamID, media);
+           }
         });
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

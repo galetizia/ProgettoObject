@@ -20,4 +20,8 @@ public interface ITeamDAO {
     String getUltimoAggiornamento(Integer id);
 
     Integer getIdAggiornamentoByTeam(Integer id);
+
+    List<Double> getVotiPerTeam(Integer id);
+
+    void setVotiPerTeam(Integer id, Double media);
 }

@@ -77,13 +77,14 @@ public class GiudiceDAO implements IGiudiceDAO {
     }
 
     @Override
-    public boolean controlloVotoTeam(Integer team_id) {
-        String checksql = "SELECT id FROM voti WHERE team_id = ?";
+    public boolean controlloVotoTeam(Integer idTeam, String giudiceID) {
+        String checksql = "SELECT id FROM voti WHERE team_id=? AND giudice_id = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection();
              PreparedStatement stmt = con.prepareStatement(checksql)) {
 
-            stmt.setInt(1, team_id);
+            stmt.setInt(1, idTeam);
+            stmt.setString(2, giudiceID);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next())
