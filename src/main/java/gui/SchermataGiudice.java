@@ -25,8 +25,8 @@ public class SchermataGiudice {
     private JLabel attualehack;
     private JLabel area;
     private JButton problemaHackathonButton;
-    private JButton valutaTeamButton;
-    private JButton commentaAggiornamentiButton;
+    private JButton votazioniCommentiButton;
+    private JButton classificaButton;
     private boolean infoVisibili = false;
     private boolean hackathonVisibile = false;
 
@@ -70,6 +70,12 @@ public class SchermataGiudice {
             mainpanel.revalidate();
             mainpanel.repaint();
         });
+        votazioniCommentiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        votazioniCommentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        votazioniCommentiButton.addActionListener(e -> {
+            controller.showSchermataVotiCommenti(giudice);
+        });
+
 
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));

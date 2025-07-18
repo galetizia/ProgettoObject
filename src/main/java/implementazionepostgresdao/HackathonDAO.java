@@ -14,6 +14,7 @@ public class HackathonDAO implements IHackathonDAO {
 
     private Connection connection;
     public HackathonDAO() {}
+    TeamDAO tdao = new TeamDAO();
 
 
     @Override
@@ -351,6 +352,5 @@ public class HackathonDAO implements IHackathonDAO {
 
         return giudici;
     }
-
 
 }

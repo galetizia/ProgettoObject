@@ -15,5 +15,9 @@ public interface ITeamDAO {
 
     void caricaTeamNelDB(Team team, Utente utente);
 
-    void caricaAggiornamentoDB(Team team, Aggiornamento aggiornamento);
+    void caricaAggiornamentoDB(Utente utente, Aggiornamento aggiornamento);
+
+    String getUltimoAggiornamento(Integer id);
+
+    Integer getIdAggiornamentoByTeam(Integer id);
 }

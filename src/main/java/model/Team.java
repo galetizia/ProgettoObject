@@ -55,10 +55,12 @@ public class Team {
     public boolean isPieno(){ return componentiTeam.size()>=maxDimTeam; }
 
     public boolean isVuoto(){ return componentiTeam.isEmpty(); }
-
+/*
     public Aggiornamento creaAggiornamento(String nome, String documento){
         return new Aggiornamento(nome, documento);
     }
+
+ */
 
     public void espelliMembro(Utente u){ componentiTeam.remove(u); }
 

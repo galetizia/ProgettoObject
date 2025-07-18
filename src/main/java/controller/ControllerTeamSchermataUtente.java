@@ -6,13 +6,11 @@ import model.Team;
 import model.Utente;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerTeamSchermataUtente {
 
     private final TeamSchermataUtente teamSchermataUtente;
-    private ArrayList<Utente> listacomponenti;
     TeamDAO tdao = new TeamDAO();
 
     private final MainController maincontroller;
@@ -20,7 +18,6 @@ public class ControllerTeamSchermataUtente {
     public ControllerTeamSchermataUtente(MainController maincontroller, Team team, Utente utente) {
         this.teamSchermataUtente = new TeamSchermataUtente(this, team, utente);
         this.maincontroller = maincontroller;
-        this.listacomponenti = team.componentiTeam;
     }
 
     public void abbandonaTeam(Utente utente, int conferma) {

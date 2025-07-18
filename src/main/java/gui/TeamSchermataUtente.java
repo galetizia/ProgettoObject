@@ -19,6 +19,9 @@ public class TeamSchermataUtente {
     private JTextField nomeTextField;
     private JButton confermaButton;
     private JTextField documentoTextField;
+    private JButton visualizzaUltimoAggiornamentoButton;
+    private JLabel nome;
+    private JLabel documento;
     private DefaultListModel<String> modelListUtenti;
     private boolean aggiornamentoVisibile = false;
 
@@ -36,6 +39,8 @@ public class TeamSchermataUtente {
         nomeTextField.setVisible(false);
         documentoTextField.setVisible(false);
         confermaButton.setVisible(false);
+        nome.setVisible(false);
+        documento.setVisible(false);
 
         membriButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         membriButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -52,6 +57,8 @@ public class TeamSchermataUtente {
                 nomeTextField.setVisible(true);
                 documentoTextField.setVisible(true);
                 confermaButton.setVisible(true);
+                nome.setVisible(true);
+                documento.setVisible(true);
 
                 aggiornamentoVisibile = true;
             }
@@ -59,6 +66,8 @@ public class TeamSchermataUtente {
                 nomeTextField.setVisible(false);
                 documentoTextField.setVisible(false);
                 confermaButton.setVisible(false);
+                nome.setVisible(false);
+                documento.setVisible(false);
 
                 aggiornamentoVisibile = false;
             }
@@ -71,14 +80,16 @@ public class TeamSchermataUtente {
             String nomeAggiornamento = nomeTextField.getText();
             String documentoAggiornamento = documentoTextField.getText();
 
-            if(nomeAggiornamento != null && documentoAggiornamento != null) {
-                Aggiornamento aggiornamento = new Aggiornamento(nomeAggiornamento, documentoAggiornamento);
-                tdao.caricaAggiornamentoDB(team, aggiornamento);
+            if(!nomeAggiornamento.isEmpty() && !documentoAggiornamento.isEmpty()) {
+                Aggiornamento aggiornamento = new Aggiornamento(nomeAggiornamento, documentoAggiornamento, utente.getTeamID(), utente.getUsername());
+                tdao.caricaAggiornamentoDB(utente, aggiornamento);
+                nomeTextField.setText("");
+                documentoTextField.setText("");
+                JOptionPane.showMessageDialog(mainPanel, "Aggiornamento Caricato!", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
             else{
                 JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
         });
 
         abbandonaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -93,6 +104,18 @@ public class TeamSchermataUtente {
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(e -> {
             controller.showSchermataUtente(utente);
+        });
+
+        visualizzaUltimoAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        visualizzaUltimoAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        visualizzaUltimoAggiornamentoButton.addActionListener(e -> {
+            if(tdao.getUltimoAggiornamento(utente.getTeamID()) != null) {
+                String aggiornamento = tdao.getUltimoAggiornamento(utente.getTeamID());
+                String aggiornamentoHTML = "<html>" + aggiornamento.replaceAll("(.{50})", "$1<br>") + "</html>";
+                JOptionPane.showMessageDialog(mainPanel, aggiornamentoHTML, "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            JOptionPane.showMessageDialog(mainPanel, "Nessun aggiornamento presente!", "Error", JOptionPane.ERROR_MESSAGE);
         });
     }
 

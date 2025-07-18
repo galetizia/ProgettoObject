@@ -151,29 +151,79 @@ public Integer getHackathonByTeam(Integer id) {
 }
 
 @Override
-public void caricaAggiornamentoDB(Team team, Aggiornamento agg) {
+public void caricaAggiornamentoDB(Utente utente, Aggiornamento agg) {
 
-    String sql = "INSERT INTO aggiornamento (nome, documento) VALUES (?,?) RETURNING id";
+    String checksql = "SELECT id FROM aggiornamento WHERE team_id=?";
+    String insertsql = "INSERT INTO aggiornamento (nome, documento,team_id,utente_username) VALUES (?,?,?,?) RETURNING id";
+    String updatesql = "UPDATE aggiornamento SET nome=?,documento=?,utente_username=? WHERE team_id=? RETURNING id";
 
-    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql);){
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement checkstmt = con.prepareStatement(checksql);
+    PreparedStatement insertstmt = con.prepareStatement(insertsql); PreparedStatement updatestmt = con.prepareStatement(updatesql)) {
 
-        stmt.setString(1, agg.getNome());
-        stmt.setString(2, agg.getDocumento());
-
-        ResultSet rs=stmt.executeQuery();
+        checkstmt.setInt(1, agg.getTeamID());
+        ResultSet rs=checkstmt.executeQuery();
 
         if (rs.next()) {
-            int generatedId = rs.getInt(1);
-            agg.setIdAggiornamento(generatedId);
-        } else
-            throw new SQLException("Inserimento aggiornamento fallito, nessun ID restituito.");
+            updatestmt.setString(1, agg.getNome());
+            updatestmt.setString(2, agg.getDocumento());
+            updatestmt.setString(3, agg.getUsernameUtente());
+            updatestmt.setInt(4, agg.getTeamID());
+
+            ResultSet updateRs = updatestmt.executeQuery();
+            if (updateRs.next()) {
+                int id = updateRs.getInt(1);
+                agg.setIdAggiornamento(id);
+            }
+        } else {
+            insertstmt.setString(1, agg.getNome());
+            insertstmt.setString(2, agg.getDocumento());
+            insertstmt.setInt(3, agg.getTeamID());
+            insertstmt.setString(4, agg.getUsernameUtente());
 
 
+            ResultSet insertRs = insertstmt.executeQuery();
+            if (insertRs.next()) {
+                int id = insertRs.getInt(1);
+                agg.setIdAggiornamento(id);
+            }
+        }
     } catch (SQLException e) {
         e.printStackTrace();
     }
+}
 
+@Override
+public String getUltimoAggiornamento(Integer id) {
+    String sql = "SELECT documento FROM aggiornamento WHERE team_id=?";
 
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            return rs.getString("documento");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+public Integer getIdAggiornamentoByTeam(Integer id) {
+        String sql = "SELECT id FROM aggiornamento WHERE team_id=?";
+    try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+        stmt.setInt(1, id);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
 }
 
 } //Modificato - Gabriele (modifica cosi da restituire solo i team di un hackathon)

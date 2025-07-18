@@ -25,8 +25,9 @@ public class ControllerGestioneHackathon {
             odao.terminaHackathon(organizzatoreLoggato.getHackathonID(), organizzatoreLoggato.getUsername());
             organizzatoreLoggato.setHackathonID(null);
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Hai terminato l'Hackathon con successo.");
+            mainController.showSchermataOrganizzatore(organizzatoreLoggato);
         }
-        mainController.showSchermataOrganizzatore(organizzatoreLoggato);
+
     }
 
     public JPanel getGestioneHackathon() {

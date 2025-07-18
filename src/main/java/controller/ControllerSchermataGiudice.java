@@ -17,6 +17,10 @@ public class ControllerSchermataGiudice {
         return schermataGiudice.getMainPanel();
     }
 
+    public void showSchermataVotiCommenti(Giudice giudice) {
+        mainController.showSchermataVotiCommenti(giudice);
+    }
+
     public void logout(){mainController.logout();}
 
 

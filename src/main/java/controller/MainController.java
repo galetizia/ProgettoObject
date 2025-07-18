@@ -76,6 +76,11 @@ public class MainController {
         setPanel(gestioneHackathonController.getGestioneHackathon());
     }
 
+    public void showSchermataVotiCommenti(Giudice giudice){
+        ControllerVotiCommenti votiCommentiController = new ControllerVotiCommenti(this, giudice);
+        setPanel(votiCommentiController.getSchermataVotiCommenti());
+    }
+
     public void logout() {
         showLogin();
     }
