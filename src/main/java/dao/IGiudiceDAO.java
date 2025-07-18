@@ -1,7 +1,10 @@
 package dao;
 
 import model.Giudice;
+import model.Team;
 import model.Voto;
+
+import java.util.List;
 
 public interface IGiudiceDAO {
 
@@ -13,5 +16,9 @@ public interface IGiudiceDAO {
 
     void caricaVoto(Voto voto);
 
-    boolean controlloVotoTeam(Integer team_id, String giudiceID);
+    boolean controlloVotoTeam(Integer teamId, String giudiceID);
+
+    List<Team> getElaboratiFinaliTeam();
+
+    boolean isElaboratoFinale(Integer idTeam);
 }

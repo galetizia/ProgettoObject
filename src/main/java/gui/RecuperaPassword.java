@@ -14,7 +14,7 @@ public class RecuperaPassword {
 
     public RecuperaPassword(ControllerRecuperoPassword controller) {
 
-        mainPanel.setPreferredSize(new Dimension(400, 300));
+        mainPanel.setPreferredSize(new Dimension(500, 400));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

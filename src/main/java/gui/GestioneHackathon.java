@@ -31,7 +31,7 @@ public class GestioneHackathon {
     private final DefaultListModel<String> modelList;
 
     public GestioneHackathon(ControllerGestioneHackathon controller, Organizzatore organizzatore) {
-        mainpanel.setPreferredSize(new Dimension(600, 400));
+        mainpanel.setPreferredSize(new Dimension(600, 450));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
         idLabel.setVisible(false);
@@ -92,6 +92,7 @@ public class GestioneHackathon {
                 utenteCheckBox.setVisible(true);
                 giudiceCheckBox.setVisible(true);
                 teamCheckBox.setVisible(true);
+                return;
             }
                 idLabel.setVisible(false);
                 idTextField.setVisible(false);

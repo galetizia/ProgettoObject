@@ -44,7 +44,7 @@
           </component>
         </children>
       </grid>
-      <grid id="cf7ce" layout-manager="GridLayoutManager" row-count="14" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="cf7ce" layout-manager="GridLayoutManager" row-count="15" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -62,7 +62,7 @@
           </component>
           <vspacer id="5b402">
             <constraints>
-              <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
           <component id="15108" class="javax.swing.JButton" binding="visualizzaAggiornamentoDiUnButton" default-binding="true">
@@ -147,7 +147,7 @@
           </component>
           <component id="b20de" class="javax.swing.JButton" binding="valutaUnTeamButton" default-binding="true">
             <constraints>
-              <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Valuta un Team"/>
@@ -155,7 +155,7 @@
           </component>
           <component id="757b0" class="javax.swing.JLabel" binding="teamIdtextField">
             <constraints>
-              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="TeamID:"/>
@@ -163,7 +163,7 @@
           </component>
           <component id="9ca8e" class="javax.swing.JTextField" binding="idTeamField">
             <constraints>
-              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
@@ -171,7 +171,7 @@
           </component>
           <component id="7f7fa" class="javax.swing.JLabel" binding="votField">
             <constraints>
-              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Voto(0-10):"/>
@@ -179,7 +179,7 @@
           </component>
           <component id="f1dd1" class="javax.swing.JTextField" binding="votoField">
             <constraints>
-              <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
@@ -187,7 +187,7 @@
           </component>
           <component id="2b512" class="javax.swing.JButton" binding="confermavotoButton">
             <constraints>
-              <grid row="11" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Conferma"/>
@@ -195,10 +195,18 @@
           </component>
           <component id="7b94a" class="javax.swing.JButton" binding="indietroButton" default-binding="true">
             <constraints>
-              <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Indietro"/>
+            </properties>
+          </component>
+          <component id="67308" class="javax.swing.JButton" binding="elaboratiFinaliConsegnatiButton" default-binding="true">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Elaborati finali consegnati "/>
             </properties>
           </component>
         </children>

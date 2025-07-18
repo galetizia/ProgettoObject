@@ -353,4 +353,21 @@ public class HackathonDAO implements IHackathonDAO {
         return giudici;
     }
 
+    public boolean isClassificaPubblicata(Integer id) {
+        String sql = "SELECT classifica_pubblicata FROM hackathon WHERE id = ? ";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getBoolean("classifica_pubblicata");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

@@ -2,6 +2,7 @@ package controller;
 
 import gui.SchermataVotiCommenti;
 
+import implementazionepostgresdao.GiudiceDAO;
 import implementazionepostgresdao.HackathonDAO;
 import implementazionepostgresdao.TeamDAO;
 import implementazionepostgresdao.UtenteDAO;
@@ -18,6 +19,7 @@ public class ControllerVotiCommenti {
     private TeamDAO tdao = new TeamDAO();
     private HackathonDAO hdao = new HackathonDAO();
     private UtenteDAO udao = new UtenteDAO();
+    private GiudiceDAO gdao = new GiudiceDAO();
 
     public ControllerVotiCommenti(MainController mainController, Giudice giudice) {
         this.mainController = mainController;
@@ -27,6 +29,10 @@ public class ControllerVotiCommenti {
 
     public void getTeams(Giudice giudice, JList<String> listTeams,DefaultListModel<String> modelTeams) {
         List<Team> teams = tdao.getTeamByHackathon(giudice.getHackathonID());
+        if(teams.isEmpty()) {
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Nessun Team iscritto!", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         modelTeams.clear();
         for (Team team : teams) {
             modelTeams.addElement(team.getNome()+" (ID: "+team.getId()+")");
@@ -34,6 +40,23 @@ public class ControllerVotiCommenti {
         listTeams.revalidate();
         listTeams.repaint();
         votiCommenti.setVisiblePanelElenchi();
+    }
+
+    public void elaboratiFinali(JList<String> list, DefaultListModel<String> modelList) {
+        List<Team> teams = gdao.getElaboratiFinaliTeam();
+        if(teams.isEmpty()) {
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Nessun Team ha consegnato l'elaborato finale!", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        modelList.clear();
+        for (Team team : teams) {
+            modelList.addElement(team.getNome()+" (ID: "+team.getId()+")");
+        }
+        list.revalidate();
+        list.repaint();
+        votiCommenti.setVisiblePanelElenchi();
+
     }
 
     public JPanel getSchermataVotiCommenti() {

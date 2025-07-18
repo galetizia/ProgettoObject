@@ -2,6 +2,7 @@ package gui;
 
 import controller.ControllerSchermataOrganizzatore;
 import implementazionepostgresdao.HackathonDAO;
+import implementazionepostgresdao.OrganizzatoreDAO;
 import implementazionepostgresdao.TeamDAO;
 import model.*;
 import javax.swing.*;
@@ -28,9 +29,10 @@ public class SchermataOrganizzatore {
     private JLabel hackatt;
     private JButton gestioneHackathonButton;
     private JButton problemaHackathonButton;
-    private JButton calcolaClassificaButton;
+    private JButton pubblicaClassificaButton;
     private boolean infoVisibili = false; //variabile per controllare il pulsante informazioni personali
     private boolean hackathonVisibili = false;
+    private OrganizzatoreDAO odao = new OrganizzatoreDAO();
 
     HackathonDAO hdao = new HackathonDAO();
     TeamDAO tdao = new TeamDAO();
@@ -53,25 +55,40 @@ public class SchermataOrganizzatore {
                 JOptionPane.showMessageDialog(mainPanel,"Al momento non sta gestendo alcun Hackathon");
         });
 
-        calcolaClassificaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        calcolaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        calcolaClassificaButton.addActionListener(e -> {
+        pubblicaClassificaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        pubblicaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        pubblicaClassificaButton.addActionListener(e -> {
+            if(organizzatore.getHackathonID() == null) {
+                JOptionPane.showMessageDialog(mainPanel, "Al momento non sta gestendo alcun Hackathon!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
            List<Team> teams = tdao.getTeamByHackathon(organizzatore.getHackathonID());
 
-           for(Team team : teams) {
-               int teamID = team.getId();
-               String nome = team.getNome();
+            if(teams.isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Nessun Team iscritto!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(!hdao.isClassificaPubblicata(organizzatore.getHackathonID())) {
+                for(Team team : teams) {
+                    odao.setClassifica(organizzatore.getHackathonID());
+                    int teamID = team.getId();
+                    String nome = team.getNome();
 
-               List<Double> votiPerTeam = tdao.getVotiPerTeam(teamID);
-               if (votiPerTeam.isEmpty()) { continue; }
+                    List<Double> votiPerTeam = tdao.getVotiPerTeam(teamID);
+                    if (votiPerTeam.isEmpty()) { tdao.setVotiPerTeam(teamID, 0.00);continue; }
 
-               double somma = 0;
-               for(Double voti : votiPerTeam) {
-                   somma += voti;
-               }
-               double media = somma / votiPerTeam.size();
-               tdao.setVotiPerTeam(teamID, media);
-           }
+                    double somma = 0;
+                    for(Double voti : votiPerTeam) {
+                        somma += voti;
+                    }
+                    double media = somma / votiPerTeam.size();
+                    tdao.setVotiPerTeam(teamID, media);
+                }
+                JOptionPane.showMessageDialog(mainPanel, "Classifica pubblicata!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            JOptionPane.showMessageDialog(mainPanel, "Classifica già pubblicata!", "Info", JOptionPane.INFORMATION_MESSAGE);
+
         });
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -149,10 +166,11 @@ public class SchermataOrganizzatore {
         organizzaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         organizzaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         organizzaHackathonButton.addActionListener(e -> {
-            if(organizzatore.getHackathonID() == null)
+            if(organizzatore.getHackathonID() == null){
                 controller.schermataOrganizzaHackathon(organizzatore);
-
-            JOptionPane.showMessageDialog(mainPanel,"è già l'organizzatore di un Hackathon");
+                return;
+            }
+            JOptionPane.showMessageDialog(mainPanel,"È già l'organizzatore di un Hackathon");
 
         });
 

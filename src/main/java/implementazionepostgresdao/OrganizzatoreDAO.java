@@ -199,4 +199,16 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             e.printStackTrace();
         }
     }
+
+    public void setClassifica(Integer id) {
+        String sql = "UPDATE hackathon SET classifica_pubblicata=TRUE WHERE id=?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

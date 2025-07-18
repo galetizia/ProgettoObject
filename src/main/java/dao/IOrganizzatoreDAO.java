@@ -20,4 +20,6 @@ public interface IOrganizzatoreDAO {
     void removeTeam(Integer id);
 
     void terminaHackathon(Integer id, String username);
+
+    void setClassifica(Integer id);
 }

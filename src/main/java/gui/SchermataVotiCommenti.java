@@ -4,7 +4,6 @@ import controller.ControllerVotiCommenti;
 import implementazionepostgresdao.GiudiceDAO;
 import implementazionepostgresdao.HackathonDAO;
 import implementazionepostgresdao.TeamDAO;
-import model.Aggiornamento;
 import model.Giudice;
 import model.Voto;
 
@@ -34,6 +33,7 @@ public class SchermataVotiCommenti {
     private JLabel commentoF;
     private JLabel teamIdtextField;
     private JLabel votField;
+    private JButton elaboratiFinaliConsegnatiButton;
     private DefaultListModel<String> modelList;
 
     HackathonDAO hdao = new HackathonDAO();
@@ -41,7 +41,7 @@ public class SchermataVotiCommenti {
     GiudiceDAO gdao = new GiudiceDAO();
 
     public SchermataVotiCommenti(ControllerVotiCommenti controller, Giudice giudice) {
-        mainPanel.setPreferredSize(new Dimension(500,320));
+        mainPanel.setPreferredSize(new Dimension(500,350));
 
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
         idTextF.setVisible(false);
@@ -210,6 +210,12 @@ public class SchermataVotiCommenti {
             }
         });
 
+        elaboratiFinaliConsegnatiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        elaboratiFinaliConsegnatiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        elaboratiFinaliConsegnatiButton.addActionListener(e -> {
+            controller.elaboratiFinali(list, modelList);
+        });
+
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(e -> {
@@ -237,13 +243,12 @@ public class SchermataVotiCommenti {
                 return;
             }
 
-            /*Integer idAgg = tdao.getIdAggiornamentoByTeam(idTeam);
-            if (idAgg == null) {
-                JOptionPane.showMessageDialog(mainPanel, "Questo team non ha caricato aggiornamenti.\nImpossibile valutare.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
+            if (!gdao.isElaboratoFinale(idTeam)) {
+                JOptionPane.showMessageDialog(mainPanel, "Questo team non ha caricato l'elaborato finale.\nImpossibile valutare.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
                 idTeamField.setText("");
                 votoField.setText("");
                 return;
-            }*/
+            }
 
             if(!gdao.controlloVotoTeam(idTeam,giudice.getUsername())) {
                 if (valutazione < 0 || valutazione > 10) {

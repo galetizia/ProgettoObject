@@ -4,9 +4,13 @@ import dao.IGiudiceDAO;
 import database.ConnessioneDatabase;
 import model.Giudice;
 import model.Organizzatore;
+import model.Team;
 import model.Voto;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class GiudiceDAO implements IGiudiceDAO {
 
     private Connection connection;
@@ -113,7 +117,44 @@ public class GiudiceDAO implements IGiudiceDAO {
         }catch(SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public List<Team> getElaboratiFinaliTeam(){
+        String sql="SELECT team_id FROM aggiornamento WHERE iselaboratofinale=true";
+        List<Team> teams = new ArrayList<>();
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()){
+
+            while(rs.next()) {
+                int idTeam = rs.getInt("team_id");
+
+                Team t = tdao.getTeamByID(idTeam);
+                if(t!=null) teams.add(t);
+            }
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return teams;
+    }
+
+
+    public boolean isElaboratoFinale(Integer idTeam){
+        String sql="SELECT id FROM aggiornamento WHERE iselaboratofinale=true AND team_id=?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)){
+            stmt.setInt(1,idTeam);
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                return true;
+            }
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 
 }

@@ -27,5 +27,8 @@ public interface IHackathonDAO {
     List<Utente> getUtenti(Integer id);
     List<Giudice> getGiudici(Integer id);
 
+    boolean isClassificaPubblicata(Integer id);
+
+
 
 }
