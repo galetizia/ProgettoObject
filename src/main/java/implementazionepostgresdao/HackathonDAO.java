@@ -425,4 +425,33 @@ public class HackathonDAO implements IHackathonDAO {
         return false;
     }
 
+    public List<Utente> getPotenzialiGiudici(){
+        String sql = "SELECT * FROM utente WHERE team_id IS NULL";
+        List<Utente> potenzialiGiudici = new ArrayList<>();
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Utente u = new Utente(
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                );
+                u.setHackathonID(rs.getInt("hackathon_id"));
+                int teamId = rs.getInt("team_id");
+                if (rs.wasNull()) u.setTeamID(null);
+                else u.setTeamID(teamId);
+
+                potenzialiGiudici.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return potenzialiGiudici;
+    }
+
 }

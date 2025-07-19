@@ -85,6 +85,21 @@ public class ControllerGestioneHackathon {
         panel.setVisible(true);
     }
 
+    public void mostraPotenzialiGiudici(JList<String> list, DefaultListModel<String> modelList, JScrollPane panel){
+        List<Utente> potenzialiGiudici = hdao.getPotenzialiGiudici();
+        modelList.clear();
+
+        if(potenzialiGiudici.isEmpty()){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti potenziali giudici da inserire","Success", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        for (Utente pG : potenzialiGiudici) {
+            modelList.addElement(pG.getUsername());
+        }
+        list.revalidate();
+        list.repaint();
+        panel.setVisible(true);
+    }
 
     public void aggiungiGiudice(JTextField usernameTextField, Organizzatore organizzatore) {
         String usern = usernameTextField.getText();
