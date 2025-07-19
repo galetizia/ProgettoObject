@@ -119,7 +119,7 @@ public class GiudiceDAO implements IGiudiceDAO {
         }
     }
 
-    public List<Team> getElaboratiFinaliTeam(){
+    public List<Team> getElaboratiFinaliTeam(Integer hackathonID) {
         String sql="SELECT team_id FROM aggiornamento WHERE iselaboratofinale=true";
         List<Team> teams = new ArrayList<>();
 
@@ -128,9 +128,9 @@ public class GiudiceDAO implements IGiudiceDAO {
 
             while(rs.next()) {
                 int idTeam = rs.getInt("team_id");
-
                 Team t = tdao.getTeamByID(idTeam);
-                if(t!=null) teams.add(t);
+
+                if(t!=null && t.getHackathonID() == hackathonID) teams.add(t);
             }
 
         }catch(SQLException e) {

@@ -157,7 +157,6 @@ public List<Team> getTeamByHackathon(Integer id) {
         e.printStackTrace();
     }
     return membri;
-
 }
 
 @Override

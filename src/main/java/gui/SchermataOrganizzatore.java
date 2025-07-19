@@ -49,10 +49,14 @@ public class SchermataOrganizzatore {
         visualizzaClassificaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         visualizzaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         visualizzaClassificaButton.addActionListener(e ->{
+            if(organizzatore.getHackathonID() == null) {
+                JOptionPane.showMessageDialog(mainPanel, "Al momento non sta gestendo alcun Hackathon!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             if(!hdao.isClassificaPubblicata(organizzatore.getHackathonID())){
                 JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
             }else{
-                controller.showSchermataClassifica(organizzatore.getHackathonID());
+                controller.showSchermataClassifica(organizzatore.getHackathonID(), organizzatore);
             }
         });
 

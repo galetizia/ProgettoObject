@@ -18,7 +18,7 @@ public interface IGiudiceDAO {
 
     boolean controlloVotoTeam(Integer teamId, String giudiceID);
 
-    List<Team> getElaboratiFinaliTeam();
+    List<Team> getElaboratiFinaliTeam(Integer id);
 
     boolean isElaboratoFinale(Integer idTeam);
 }

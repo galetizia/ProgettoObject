@@ -1,10 +1,12 @@
 package gui;
 
 import controller.ControllerIscrizioneTeam;
+import implementazionepostgresdao.TeamDAO;
 import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class IscrizioneTeam {
 
@@ -25,6 +27,7 @@ public class IscrizioneTeam {
     private JLabel area;
     private DefaultListModel<String> modelLista;
 
+    TeamDAO tdao = new TeamDAO();
 
     public IscrizioneTeam(ControllerIscrizioneTeam controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));

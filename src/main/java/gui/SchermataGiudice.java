@@ -41,7 +41,7 @@ public class SchermataGiudice {
             if(!hdao.isClassificaPubblicata(giudice.getHackathonID())){
                 JOptionPane.showMessageDialog(mainpanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
             }else{
-                controller.showSchermataClassifica(giudice.getHackathonID());
+                controller.showSchermataClassifica(giudice.getHackathonID(), giudice);
             }
         });
 

@@ -21,8 +21,8 @@ public class ControllerSchermataGiudice {
         mainController.showSchermataVotiCommenti(giudice);
     }
 
-    public void showSchermataClassifica(Integer hackathonID) {
-        mainController.showSchermataClassifica(hackathonID);
+    public void showSchermataClassifica(Integer hackathonID, Giudice giudice) {
+        mainController.showSchermataClassifica(hackathonID, giudice);
     }
 
     public void logout(){mainController.logout();}

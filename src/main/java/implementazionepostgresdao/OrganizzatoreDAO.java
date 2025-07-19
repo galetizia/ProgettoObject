@@ -76,6 +76,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         if (u == null) {
             return false;
         }
+        if(!u.getHackathonID().equals(idHackathon)) return false;
 
         String insertsql = "INSERT INTO giudice (nome,cognome,email,username,password,hackathon_id) VALUES (?,?,?,?,?,?)";
         String deletesql = "DELETE FROM utente WHERE username=?";
@@ -186,11 +187,8 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
     @Override
     public void terminaHackathon(Integer hackathon_id, String username_organizzatore) {
         String deletesql = "DELETE FROM hackathon WHERE id=?";
-        String updatesql = "UPDATE organizzatore SET hackathon_id = null WHERE username=?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(deletesql); PreparedStatement updatestmt = con.prepareStatement(updatesql)) {
-            updatestmt.setString(1, username_organizzatore);
-            updatestmt.executeUpdate();
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(deletesql)) {
 
             stmt.setInt(1, hackathon_id);
             stmt.executeUpdate();

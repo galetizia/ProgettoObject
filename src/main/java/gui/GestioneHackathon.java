@@ -50,6 +50,13 @@ public class GestioneHackathon {
         aggiungiGiudiceButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         aggiungiGiudiceButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         aggiungiGiudiceButton.addActionListener(e ->{
+            idLabel.setVisible(false);
+            idTextField.setVisible(false);
+            confermaButton.setVisible(false);
+            utenteCheckBox.setVisible(false);
+            giudiceCheckBox.setVisible(false);
+            teamCheckBox.setVisible(false);
+
             if(!username.isVisible()){
                 username.setVisible(true);
                 usernameTextField.setVisible(true);
@@ -84,7 +91,9 @@ public class GestioneHackathon {
         rimozioneUtenteGiudiceTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         rimozioneUtenteGiudiceTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rimozioneUtenteGiudiceTeamButton.addActionListener(e -> {
-
+            username.setVisible(false);
+            usernameTextField.setVisible(false);
+            confermaGiudiceButton.setVisible(false);
             if(!idLabel.isVisible()) {
                 idLabel.setVisible(true);
                 idTextField.setVisible(true);

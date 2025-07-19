@@ -43,23 +43,31 @@ public class ControllerIscrizioneTeam {
 
         if(hdao.getHackathonByID(id) == null) {
             JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "ID hackathon non valido" , "Error", JOptionPane.ERROR_MESSAGE);
-        } else{
-            Team t = new Team(nome,id);
-            tdao.caricaTeamNelDB(t,utente);
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Il team caricato con successo","Success", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
+        List<Team> teams = tdao.getTeamByHackathon(id);
+
+        if(teams.size() >= hdao.getMaxDimTeam(id)) {
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Raggiunto numero massimo di Team" , "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Team t = new Team(nome,id);
+        tdao.caricaTeamNelDB(t,utente);
+        JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Il team caricato con successo","Success", JOptionPane.INFORMATION_MESSAGE);
+        showUtente();
     }
 
     public void visualizzaHackathonAttive(JList<String> list, DefaultListModel<String> modelList) {
         List<Hackathon> hackathons = hdao.getHackathons();
         modelList.clear();
         for (Hackathon h : hackathons) {
-            modelList.addElement(h.getNome()+" (ID: "+h.getID()+")");
+            List<Team> teams = tdao.getTeamByHackathon(h.getID());
+            modelList.addElement(h.getNome()+" (ID: "+h.getID()+") "+"("+teams.size()+"/"+hdao.getMaxIscritti(h.getID())+")");
         }
+
         list.revalidate();
         list.repaint();
         schermataIscrizioneTeam.setVisiblePanelElenchi();
-
     }
 
 
@@ -70,16 +78,21 @@ public class ControllerIscrizioneTeam {
         }
         try {
             int id= Integer.parseInt(idTeamTxt);
-            List<Team> teams = tdao.getTeamByHackathon(id);
-            if(teams.size() == (hdao.getMaxDimTeam(tdao.getHackathonByTeam(id)))) {
-                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Team Pieno" , "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                Team t = tdao.getTeamByID(id);
-                udao.changeIDTeam(t, utente);
-
-                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Sei stato aggiunto al Team: "+t.getNome(), "Success", JOptionPane.INFORMATION_MESSAGE);
+            Team t = tdao.getTeamByID(id);
+            if(t == null) {
+                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Team non iscritto all Hackathon" , "Attenzione", JOptionPane.WARNING_MESSAGE);
+                return;
             }
 
+            List<Utente> teams = tdao.membriTeam(id);
+
+            if(teams.size() >= (hdao.getMaxDimTeam(tdao.getHackathonByTeam(id)))) {
+                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Team Pieno" , "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                udao.changeIDTeam(t, utente);
+                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Sei stato aggiunto al Team: "+t.getNome(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                showUtente();
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID Hackathon deve essere un numero valido.", "Errore di formato", JOptionPane.ERROR_MESSAGE);
         }
@@ -95,9 +108,13 @@ public class ControllerIscrizioneTeam {
             int hackathonID = Integer.parseInt(idHackathonTxt);
             List<Team> teams = tdao.getTeamByHackathon(hackathonID);
             modelList.clear();
+            if(teams.isEmpty()) {
+                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Nessun Team iscritto a quest Hackathon!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             for (Team t : teams) {
-                modelList.addElement(t.getNome()+" (ID: "+t.getId()+")");
+                modelList.addElement(t.getNome()+" (ID: "+t.getId()+") "+"("+teams.size()+"/"+hdao.getMaxDimTeam(hackathonID)+")");
             }
 
             list.revalidate();

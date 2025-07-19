@@ -46,6 +46,10 @@ public class OrganizzaHackathon {
         hackathonAttiveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         hackathonAttiveButton.addActionListener(e -> {
             List<Hackathon> hackathons = hdao.getHackathons();
+            if(hackathons.isEmpty()){
+                JOptionPane.showMessageDialog(mainPanel, "Nessuna Hackathon attiva!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             modelLista.clear();
             for (Hackathon h : hackathons) {
                 modelLista.addElement(h.getNome()+" (ID:"+h.getID()+")");
@@ -67,6 +71,10 @@ public class OrganizzaHackathon {
             int maxIscr;
             int maxDimTeam;
 
+            if(titolo.isEmpty() || sede.isEmpty() || problema.isEmpty()) {
+                JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!!");
+                return;
+            }
             try {
                 dataInizio = LocalDate.parse(dataInizioTextField.getText(), formatter);
             } catch (DateTimeParseException datE) {
@@ -95,15 +103,10 @@ public class OrganizzaHackathon {
                 return;
             }
 
-            if(titolo.isEmpty() || sede.isEmpty() || problema.isEmpty()) {
-                JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!!");
-                return;
-            }
-            else{
-                Hackathon nuovaHackathon = new Hackathon(titolo, sede,  dataInizio, dataFine, problema, maxIscr, maxDimTeam);
-                hdao.caricaHackathonDB(nuovaHackathon, organizzatore);
-                JOptionPane.showMessageDialog(mainPanel, "Nuova Hackathon caricata con successo","Success", JOptionPane.INFORMATION_MESSAGE);
-            }
+            Hackathon nuovaHackathon = new Hackathon(titolo, sede,  dataInizio, dataFine, problema, maxIscr, maxDimTeam);
+            hdao.caricaHackathonDB(nuovaHackathon, organizzatore);
+            JOptionPane.showMessageDialog(mainPanel, "Nuova Hackathon caricata con successo","Success", JOptionPane.INFORMATION_MESSAGE);
+            controller.indietro();
         });
 
         organizzaNuovaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

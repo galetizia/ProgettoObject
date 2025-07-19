@@ -19,10 +19,10 @@ public class ControllerClassifica {
     private Integer hackathonID;
     private HackathonDAO hdao = new HackathonDAO();
 
-    public ControllerClassifica(MainController mainController, Integer hackathonID) {
+    public ControllerClassifica(MainController mainController, Integer hackathonID, Runnable azioneIndietro) {
         this.mainController = mainController;
         this.hackathonID = hackathonID;
-        this.classifica = new Classifica(this, hackathonID);
+        this.classifica = new Classifica(this, hackathonID, azioneIndietro);
     }
 
     public JPanel getSchermataClassifica(){return classifica.getMainPanel();}
@@ -42,5 +42,10 @@ public class ControllerClassifica {
         list.repaint();
         panel.setVisible(true);
     }
+    public void indietro(){
+
+    }
+
+
 
 }

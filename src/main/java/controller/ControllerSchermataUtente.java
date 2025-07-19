@@ -49,8 +49,8 @@ public class ControllerSchermataUtente {
 
     }
 
-    public void showSchermataClassifica(Integer hackathonID) {
-        mainController.showSchermataClassifica(hackathonID);
+    public void showSchermataClassifica(Integer hackathonID, Utente utente) {
+        mainController.showSchermataClassifica(hackathonID, utente);
     }
 
     public void logout() {

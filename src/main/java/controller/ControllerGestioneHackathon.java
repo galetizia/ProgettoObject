@@ -39,6 +39,10 @@ public class ControllerGestioneHackathon {
     public void mostraTeams(JList<String> list, DefaultListModel<String> modelList, JScrollPane panel, Organizzatore organizzatore) {
         List<Team> teams = tdao.getTeamByHackathon(organizzatore.getHackathonID());
         modelList.clear();
+        if(teams.isEmpty()){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti team","Success", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         for (Team t : teams) {
             modelList.addElement(t.getNome() +" (ID:"+t.getId()+")");
         }
@@ -51,6 +55,10 @@ public class ControllerGestioneHackathon {
     public void mostraUtenti(JList<String> list, DefaultListModel<String> modelList, JScrollPane panel, Organizzatore organizzatore){
         List<Utente> users = hdao.getUtenti(organizzatore.getHackathonID());
         modelList.clear();
+        if(users.isEmpty()){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti utenti","Success", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         for (Utente u : users) {
             modelList.addElement(u.getUsername());
         }
@@ -62,6 +70,11 @@ public class ControllerGestioneHackathon {
     public void mostraGiudici(JList<String> list, DefaultListModel<String> modelList, JScrollPane panel, Organizzatore organizzatore){
         List<Giudice> giudici = hdao.getGiudici(organizzatore.getHackathonID());
         modelList.clear();
+
+        if(giudici.isEmpty()){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti giudici","Success", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         for (Giudice g : giudici) {
             modelList.addElement(g.getUsername());
         }
@@ -72,14 +85,13 @@ public class ControllerGestioneHackathon {
 
 
     public void aggiungiGiudice(JTextField usernameTextField, Organizzatore organizzatore) {
-
         String usern = usernameTextField.getText();
         if(usern.isEmpty()){
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Inserire username!" , "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(!odao.aggiungiGiudice(usern,organizzatore.getHackathonID())){
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "L'utente non esiste!" , "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "L'utente non è presente nella sua hackathon!" , "Error", JOptionPane.ERROR_MESSAGE);
             usernameTextField.setText("");
             return;
         }
@@ -93,12 +105,12 @@ public class ControllerGestioneHackathon {
             return;
         }
 
-        if(utenteCheckBox.isSelected()) rimozioneUtente(idTextField);
-        if(giudiceCheckBox.isSelected()) rimozioneGiudice(idTextField);
-        if(teamCheckBox.isSelected()) rimozioneTeam(idTextField);
+        if(utenteCheckBox.isSelected()) rimozioneUtente(idTextField, organizzatoreLoggato.getHackathonID());
+        if(giudiceCheckBox.isSelected()) rimozioneGiudice(idTextField, organizzatoreLoggato.getHackathonID());
+        if(teamCheckBox.isSelected()) rimozioneTeam(idTextField, organizzatoreLoggato.getHackathonID());
     }
 
-    public void rimozioneUtente(JTextField idTextField){
+    public void rimozioneUtente(JTextField idTextField, Integer hackathonID) {
         if(idTextField.getText().isEmpty()){
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Inserire Username" , "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -106,8 +118,12 @@ public class ControllerGestioneHackathon {
         Utente u = hdao.findUtenteByUsername(idTextField.getText());
 
         if(u == null) {
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Utente "+idTextField.getText()+"non trovato" , "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Utente "+idTextField.getText()+" non trovato" , "Error", JOptionPane.ERROR_MESSAGE);
             idTextField.setText("");
+            return;
+        }
+        if(!u.getHackathonID().equals(hackathonID)){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "L'utente non è iscritto alla sua Hackathon" , "Attenzione", JOptionPane.WARNING_MESSAGE);
             return;
         }
         int conferma = JOptionPane.showConfirmDialog(schermataGestioneHackathon.getMainPanel(), "Sei sicuro di voler rimuovere "+idTextField.getText()+"?" ,
@@ -120,7 +136,7 @@ public class ControllerGestioneHackathon {
         }
     }
 
-    public void rimozioneGiudice(JTextField idTextField){
+    public void rimozioneGiudice(JTextField idTextField, Integer hackathonID) {
         if(idTextField.getText().isEmpty()){
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Inserire Username" , "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -130,6 +146,10 @@ public class ControllerGestioneHackathon {
         if(g == null) {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Giudice "+idTextField.getText()+"non trovato" , "Error", JOptionPane.ERROR_MESSAGE);
             idTextField.setText("");
+            return;
+        }
+        if(!g.getHackathonID().equals(hackathonID)){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Questo giudice non è presente nella sua Hackathon" , "Attenzione", JOptionPane.WARNING_MESSAGE);
             return;
         }
         int conferma = JOptionPane.showConfirmDialog(schermataGestioneHackathon.getMainPanel(), "Sei sicuro di voler declassare "+idTextField.getText()+"?" ,
@@ -143,7 +163,7 @@ public class ControllerGestioneHackathon {
     }
 
 
-    public void rimozioneTeam(JTextField idTextField){
+    public void rimozioneTeam(JTextField idTextField, Integer hackathonID){
         String idTxt = idTextField.getText();
 
         if(idTxt.isEmpty()){
@@ -161,8 +181,12 @@ public class ControllerGestioneHackathon {
 
         Team t = tdao.getTeamByID(id);
         if(t == null) {
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Team "+idTextField.getText()+"non trovato" , "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Team "+idTextField.getText()+" non trovato" , "Error", JOptionPane.ERROR_MESSAGE);
             idTextField.setText("");
+            return;
+        }
+        if(!t.getHackathonID().equals(hackathonID)){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Questo Team non è iscritto alla sua Hackathon" , "Attenzione", JOptionPane.WARNING_MESSAGE);
             return;
         }
         int conferma = JOptionPane.showConfirmDialog(schermataGestioneHackathon.getMainPanel(), "Sei sicuro di voler rimuovere il Team "+idTextField.getText()+"?" ,

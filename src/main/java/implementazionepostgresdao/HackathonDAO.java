@@ -214,16 +214,34 @@ public class HackathonDAO implements IHackathonDAO {
         return null;
     }
 
-    public int getMaxDimTeam(Integer ID) {
+    public int getMaxDimTeam(Integer iD) {
 
         String sql = "SELECT max_dim_team FROM hackathon WHERE id = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, ID);
+            stmt.setInt(1, iD);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                return rs.getInt("max_dim_team");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public int getMaxIscritti(Integer iD) {
+
+        String sql = "SELECT max_iscritti FROM hackathon WHERE id = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, iD);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("max_iscritti");
             }
         } catch (SQLException e) {
             e.printStackTrace();

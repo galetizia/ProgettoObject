@@ -43,7 +43,7 @@ public class ControllerVotiCommenti {
     }
 
     public void elaboratiFinali(JList<String> list, DefaultListModel<String> modelList) {
-        List<Team> teams = gdao.getElaboratiFinaliTeam();
+        List<Team> teams = gdao.getElaboratiFinaliTeam(giudice.getHackathonID());
         if(teams.isEmpty()) {
             JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Nessun Team ha consegnato l'elaborato finale!", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;

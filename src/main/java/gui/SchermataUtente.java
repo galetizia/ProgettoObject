@@ -42,11 +42,16 @@ public class SchermataUtente {
         classificaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         classificaHackathonButton.addActionListener(e ->{
+            if(utente.getHackathonID() == (null)) {
+                JOptionPane.showMessageDialog(mainPanel, "Non partecipi a nessun Hackathon!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             if(!hdao.isClassificaPubblicata(utente.getHackathonID())){
                 JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
-            }else{
-                controller.showSchermataClassifica(utente.getHackathonID());
+                return;
             }
+            controller.showSchermataClassifica(utente.getHackathonID(), utente);
+
         });
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

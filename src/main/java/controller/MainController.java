@@ -81,8 +81,22 @@ public class MainController {
         setPanel(votiCommentiController.getSchermataVotiCommenti());
     }
 
-    public void showSchermataClassifica(Integer hackathonId){
-        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId);
+    public void showSchermataClassifica(Integer hackathonId, Utente utente) {
+        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId, () -> {
+            showSchermataUtente(utente);
+        });
+        setPanel(classificaController.getSchermataClassifica());
+    }
+    public void showSchermataClassifica(Integer hackathonId, Giudice giudice) {
+        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId, () -> {
+            showSchermataGiudice(giudice);
+        });
+        setPanel(classificaController.getSchermataClassifica());
+    }
+    public void showSchermataClassifica(Integer hackathonId, Organizzatore organizzatore) {
+        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId, () -> {
+            showSchermataOrganizzatore(organizzatore);
+        });
         setPanel(classificaController.getSchermataClassifica());
     }
 
