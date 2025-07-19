@@ -73,10 +73,9 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     public boolean aggiungiGiudice(String username, Integer idHackathon){
         Utente u = hdao.findUtenteByUsername(username);
-        if (u == null) {
+        if (u == null || u.getTeamID()!=null) {
             return false;
         }
-        if(!u.getHackathonID().equals(idHackathon)) return false;
 
         String insertsql = "INSERT INTO giudice (nome,cognome,email,username,password,hackathon_id) VALUES (?,?,?,?,?,?)";
         String deletesql = "DELETE FROM utente WHERE username=?";

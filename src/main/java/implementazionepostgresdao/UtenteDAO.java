@@ -91,24 +91,6 @@ public class UtenteDAO implements IUtenteDAO {
             return false;
         }
     }
-
-    @Override
-    public String getHackathonCampodByID(Integer id, String campo){
-        String sql="SELECT" +campo +"FROM hackathon WHERE id=?";
-
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-
-                return rs.getString(campo);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }
 
 
