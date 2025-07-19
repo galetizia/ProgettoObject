@@ -81,6 +81,11 @@ public class MainController {
         setPanel(votiCommentiController.getSchermataVotiCommenti());
     }
 
+    public void showSchermataClassifica(Integer hackathonId){
+        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId);
+        setPanel(classificaController.getSchermataClassifica());
+    }
+
     public void logout() {
         showLogin();
     }

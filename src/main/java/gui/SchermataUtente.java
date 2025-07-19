@@ -44,7 +44,8 @@ public class SchermataUtente {
         classificaHackathonButton.addActionListener(e ->{
             if(!hdao.isClassificaPubblicata(utente.getHackathonID())){
                 JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                return;
+            }else{
+                controller.showSchermataClassifica(utente.getHackathonID());
             }
         });
 

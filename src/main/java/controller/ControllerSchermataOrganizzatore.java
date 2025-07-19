@@ -43,4 +43,8 @@ public class ControllerSchermataOrganizzatore {
         mainController.showSchermataGestioneHack(organizzatore);
     }
 
+    public void showSchermataClassifica(Integer hackathonID) {
+        mainController.showSchermataClassifica(hackathonID);
+    }
+
 } //modificato

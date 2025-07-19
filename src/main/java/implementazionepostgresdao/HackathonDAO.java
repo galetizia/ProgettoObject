@@ -353,6 +353,33 @@ public class HackathonDAO implements IHackathonDAO {
         return giudici;
     }
 
+    public List<Team> getClassificaTeams(Integer hackathonID){
+        String sql = "SELECT * FROM team WHERE hackathon_id = ? ORDER BY mediavoti DESC";
+
+        List<Team> teams = new ArrayList<>();
+
+        try(Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, hackathonID);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Team t = new Team(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getDouble("mediavoti"),
+                        rs.getInt("hackathon_id")
+                );
+                teams.add(t);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return teams;
+    }
+
+    @Override
     public boolean isClassificaPubblicata(Integer id) {
         String sql = "SELECT classifica_pubblicata FROM hackathon WHERE id = ? ";
 

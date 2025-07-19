@@ -51,7 +51,8 @@ public class SchermataOrganizzatore {
         visualizzaClassificaButton.addActionListener(e ->{
             if(!hdao.isClassificaPubblicata(organizzatore.getHackathonID())){
                 JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                return;
+            }else{
+                controller.showSchermataClassifica(organizzatore.getHackathonID());
             }
         });
 

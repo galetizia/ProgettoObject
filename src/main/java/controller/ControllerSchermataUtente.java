@@ -49,6 +49,10 @@ public class ControllerSchermataUtente {
 
     }
 
+    public void showSchermataClassifica(Integer hackathonID) {
+        mainController.showSchermataClassifica(hackathonID);
+    }
+
     public void logout() {
         mainController.logout();
     }
