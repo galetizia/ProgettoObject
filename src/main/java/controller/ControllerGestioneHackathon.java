@@ -42,9 +42,11 @@ public class ControllerGestioneHackathon {
         List<Team> teams = tdao.getTeamByHackathon(organizzatore.getHackathonID());
         modelList.clear();
         if(teams.isEmpty()){
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti team","Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti team","Attenzione", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        modelList.addElement("--------------------------- Elenco Team ---------------------------");
+
         for (Team t : teams) {
             modelList.addElement(t.getNome() +" (ID:"+t.getId()+")");
         }
@@ -61,6 +63,7 @@ public class ControllerGestioneHackathon {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti utenti","Success", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        modelList.addElement("-------------------------- Elenco Utenti --------------------------");
         for (Utente u : users) {
             modelList.addElement(u.getUsername());
         }
@@ -77,6 +80,7 @@ public class ControllerGestioneHackathon {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti giudici","Success", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        modelList.addElement("-------------------------- Elenco Giudici -------------------------");
         for (Giudice g : giudici) {
             modelList.addElement(g.getUsername());
         }
@@ -85,20 +89,22 @@ public class ControllerGestioneHackathon {
         panel.setVisible(true);
     }
 
-    public void mostraPotenzialiGiudici(JList<String> list, DefaultListModel<String> modelList, JScrollPane panel){
+    public boolean mostraPotenzialiGiudici(JList<String> list, DefaultListModel<String> modelList, JScrollPane panel){
         List<Utente> potenzialiGiudici = hdao.getPotenzialiGiudici();
         modelList.clear();
 
         if(potenzialiGiudici.isEmpty()){
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti potenziali giudici da inserire","Success", JOptionPane.INFORMATION_MESSAGE);
-            return;
+            return false ;
         }
+        modelList.addElement("-------------------- Elenco Potenziali Giudici --------------------");
         for (Utente pG : potenzialiGiudici) {
             modelList.addElement(pG.getUsername());
         }
         list.revalidate();
         list.repaint();
         panel.setVisible(true);
+        return true;
     }
 
     public void aggiungiGiudice(JTextField usernameTextField, Organizzatore organizzatore) {

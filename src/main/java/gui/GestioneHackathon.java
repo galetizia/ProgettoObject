@@ -27,7 +27,6 @@ public class GestioneHackathon {
     private JTextField usernameTextField;
     private JButton confermaGiudiceButton;
     private JLabel username;
-    private JLabel titoloListaLabel;
 
     private final DefaultListModel<String> modelList;
 
@@ -57,23 +56,16 @@ public class GestioneHackathon {
             utenteCheckBox.setVisible(false);
             giudiceCheckBox.setVisible(false);
             teamCheckBox.setVisible(false);
-            titoloListaLabel.setVisible(false);
-
-            if(!username.isVisible()){
-                username.setVisible(true);
-                usernameTextField.setVisible(true);
-                confermaGiudiceButton.setVisible(true);
-                list.setVisible(true);
-                titoloListaLabel.setVisible(true);
-                titoloListaLabel.setText("Lista di potenziali Giudici");
-                controller.mostraPotenzialiGiudici(list, modelList, panelHackathon);
+            if(!controller.mostraPotenzialiGiudici(list, modelList, panelHackathon)){
+                username.setVisible(false);
+                usernameTextField.setVisible(false);
+                confermaGiudiceButton.setVisible(false);
                 return;
             }
-            username.setVisible(false);
-            usernameTextField.setVisible(false);
-            confermaGiudiceButton.setVisible(false);
-            titoloListaLabel.setVisible(false);
-            list.setVisible(false);
+            boolean check=!username.isVisible();
+            username.setVisible(!check);
+            usernameTextField.setVisible(!check);
+            confermaGiudiceButton.setVisible(!check);
         });
 
         confermaGiudiceButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -83,7 +75,6 @@ public class GestioneHackathon {
         elencoUtentiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         elencoUtentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoUtentiButton.addActionListener(e -> {
-                titoloListaLabel.setText("Lista di utenti iscritti alla sua hackathon");
                 controller.mostraUtenti(list, modelList, panelHackathon, organizzatore);
         });
 
@@ -91,14 +82,12 @@ public class GestioneHackathon {
         elencoGiudiciButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoGiudiciButton.addActionListener(e -> {
             controller.mostraGiudici(list, modelList, panelHackathon, organizzatore);
-            titoloListaLabel.setText("Lista dei Giudici della sua hackathon");
         });
 
         elencoTeamsButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         elencoTeamsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoTeamsButton.addActionListener(e -> {
             controller.mostraTeams(list, modelList, panelHackathon, organizzatore);
-            titoloListaLabel.setText("Lista dei team partecipanti alla sua hackathon");
         });
 
         terminaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
