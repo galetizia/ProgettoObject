@@ -21,8 +21,8 @@ public class ControllerClassifica {
 
     public ControllerClassifica(MainController mainController, Integer hackathonID) {
         this.mainController = mainController;
-        this.classifica = new Classifica(this, hackathonID);
         this.hackathonID = hackathonID;
+        this.classifica = new Classifica(this, hackathonID);
     }
 
     public JPanel getSchermataClassifica(){return classifica.getMainPanel();}
@@ -36,7 +36,7 @@ public class ControllerClassifica {
         int posizioniClassifica = 0;
 
         for(Team t : teams){
-            modelList.addElement((++posizioniClassifica) + ") " + "ID: " + t.getId() + " - Team: " + t.getNome() + " - MediaVoti: " + t.getMediaVoti());
+            modelList.addElement((++posizioniClassifica) + "° Posizione) " + "ID: " + t.getId() + " - Team: " + t.getNome() + " - MediaVoti: " + t.getMediaVoti());
         }
         list.revalidate();
         list.repaint();
