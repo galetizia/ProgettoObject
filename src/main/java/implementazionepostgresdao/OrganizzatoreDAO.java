@@ -71,6 +71,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
+    @Override
     public boolean aggiungiGiudice(String username, Integer idHackathon){
         Utente u = hdao.findUtenteByUsername(username);
         if (u == null || u.getTeamID()!=null) {
