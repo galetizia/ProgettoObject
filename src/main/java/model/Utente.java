@@ -20,13 +20,6 @@ public class Utente {
         this.teamID = null;
     }
 
-    public Utente login(String username, String password) {
-        if(this.username.equals(username) && this.password.equals(password)) {
-            return this;
-        }
-        return null;
-    }
-
     public String getNome() { return this.nome; }
     public String getCognome() { return this.cognome; }
     public String getEmail() { return this.email; }

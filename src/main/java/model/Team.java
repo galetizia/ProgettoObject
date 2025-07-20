@@ -25,13 +25,11 @@ public class Team {
     }
 
     public String getNome(){ return this.nome; }
-    public int getMaxDimTeam() { return maxDimTeam; }
 
     public Integer getId(){ return this.id; }
     public void setId(int id) { this.id = id; }
 
     public Double getMediaVoti() { return mediaVoti; }
-    public void setMediaVoti(Double mediaVoti) { this.mediaVoti = mediaVoti; }
 
     public Integer getHackathonID() { return hackathonID; }
     public void setHackathonID(Integer hackathonID) { this.hackathonID = hackathonID; }

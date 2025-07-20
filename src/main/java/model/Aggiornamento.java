@@ -3,10 +3,10 @@ package model;
 public class Aggiornamento {
 
     private Integer idAggiornamento;
-    private Integer teamID;
-    private String usernameUtente;
+    private final Integer teamID;
+    private final String usernameUtente;
     private String nome;
-    private String documento;
+    private final String documento;
     private boolean isElaboratoFinale = false;
 
 
@@ -20,19 +20,12 @@ public class Aggiornamento {
     public String getNome() {return this.nome;}
 
     public String getDocumento() {return this.documento;}
-    public void setDocumento(String documento) {this.documento = documento;}
 
     public void setIdAggiornamento(Integer idAggiornamento) {this.idAggiornamento = idAggiornamento;}
-    public Integer getIdAggiornamento() {return this.idAggiornamento;}
 
-    public void setTeamID(Integer teamID) {this.teamID = teamID;}
     public Integer getTeamID() {return this.teamID;}
 
-    public void setUsernameUtente(String usernameUtente) {this.usernameUtente = usernameUtente;}
     public String getUsernameUtente() {return this.usernameUtente;}
 
     public void setElaboratoFinale(boolean isElaboratoFinale) {this.isElaboratoFinale = isElaboratoFinale;}
-    public boolean getElaboratoFinale() {return this.isElaboratoFinale;}
-
-
 }
