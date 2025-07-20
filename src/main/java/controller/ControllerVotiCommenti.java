@@ -27,13 +27,17 @@ public class ControllerVotiCommenti {
         this.giudice = giudice;
     }
 
-    public void getTeams(Giudice giudice, JList<String> listTeams,DefaultListModel<String> modelTeams) {
+    public void getTeams(Giudice giudice, JList<String> listTeams, DefaultListModel<String> modelTeams) {
         List<Team> teams = hdao.getTeamByHackathon(giudice.getHackathonID());
         if(teams.isEmpty()) {
             JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Nessun Team iscritto!", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+
         modelTeams.clear();
+
+        modelTeams.addElement("---------- Elenco Team -----------");
+
         for (Team team : teams) {
             modelTeams.addElement(team.getNome()+" (ID: "+team.getId()+")");
         }
@@ -50,6 +54,8 @@ public class ControllerVotiCommenti {
         }
 
         modelList.clear();
+
+        modelList.addElement("Elenco Team con Elaborato Finale");
         for (Team team : teams) {
             modelList.addElement(team.getNome()+" (ID: "+team.getId()+")");
         }

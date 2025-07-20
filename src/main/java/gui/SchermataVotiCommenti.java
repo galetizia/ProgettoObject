@@ -33,8 +33,8 @@ public class SchermataVotiCommenti {
     private JLabel commentoF;
     private JLabel teamIdtextField;
     private JLabel votField;
-    private JButton elaboratiFinaliConsegnatiButton;
     private DefaultListModel<String> modelList;
+    private JButton ultimoPulsantePremuto = null;
 
     HackathonDAO hdao = new HackathonDAO();
     TeamDAO tdao = new TeamDAO();
@@ -65,23 +65,34 @@ public class SchermataVotiCommenti {
         elencoTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         elencoTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoTeamButton.addActionListener(e -> {
-            controller.getTeams(giudice, list, modelList);
+            if (ultimoPulsantePremuto == elencoTeamButton) {
+                modelList.clear();
+                ultimoPulsantePremuto = null;
+            } else {
+                controller.getTeams(giudice, list, modelList);
+                ultimoPulsantePremuto = elencoTeamButton;
+            }
         });
 
         visualizzaAggiornamentoDiUnButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         visualizzaAggiornamentoDiUnButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         visualizzaAggiornamentoDiUnButton.addActionListener(e -> {
 
-            aggTextId.setVisible(false);
-            commentoTextF.setVisible(false);
-            commentoF.setVisible(false);
-            commIDT.setVisible(false);
-            teamIdtextField.setVisible(false);
-            votField.setVisible(false);
-            confermavotoButton.setVisible(false);
-            confermacommentoButton.setVisible(false);
-            idTeamField.setVisible(false);
-            votoField.setVisible(false);
+            if(aggTextId.isVisible()) {
+                commIDT.setVisible(false);
+                aggTextId.setVisible(false);
+                commentoF.setVisible(false);
+                commentoTextF.setVisible(false);
+                confermacommentoButton.setVisible(false);
+            }
+
+            if(teamIdtextField.isVisible()) {
+                teamIdtextField.setVisible(false);
+                idTeamField.setVisible(false);
+                votField.setVisible(false);
+                votoField.setVisible(false);
+                confermavotoButton.setVisible(false);
+            }
 
             if(!idTextField.isVisible()){
                 idTextF.setVisible(true);
@@ -92,6 +103,15 @@ public class SchermataVotiCommenti {
                 idTextField.setVisible(false);
                 confermavisualizzButton.setVisible(false);
             }
+
+            if (ultimoPulsantePremuto == visualizzaAggiornamentoDiUnButton) {
+                modelList.clear();
+                ultimoPulsantePremuto = null;
+            } else {
+                controller.getTeams(giudice, list, modelList);
+                ultimoPulsantePremuto = visualizzaAggiornamentoDiUnButton;
+            }
+
             mainPanel.revalidate();
             mainPanel.repaint();
         });
@@ -104,35 +124,42 @@ public class SchermataVotiCommenti {
                 JOptionPane.showMessageDialog(mainPanel, "Inserire un ID di un team", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            int id;
+            int teamId;
             try {
-                id = Integer.parseInt(idTxt);
+                teamId = Integer.parseInt(idTxt);
             }catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(mainPanel, "L'ID deve essere un numero intero valido", "Errore di formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            if(tdao.getUltimoAggiornamento(id) == null){
+            String agg = tdao.getUltimoAggiornamento(teamId);
+            if(agg == null){
                 JOptionPane.showMessageDialog(mainPanel, "Nessun aggiornamento presente", "Errore di formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            String a = tdao.getUltimoAggiornamento(id);
-            String aHTML = "<html>" + a.replaceAll("(.{50})", "$1<br>") + "</html>";
+            String aHTML = "<html>" + agg.replaceAll("(.{50})", "$1<br>") + "</html>";
             JOptionPane.showMessageDialog(mainPanel, aHTML, "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
 
+            modelList.clear();
         });
 
         commentaUnAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         commentaUnAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         commentaUnAggiornamentoButton.addActionListener(e -> {
-            idTextF.setVisible(false);
-            idTextField.setVisible(false);
-            teamIdtextField.setVisible(false);
-            votField.setVisible(false);
-            confermavotoButton.setVisible(false);
-            confermavisualizzButton.setVisible(false);
-            idTeamField.setVisible(false);
-            votoField.setVisible(false);
+
+            if(idTextField.isVisible()){
+                idTextF.setVisible(false);
+                idTextField.setVisible(false);
+                confermavisualizzButton.setVisible(false);
+            }
+
+            if(teamIdtextField.isVisible()) {
+                teamIdtextField.setVisible(false);
+                idTeamField.setVisible(false);
+                votField.setVisible(false);
+                votoField.setVisible(false);
+                confermavotoButton.setVisible(false);
+            }
 
             if(!aggTextId.isVisible()){
                 commIDT.setVisible(true);
@@ -147,6 +174,15 @@ public class SchermataVotiCommenti {
                 commentoF.setVisible(false);
                 confermacommentoButton.setVisible(false);
             }
+
+            if (ultimoPulsantePremuto == visualizzaAggiornamentoDiUnButton) {
+                modelList.clear();
+                ultimoPulsantePremuto = null;
+            } else {
+                controller.getTeams(giudice, list, modelList);
+                ultimoPulsantePremuto = visualizzaAggiornamentoDiUnButton;
+            }
+
         });
 
         confermacommentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -186,14 +222,19 @@ public class SchermataVotiCommenti {
         valutaUnTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         valutaUnTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         valutaUnTeamButton.addActionListener(e -> {
-            idTextF.setVisible(false);
-            idTextField.setVisible(false);
-            aggTextId.setVisible(false);
-            commentoTextF.setVisible(false);
-            commentoF.setVisible(false);
-            commIDT.setVisible(false);
-            confermacommentoButton.setVisible(false);
-            confermavisualizzButton.setVisible(false);
+
+            if(idTextField.isVisible()) {
+                idTextF.setVisible(false);
+                idTextField.setVisible(false);
+                confermavisualizzButton.setVisible(false);
+            }
+            if(commentoTextF.isVisible()) {
+                commentoTextF.setVisible(false);
+                commentoF.setVisible(false);
+                commIDT.setVisible(false);
+                aggTextId.setVisible(false);
+                confermacommentoButton.setVisible(false);
+            }
 
             if(!teamIdtextField.isVisible()){
                 teamIdtextField.setVisible(true);
@@ -208,12 +249,15 @@ public class SchermataVotiCommenti {
                 votoField.setVisible(false);
                 confermavotoButton.setVisible(false);
             }
-        });
 
-        elaboratiFinaliConsegnatiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        elaboratiFinaliConsegnatiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        elaboratiFinaliConsegnatiButton.addActionListener(e -> {
-            controller.elaboratiFinali(list, modelList);
+            if (ultimoPulsantePremuto == visualizzaAggiornamentoDiUnButton) {
+                modelList.clear();
+                ultimoPulsantePremuto = null;
+            } else {
+                controller.elaboratiFinali(list, modelList);
+                ultimoPulsantePremuto = visualizzaAggiornamentoDiUnButton;
+            }
+
         });
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));

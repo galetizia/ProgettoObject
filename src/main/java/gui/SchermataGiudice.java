@@ -34,6 +34,8 @@ public class SchermataGiudice {
         Hackathon h = hdao.getHackathonByID(giudice.getHackathonID());
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
         name.setVisible(false);
+        attualehack.setVisible(false);
+        attualehack.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
         classificaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -45,8 +47,6 @@ public class SchermataGiudice {
             }
         });
 
-        attualehack.setVisible(false);
-        attualehack.setFont(new Font("Segoe UI", Font.BOLD, 14));
         infoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         infoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         infoButton.addActionListener(e -> {
@@ -71,10 +71,10 @@ public class SchermataGiudice {
             mainpanel.revalidate();
             mainpanel.repaint();
         });
+
         votazioniCommentiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         votazioniCommentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         votazioniCommentiButton.addActionListener(e -> controller.showSchermataVotiCommenti(giudice));
-
 
         hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
