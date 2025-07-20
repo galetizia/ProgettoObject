@@ -45,7 +45,7 @@ public class ControllerIscrizioneTeam {
             JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "ID hackathon non valido" , "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        List<Team> teams = tdao.getTeamByHackathon(id);
+        List<Team> teams = hdao.getTeamByHackathon(id);
 
         if(teams.size() >= hdao.getMaxDimTeam(id)) {
             JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Raggiunto numero massimo di Team" , "Error", JOptionPane.ERROR_MESSAGE);
@@ -61,7 +61,7 @@ public class ControllerIscrizioneTeam {
         List<Hackathon> hackathons = hdao.getHackathons();
         modelList.clear();
         for (Hackathon h : hackathons) {
-            List<Team> teams = tdao.getTeamByHackathon(h.getID());
+            List<Team> teams = hdao.getTeamByHackathon(h.getID());
             modelList.addElement(h.getNome()+" (ID: "+h.getID()+") "+"("+teams.size()+"/"+hdao.getMaxIscritti(h.getID())+")");
         }
 
@@ -106,7 +106,7 @@ public class ControllerIscrizioneTeam {
         }
         try {
             int hackathonID = Integer.parseInt(idHackathonTxt);
-            List<Team> teams = tdao.getTeamByHackathon(hackathonID);
+            List<Team> teams = hdao.getTeamByHackathon(hackathonID);
             modelList.clear();
             if(teams.isEmpty()) {
                 JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Nessun Team iscritto a quest Hackathon!", "Attenzione", JOptionPane.WARNING_MESSAGE);

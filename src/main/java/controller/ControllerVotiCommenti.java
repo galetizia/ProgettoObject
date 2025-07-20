@@ -28,7 +28,7 @@ public class ControllerVotiCommenti {
     }
 
     public void getTeams(Giudice giudice, JList<String> listTeams,DefaultListModel<String> modelTeams) {
-        List<Team> teams = tdao.getTeamByHackathon(giudice.getHackathonID());
+        List<Team> teams = hdao.getTeamByHackathon(giudice.getHackathonID());
         if(teams.isEmpty()) {
             JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Nessun Team iscritto!", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;

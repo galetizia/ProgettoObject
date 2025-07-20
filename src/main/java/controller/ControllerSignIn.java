@@ -2,6 +2,7 @@ package controller;
 
 import gui.SignIn;
 import implementazionepostgresdao.*;
+import model.Hackathon;
 import model.Utente;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ public class ControllerSignIn {
     private final SignIn signInGui;
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     UtenteDAO udao = new UtenteDAO();
+    HackathonDAO hdao = new HackathonDAO();
 
     private final MainController mainController;
 
@@ -36,9 +38,9 @@ public class ControllerSignIn {
 
             boolean success;
             if (isUtente) {
-                success = udao.signIn(u.getNome(),u.getCognome(),u.getEmail(),u.getUsername(),u.getPassword());
+                success = hdao.signInUtente(u.getNome(),u.getCognome(),u.getEmail(),u.getUsername(),u.getPassword());
             } else{
-                success = odao.signIn(u.getNome(),u.getCognome(),u.getEmail(),u.getUsername(),u.getPassword());
+                success = hdao.signInOrganizzatore(u.getNome(),u.getCognome(),u.getEmail(),u.getUsername(),u.getPassword());
             }
 
             if (!success) {

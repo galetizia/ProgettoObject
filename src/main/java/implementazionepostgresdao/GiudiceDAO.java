@@ -2,10 +2,7 @@ package implementazionepostgresdao;
 
 import dao.IGiudiceDAO;
 import database.ConnessioneDatabase;
-import model.Giudice;
-import model.Organizzatore;
-import model.Team;
-import model.Voto;
+import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,13 +10,12 @@ import java.util.List;
 
 public class GiudiceDAO implements IGiudiceDAO {
 
-    private Connection connection;
     public GiudiceDAO() {}
     TeamDAO tdao = new TeamDAO();
 
     @Override
     public Giudice login(String username, String password) {
-        String sql = "SELECT * FROM giudice WHERE username = ? AND password = ?";
+        String sql = "SELECT nome, cognome, email, username, password, hackathon_id FROM giudice WHERE username = ? AND password = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -28,7 +24,7 @@ public class GiudiceDAO implements IGiudiceDAO {
 
             if (rs.next()) {
 
-                Giudice g = new Giudice(
+                return new Giudice(
                         rs.getString("nome"),
                         rs.getString("cognome"),
                         rs.getString("email"),
@@ -36,12 +32,44 @@ public class GiudiceDAO implements IGiudiceDAO {
                         rs.getString("password"),
                         rs.getInt("hackathon_id")
                 );
-                return g;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private Giudice findGiudiceByField(String field, String value) {
+        String sql = "SELECT nome, cognome, email, username, password, hackathon_id  FROM giudice WHERE " + field + " = ?";
+
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, value);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Giudice(
+                        rs.getString("nome"),
+                        rs.getString("cognome"),
+                        rs.getString("email"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("hackathon_id")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Giudice findGiudiceByUsername(String username) {
+        return findGiudiceByField("username", username);
+    }
+
+    @Override
+    public Giudice findGiudiceByEmail(String email) {
+        return findGiudiceByField("email", email);
     }
 
     @Override
@@ -130,7 +158,7 @@ public class GiudiceDAO implements IGiudiceDAO {
                 int idTeam = rs.getInt("team_id");
                 Team t = tdao.getTeamByID(idTeam);
 
-                if(t!=null && t.getHackathonID() == hackathonID) teams.add(t);
+                if(t!=null && t.getHackathonID().equals(hackathonID)) teams.add(t);
             }
 
         }catch(SQLException e) {

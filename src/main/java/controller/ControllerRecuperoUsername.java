@@ -1,7 +1,8 @@
 package controller;
 
 import gui.RecuperoUsername;
-import implementazionepostgresdao.HackathonDAO;
+import implementazionepostgresdao.*;
+import implementazionepostgresdao.UtenteDAO;
 import model.*;
 
 import javax.swing.*;
@@ -9,6 +10,9 @@ import javax.swing.*;
 public class ControllerRecuperoUsername {
     private final RecuperoUsername recuperoUsername;
     HackathonDAO hdao = new HackathonDAO();
+    UtenteDAO udao = new UtenteDAO();
+    OrganizzatoreDAO odao = new OrganizzatoreDAO();
+    GiudiceDAO gdao = new GiudiceDAO();
 
     private final MainController mainController;
 
@@ -23,23 +27,30 @@ public class ControllerRecuperoUsername {
     public void recuperoUsername(String email, String password) {
 
         boolean success = false;
-        Utente u = hdao.findUtenteByEmail(email);
-        Organizzatore o = hdao.findOrganizzatoreByEmail(email);
-            if((u!=null)&&((u.getEmail().equalsIgnoreCase(email)) && (u.getPassword().equalsIgnoreCase(password)))){
-                success = true;
-                JOptionPane.showMessageDialog(getRecuperoUsername(), "Username: " +u.getUsername());
-            }
+        Utente u = udao.findUtenteByEmail(email);
+        Organizzatore o = odao.findOrganizzatoreByEmail(email);
+        Giudice g = gdao.findGiudiceByEmail(email);
 
-            if((o!=null)&&((o.getEmail().equalsIgnoreCase(email)) && (o.getPassword().equalsIgnoreCase(password)))){
-                success = true;
-                JOptionPane.showMessageDialog(getRecuperoUsername(),"Username: " +o.getUsername());
-            }
+        if((u!=null)&&((u.getEmail().equalsIgnoreCase(email)) && (u.getPassword().equalsIgnoreCase(password)))){
+            success = true;
+            JOptionPane.showMessageDialog(getRecuperoUsername(), "Username: " +u.getUsername());
+        }
+
+        if((o!=null)&&((o.getEmail().equalsIgnoreCase(email)) && (o.getPassword().equalsIgnoreCase(password)))){
+            success = true;
+            JOptionPane.showMessageDialog(getRecuperoUsername(),"Username: " +o.getUsername());
+        }
+
+        if((g!=null)&&((g.getEmail().equalsIgnoreCase(email)) && (g.getPassword().equalsIgnoreCase(password)))){
+            success = true;
+            JOptionPane.showMessageDialog(getRecuperoUsername(),"Username: " +g.getUsername());
+        }
 
         if(!success){
             if(email.isEmpty() || password.isEmpty()){
                 JOptionPane.showMessageDialog(getRecuperoUsername(), "Compila tutti i campi");
             } else
-                JOptionPane.showMessageDialog(getRecuperoUsername(), "Non ci sono utenti/organizzatori con questa email/password");
+                JOptionPane.showMessageDialog(getRecuperoUsername(), "Non ci sono utenti/organizzatori/giudici con questa email/password");
         }
     }
 

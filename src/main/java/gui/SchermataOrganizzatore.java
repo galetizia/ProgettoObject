@@ -77,7 +77,7 @@ public class SchermataOrganizzatore {
                 JOptionPane.showMessageDialog(mainPanel, "Al momento non sta gestendo alcun Hackathon!", "Info", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-           List<Team> teams = tdao.getTeamByHackathon(organizzatore.getHackathonID());
+           List<Team> teams = hdao.getTeamByHackathon(organizzatore.getHackathonID());
 
             if(teams.isEmpty()) {
                 JOptionPane.showMessageDialog(mainPanel, "Nessun Team iscritto!", "Error", JOptionPane.ERROR_MESSAGE);

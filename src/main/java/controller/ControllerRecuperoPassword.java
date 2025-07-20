@@ -9,6 +9,9 @@ import javax.swing.*;
 public class ControllerRecuperoPassword {
     private final RecuperaPassword recuperaPassword;
     HackathonDAO hdao = new HackathonDAO();
+    UtenteDAO udao = new UtenteDAO();
+    OrganizzatoreDAO odao = new OrganizzatoreDAO();
+    GiudiceDAO gdao = new GiudiceDAO();
 
     private final MainController mainController;
 
@@ -23,24 +26,30 @@ public class ControllerRecuperoPassword {
 
     public void recuperoPassword(String email, String username) {
         boolean success = false;
-        Utente u = hdao.findUtenteByUsername(username);
-        Organizzatore o = hdao.findOrganizzatoreByUsername(username);
+        Utente u = udao.findUtenteByUsername(username);
+        Organizzatore o = odao.findOrganizzatoreByUsername(username);
+        Giudice g = gdao.findGiudiceByUsername(username);
 
-            if((u!=null)&&((u.getEmail().equalsIgnoreCase(email)) && (u.getUsername().equalsIgnoreCase(username)))){
-                success = true;
-                JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +u.getPassword());
-            }
+        if((u!=null)&&((u.getEmail().equalsIgnoreCase(email)) && (u.getUsername().equalsIgnoreCase(username)))){
+            success = true;
+            JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +u.getPassword());
+        }
 
-            if((o!=null)&&((o.getEmail().equalsIgnoreCase(email)) && (o.getUsername().equalsIgnoreCase(username)))){
-                success = true;
-                JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +o.getPassword());
-            }
+        if((o!=null)&&((o.getEmail().equalsIgnoreCase(email)) && (o.getUsername().equalsIgnoreCase(username)))){
+            success = true;
+            JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +o.getPassword());
+        }
+
+        if((g!=null)&&((g.getEmail().equalsIgnoreCase(email)) && (g.getUsername().equalsIgnoreCase(username)))){
+            success = true;
+            JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +g.getPassword());
+        }
 
         if(!success){
             if(email.isEmpty() || username.isEmpty()){
                 JOptionPane.showMessageDialog(getRecuperaPassword(), "Compila tutti i campi");
             } else
-                JOptionPane.showMessageDialog(getRecuperaPassword(), "Non ci sono utenti/organizzatori con questo username/email");
+                JOptionPane.showMessageDialog(getRecuperaPassword(), "Non ci sono utenti/organizzatori/giudici con questo username/email");
         }
     }
     public void logout() {

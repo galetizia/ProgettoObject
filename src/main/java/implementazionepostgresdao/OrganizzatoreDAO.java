@@ -7,14 +7,28 @@ import java.sql.*;
 
 public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
-    private Connection connection;
-    HackathonDAO hdao = new HackathonDAO();
-
+    UtenteDAO udao = new UtenteDAO();
     public OrganizzatoreDAO() {}
 
+    private Organizzatore mapResultSetToOrganizzatore(ResultSet rs) throws SQLException {
+        Organizzatore o = new Organizzatore(
+                rs.getString("nome"),
+                rs.getString("cognome"),
+                rs.getString("email"),
+                rs.getString("username"),
+                rs.getString("password")
 
+        );
+        int hackathonId = rs.getInt("hackathon_id");
+        if (rs.wasNull()) o.setHackathonID(null);
+        else o.setHackathonID(hackathonId);
+
+        return o;
+    }
+
+    @Override
     public Organizzatore login(String username, String password) {
-        String sql = "SELECT * FROM organizzatore WHERE username = ? AND password = ?";
+        String sql = "SELECT nome, cognome, email, username, password, hackathon_id FROM organizzatore WHERE username = ? AND password = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -22,20 +36,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
-                Organizzatore o = new Organizzatore(
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password")
-
-                );
-                int hackathonId = rs.getInt("hackathon_id");
-                if (rs.wasNull()) o.setHackathonID(null);
-                else o.setHackathonID(hackathonId);
-
-                return o;
+                return mapResultSetToOrganizzatore(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,37 +44,35 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         return null;
     }
 
-    public boolean signIn(String nome, String cognome, String email, String username, String password){
-        String checksql="SELECT * FROM organizzatore WHERE username=? OR email=?";
-        String insertsql="INSERT INTO organizzatore(nome,cognome,email,username,password) VALUES(?,?,?,?,?)";
+    private Organizzatore findOrganizzatoreByField(String field, String value) {
+        String sql = "SELECT nome, cognome, email, username, password, hackathon_id  FROM organizzatore WHERE " + field + " = ?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement checkstmt = con.prepareStatement(checksql);
-             PreparedStatement insertstmt = con.prepareStatement(insertsql)) {
-            checkstmt.setString(1, username);
-            checkstmt.setString(2, email);
-            ResultSet rs = checkstmt.executeQuery();
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, value);
+            ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return false;
+                return mapResultSetToOrganizzatore(rs);
             }
-
-            insertstmt.setString(1, nome);
-            insertstmt.setString(2, cognome);
-            insertstmt.setString(3, email);
-            insertstmt.setString(4, username);
-            insertstmt.setString(5, password);
-
-            return (insertstmt.executeUpdate() > 0);
-
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return null;
+    }
+
+    @Override
+    public Organizzatore findOrganizzatoreByUsername(String username) {
+        return findOrganizzatoreByField("username", username);
+    }
+
+    @Override
+    public Organizzatore findOrganizzatoreByEmail(String email) {
+        return findOrganizzatoreByField("email", email);
     }
 
     @Override
     public boolean aggiungiGiudice(String username, Integer idHackathon){
-        Utente u = hdao.findUtenteByUsername(username);
+        Utente u = udao.findUtenteByUsername(username);
         if (u == null || u.getTeamID()!=null) {
             return false;
         }
@@ -107,26 +106,6 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
     }
 
     @Override
-    public String getHackathonTitleByID(Integer id){
-        String sql="SELECT titolo FROM hackathon WHERE id=?";
-
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-
-                String titoloHackathon = rs.getString("titolo");
-
-                return titoloHackathon;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
     public void removeUtente(String username) {
         String sql = "UPDATE utente SET hackathon_id = null, team_id = null WHERE username = ?";
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -140,7 +119,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     @Override
     public void removeGiudice(String username) {
-        String selectSql = "SELECT * FROM giudice WHERE username = ?";
+        String selectSql = "SELECT nome, cognome, email, username, password, hackathon_id FROM giudice WHERE username = ?";
         String deleteSql = "DELETE FROM giudice WHERE username = ?";
         String insertSql = "INSERT INTO utente (nome, cognome, email, username, password) VALUES (?, ?, ?, ?, ?)";
 
@@ -185,12 +164,12 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
     }
 
     @Override
-    public void terminaHackathon(Integer hackathon_id, String username_organizzatore) {
+    public void terminaHackathon(Integer hackathonId) {
         String deletesql = "DELETE FROM hackathon WHERE id=?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(deletesql)) {
 
-            stmt.setInt(1, hackathon_id);
+            stmt.setInt(1, hackathonId);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -198,6 +177,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
+    @Override
     public void setClassifica(Integer id) {
         String sql = "UPDATE hackathon SET classifica_pubblicata=TRUE WHERE id=?";
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {

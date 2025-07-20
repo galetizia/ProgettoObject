@@ -11,8 +11,6 @@ public interface ITeamDAO {
 
     void rimuoviUtenteDalTeam(String username);
 
-    List<Team> getTeamByHackathon(Integer id);
-
     void caricaTeamNelDB(Team team, Utente utente);
 
     void caricaAggiornamentoDB(Utente utente, Aggiornamento aggiornamento, boolean isElaboratoFinale);

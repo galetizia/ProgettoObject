@@ -1,10 +1,7 @@
 package controller;
 
 import gui.GestioneHackathon;
-import implementazionepostgresdao.HackathonDAO;
-import implementazionepostgresdao.OrganizzatoreDAO;
-import implementazionepostgresdao.TeamDAO;
-import implementazionepostgresdao.UtenteDAO;
+import implementazionepostgresdao.*;
 import model.Giudice;
 import model.Organizzatore;
 import model.Team;
@@ -21,6 +18,7 @@ public class ControllerGestioneHackathon {
     TeamDAO tdao = new TeamDAO();
     HackathonDAO hdao = new HackathonDAO();
     UtenteDAO udao = new UtenteDAO();
+    GiudiceDAO gdao = new GiudiceDAO();
 
     public ControllerGestioneHackathon(MainController mainController, Organizzatore organizzatore) {
         this.mainController = mainController;
@@ -31,7 +29,7 @@ public class ControllerGestioneHackathon {
     public void terminaHackathon() {
         int conferma = JOptionPane.showConfirmDialog(schermataGestioneHackathon.getMainPanel(), "Sei sicuro di voler terminare l'Hackathon prima della data finale?", "Conferma", JOptionPane.YES_NO_OPTION);
         if (conferma == JOptionPane.YES_OPTION) {
-            odao.terminaHackathon(organizzatoreLoggato.getHackathonID(), organizzatoreLoggato.getUsername());
+            odao.terminaHackathon(organizzatoreLoggato.getHackathonID());
             organizzatoreLoggato.setHackathonID(null);
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Hai terminato l'Hackathon con successo.");
             mainController.showSchermataOrganizzatore(organizzatoreLoggato);
@@ -39,10 +37,10 @@ public class ControllerGestioneHackathon {
     }
 
     public void mostraTeams(JList<String> list, DefaultListModel<String> modelList, JScrollPane panel, Organizzatore organizzatore) {
-        List<Team> teams = tdao.getTeamByHackathon(organizzatore.getHackathonID());
+        List<Team> teams = hdao.getTeamByHackathon(organizzatore.getHackathonID());
         modelList.clear();
         if(teams.isEmpty()){
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti team","Attenzione", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti team","INFORMATION", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         modelList.addElement("--------------------------- Elenco Team ---------------------------");
@@ -60,7 +58,7 @@ public class ControllerGestioneHackathon {
         List<Utente> users = hdao.getUtenti(organizzatore.getHackathonID());
         modelList.clear();
         if(users.isEmpty()){
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti utenti","Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti utenti","INFORMATION", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         modelList.addElement("-------------------------- Elenco Utenti --------------------------");
@@ -140,7 +138,7 @@ public class ControllerGestioneHackathon {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Inserire Username" , "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Utente u = hdao.findUtenteByUsername(idTextField.getText());
+        Utente u = udao.findUtenteByUsername(idTextField.getText());
 
         if(u == null) {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Utente "+username+" non trovato" , "Error", JOptionPane.ERROR_MESSAGE);
@@ -167,7 +165,7 @@ public class ControllerGestioneHackathon {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Inserire Username" , "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Giudice g = hdao.findGiudiceByUsername(username);
+        Giudice g = gdao.findGiudiceByUsername(username);
 
         if(g == null) {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Giudice "+username+" non trovato" , "Error", JOptionPane.ERROR_MESSAGE);
