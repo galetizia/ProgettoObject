@@ -65,6 +65,29 @@ public class SchermataVotiCommenti {
         elencoTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         elencoTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoTeamButton.addActionListener(e -> {
+
+            if(aggTextId.isVisible()) {
+                commIDT.setVisible(false);
+                aggTextId.setVisible(false);
+                commentoF.setVisible(false);
+                commentoTextF.setVisible(false);
+                confermacommentoButton.setVisible(false);
+            }
+
+            if(teamIdtextField.isVisible()) {
+                teamIdtextField.setVisible(false);
+                idTeamField.setVisible(false);
+                votField.setVisible(false);
+                votoField.setVisible(false);
+                confermavotoButton.setVisible(false);
+            }
+
+            if(idTextField.isVisible()){
+                idTextF.setVisible(false);
+                idTextField.setVisible(false);
+                confermavisualizzButton.setVisible(false);
+            }
+
             if (ultimoPulsantePremuto == elencoTeamButton) {
                 modelList.clear();
                 ultimoPulsantePremuto = null;
@@ -175,12 +198,12 @@ public class SchermataVotiCommenti {
                 confermacommentoButton.setVisible(false);
             }
 
-            if (ultimoPulsantePremuto == visualizzaAggiornamentoDiUnButton) {
+            if (ultimoPulsantePremuto == commentaUnAggiornamentoButton) {
                 modelList.clear();
                 ultimoPulsantePremuto = null;
             } else {
                 controller.getTeams(giudice, list, modelList);
-                ultimoPulsantePremuto = visualizzaAggiornamentoDiUnButton;
+                ultimoPulsantePremuto = commentaUnAggiornamentoButton;
             }
 
         });
@@ -250,12 +273,12 @@ public class SchermataVotiCommenti {
                 confermavotoButton.setVisible(false);
             }
 
-            if (ultimoPulsantePremuto == visualizzaAggiornamentoDiUnButton) {
+            if (ultimoPulsantePremuto == valutaUnTeamButton) {
                 modelList.clear();
                 ultimoPulsantePremuto = null;
             } else {
                 controller.elaboratiFinali(list, modelList);
-                ultimoPulsantePremuto = visualizzaAggiornamentoDiUnButton;
+                ultimoPulsantePremuto = valutaUnTeamButton;
             }
 
         });
