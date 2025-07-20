@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class UtenteDAO implements IUtenteDAO {
 
-    public UtenteDAO() {}
+    public UtenteDAO() { /* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/ }
     TeamDAO tdao = new TeamDAO();
 
     private Utente mapResultSetToUtente(ResultSet rs) throws SQLException {

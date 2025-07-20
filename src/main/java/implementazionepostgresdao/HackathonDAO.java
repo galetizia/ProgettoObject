@@ -12,7 +12,13 @@ import database.ConnessioneDatabase;
 
 public class HackathonDAO implements IHackathonDAO {
 
-    public HackathonDAO() {}
+    private static final String COGNOME = "cognome";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String EMAIL = "email";
+    private static final String HACKATHONID = "hackathon_id";
+
+    public HackathonDAO() {/* Costruttore vuoto perchè l'oggetto DAO non lo utiliziamo con dei campi a cui assegnare i valori*/}
 
     private boolean signIn(String tableName, String nome, String cognome, String email, String username, String password){
         String checksql="SELECT * FROM"+ tableName +" WHERE username=? OR email=?";
@@ -191,12 +197,12 @@ public class HackathonDAO implements IHackathonDAO {
             while (rs.next()) {
                 Utente u = new Utente(
                         rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password")
+                        rs.getString(COGNOME),
+                        rs.getString(EMAIL),
+                        rs.getString(USERNAME),
+                        rs.getString(PASSWORD)
                 );
-                u.setHackathonID(rs.getInt("hackathon_id"));
+                u.setHackathonID(rs.getInt(HACKATHONID));
                 int teamId = rs.getInt("team_id");
                 if (rs.wasNull()) u.setTeamID(null);
                 else u.setTeamID(teamId);
@@ -222,11 +228,11 @@ public class HackathonDAO implements IHackathonDAO {
             while (rs.next()) {
                 Giudice g = new Giudice(
                         rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("hackathon_id")
+                        rs.getString(COGNOME),
+                        rs.getString(EMAIL),
+                        rs.getString(USERNAME),
+                        rs.getString(PASSWORD),
+                        rs.getInt(HACKATHONID)
                 );
                 giudici.add(g);
             }
@@ -249,7 +255,7 @@ public class HackathonDAO implements IHackathonDAO {
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getDouble("mediavoti"),
-                        rs.getInt("hackathon_id")
+                        rs.getInt(HACKATHONID)
                 ));
             }
         } catch (SQLException e) {
@@ -299,12 +305,12 @@ public class HackathonDAO implements IHackathonDAO {
             while (rs.next()) {
                 Utente u = new Utente(
                         rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password")
+                        rs.getString(COGNOME),
+                        rs.getString(EMAIL),
+                        rs.getString(USERNAME),
+                        rs.getString(PASSWORD)
                 );
-                int hackathonId = rs.getInt("hackathon_id");
+                int hackathonId = rs.getInt(HACKATHONID);
                 if (rs.wasNull()) u.setHackathonID(null);
                 else u.setTeamID(hackathonId);
 

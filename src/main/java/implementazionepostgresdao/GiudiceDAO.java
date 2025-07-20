@@ -10,7 +10,10 @@ import java.util.List;
 
 public class GiudiceDAO implements IGiudiceDAO {
 
-    public GiudiceDAO() {}
+    private static final String EMAIL = "email";
+    private static final String USERNAME = "username";
+
+    public GiudiceDAO() {/* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
     TeamDAO tdao = new TeamDAO();
 
     @Override
@@ -27,8 +30,8 @@ public class GiudiceDAO implements IGiudiceDAO {
                 return new Giudice(
                         rs.getString("nome"),
                         rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
+                        rs.getString(EMAIL),
+                        rs.getString(USERNAME),
                         rs.getString("password"),
                         rs.getInt("hackathon_id")
                 );
@@ -50,8 +53,8 @@ public class GiudiceDAO implements IGiudiceDAO {
                 return new Giudice(
                         rs.getString("nome"),
                         rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
+                        rs.getString(EMAIL),
+                        rs.getString(USERNAME),
                         rs.getString("password"),
                         rs.getInt("hackathon_id")
                 );
@@ -64,12 +67,12 @@ public class GiudiceDAO implements IGiudiceDAO {
 
     @Override
     public Giudice findGiudiceByUsername(String username) {
-        return findGiudiceByField("username", username);
+        return findGiudiceByField(USERNAME, username);
     }
 
     @Override
     public Giudice findGiudiceByEmail(String email) {
-        return findGiudiceByField("email", email);
+        return findGiudiceByField(EMAIL, email);
     }
 
     @Override

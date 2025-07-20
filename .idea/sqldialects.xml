@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/implementazionepostgresdao/GiudiceDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/implementazionepostgresdao/HackathonDAO.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/implementazionepostgresdao/TeamDAO.java" dialect="PostgreSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>

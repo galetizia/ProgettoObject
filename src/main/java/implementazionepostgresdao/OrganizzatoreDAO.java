@@ -8,14 +8,18 @@ import java.sql.*;
 public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     UtenteDAO udao = new UtenteDAO();
-    public OrganizzatoreDAO() {}
+
+    private static final String EMAIL = "email";
+    private static final String USERNAME = "username";
+
+    public OrganizzatoreDAO() {/* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
 
     private Organizzatore mapResultSetToOrganizzatore(ResultSet rs) throws SQLException {
         Organizzatore o = new Organizzatore(
                 rs.getString("nome"),
                 rs.getString("cognome"),
-                rs.getString("email"),
-                rs.getString("username"),
+                rs.getString(EMAIL),
+                rs.getString(USERNAME),
                 rs.getString("password")
 
         );
@@ -62,12 +66,12 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     @Override
     public Organizzatore findOrganizzatoreByUsername(String username) {
-        return findOrganizzatoreByField("username", username);
+        return findOrganizzatoreByField(USERNAME, username);
     }
 
     @Override
     public Organizzatore findOrganizzatoreByEmail(String email) {
-        return findOrganizzatoreByField("email", email);
+        return findOrganizzatoreByField(EMAIL, email);
     }
 
     @Override
@@ -131,8 +135,8 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             if(rs.next()) {
                 insertstmt.setString(1, rs.getString("nome"));
                 insertstmt.setString(2, rs.getString("cognome"));
-                insertstmt.setString(3, rs.getString("email"));
-                insertstmt.setString(4, rs.getString("username"));
+                insertstmt.setString(3, rs.getString(EMAIL));
+                insertstmt.setString(4, rs.getString(USERNAME));
                 insertstmt.setString(5, rs.getString("password"));
                 insertstmt.executeUpdate();
 

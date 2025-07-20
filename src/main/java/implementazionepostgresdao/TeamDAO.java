@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamDAO implements ITeamDAO {
-    public TeamDAO() {}
+    public TeamDAO() {/* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
 
     @Override
     public Team getTeamByID(Integer id){
