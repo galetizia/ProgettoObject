@@ -2,15 +2,12 @@ package controller;
 
 import gui.SignIn;
 import implementazionepostgresdao.*;
-import model.Hackathon;
 import model.Utente;
 
 import javax.swing.*;
 
 public class ControllerSignIn {
     private final SignIn signInGui;
-    OrganizzatoreDAO odao = new OrganizzatoreDAO();
-    UtenteDAO udao = new UtenteDAO();
     HackathonDAO hdao = new HackathonDAO();
 
     private final MainController mainController;

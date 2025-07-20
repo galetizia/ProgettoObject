@@ -156,7 +156,7 @@ public class TeamDAO implements ITeamDAO {
     }
 
     @Override
-    public void caricaAggiornamentoDB(Utente utente, Aggiornamento agg, boolean isElaboratoFinale) {
+    public void caricaAggiornamentoDB(Utente utente, Aggiornamento agg) {
 
         String checksql = "SELECT id FROM aggiornamento WHERE team_id=?";
         String updatesql = "UPDATE aggiornamento SET nome=?,documento=?,utente_username=?, isElaboratoFinale=? WHERE team_id=? RETURNING id";
@@ -174,13 +174,11 @@ public class TeamDAO implements ITeamDAO {
                     updatestmt.setString(1, agg.getNome());
                     updatestmt.setString(2, agg.getDocumento());
                     updatestmt.setString(3, agg.getUsernameUtente());
-                    updatestmt.setBoolean(4, isElaboratoFinale);
+                    updatestmt.setBoolean(4, agg.getElaboratoFinale());
                     updatestmt.setInt(5, agg.getTeamID());
 
-                    ResultSet updateRs = updatestmt.executeQuery();
-                    if (updateRs.next()) {
-                        agg.setIdAggiornamento(updateRs.getInt(1));
-                    }
+                    updatestmt.executeQuery();
+
 
                     deletestmt.setInt(1, agg.getTeamID());
                     deletestmt.executeUpdate();
@@ -190,12 +188,9 @@ public class TeamDAO implements ITeamDAO {
                     insertstmt.setString(2, agg.getDocumento());
                     insertstmt.setInt(3, agg.getTeamID());
                     insertstmt.setString(4, agg.getUsernameUtente());
-                    insertstmt.setBoolean(5, isElaboratoFinale);
+                    insertstmt.setBoolean(5, agg.getElaboratoFinale());
 
-                    ResultSet insertRs = insertstmt.executeQuery();
-                    if (insertRs.next()) {
-                        agg.setIdAggiornamento(insertRs.getInt(1));
-                    }
+                    insertstmt.executeQuery();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

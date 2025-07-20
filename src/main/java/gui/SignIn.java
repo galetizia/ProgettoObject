@@ -26,18 +26,17 @@ public class SignIn {
         mainPanel.setPreferredSize(new Dimension(600, 400));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
-        registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        utenteCheckBox.addActionListener(e -> {
+        utenteCheckBox.addActionListener(ignored -> {
             if (utenteCheckBox.isSelected()) organizzatoreCheckBox.setSelected(false);
         });
 
-        organizzatoreCheckBox.addActionListener(e -> {
+        organizzatoreCheckBox.addActionListener(ignored -> {
             if (organizzatoreCheckBox.isSelected()) utenteCheckBox.setSelected(false);
         });
 
-        registerButton.addActionListener(e -> {
+        registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerButton.addActionListener(ignored -> {
             String username = inpUsername.getText();
             String email = inpEmail.getText();
             String name = inpName.getText();
@@ -53,7 +52,7 @@ public class SignIn {
         // Pulsante indietro
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         backButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        backButton.addActionListener(e -> controller.showLogin());
+        backButton.addActionListener(ignored -> controller.showLogin());
     }
 
     public JPanel getMainPanel() {

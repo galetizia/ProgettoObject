@@ -2,7 +2,6 @@ package gui;
 
 import controller.ControllerTeamSchermataUtente;
 import implementazionepostgresdao.HackathonDAO;
-import implementazionepostgresdao.TeamDAO;
 import model.*;
 import javax.swing.*;
 import java.awt.*;
@@ -25,9 +24,7 @@ public class TeamSchermataUtente {
     private JLabel documento;
     private JCheckBox elaboratoFinaleCheckBox;
     private final DefaultListModel<String> modelListUtenti;
-    private boolean aggiornamentoVisibile = false;
 
-    TeamDAO tdao = new TeamDAO();
     HackathonDAO hdao = new HackathonDAO();
 
 
@@ -49,98 +46,47 @@ public class TeamSchermataUtente {
 
         membriButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         membriButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        membriButton.addActionListener(e -> controller.visualizza(team, listaUtenti, modelListUtenti));
+        membriButton.addActionListener(ignored -> controller.visualizzaMembri(team, listaUtenti, modelListUtenti));
 
         caricaAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         caricaAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        caricaAggiornamentoButton.addActionListener(e -> {
+        caricaAggiornamentoButton.addActionListener(ignored -> {
 
             if(hdao.isClassificaPubblicata(utente.getHackathonID())) {
                 JOptionPane.showMessageDialog(mainPanel, "Classifica già pubblicata.\nImpossibile inserire nuovi aggiornamenti.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if(!aggiornamentoVisibile) {
+            if(!nome.isVisible()) {
                 nomeTextField.setVisible(true);
                 documentoTextField.setVisible(true);
                 confermaButton.setVisible(true);
                 nome.setVisible(true);
                 documento.setVisible(true);
                 elaboratoFinaleCheckBox.setVisible(true);
-
-                aggiornamentoVisibile = true;
+                return;
             }
-            else{
-                nomeTextField.setVisible(false);
-                documentoTextField.setVisible(false);
-                confermaButton.setVisible(false);
-                nome.setVisible(false);
-                documento.setVisible(false);
-
-                aggiornamentoVisibile = false;
-            }
+            nomeTextField.setVisible(false);
+            documentoTextField.setVisible(false);
+            confermaButton.setVisible(false);
+            nome.setVisible(false);
+            documento.setVisible(false);
         });
 
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        confermaButton.addActionListener(e -> {
-
-            if(tdao.getElaboratoFinaleUltimoAggiornamento(utente.getTeamID())){
-                JOptionPane.showMessageDialog(mainPanel, "Il team a cui appartieni ha già caricato l'elaborato finale!", "Impossibile caricare", JOptionPane.WARNING_MESSAGE);
-                nomeTextField.setText("");
-                documentoTextField.setText("");
-                return;
-            }
-
-            String nomeAggiornamento = nomeTextField.getText();
-            String documentoAggiornamento = documentoTextField.getText();
-
-            if(!nomeAggiornamento.isEmpty() && !documentoAggiornamento.isEmpty()) {
-
-                if(!elaboratoFinaleCheckBox.isSelected()) {
-                    Aggiornamento aggiornamento = new Aggiornamento(nomeAggiornamento, documentoAggiornamento, utente.getTeamID(), utente.getUsername());
-                    tdao.caricaAggiornamentoDB(utente, aggiornamento, false);
-                    nomeTextField.setText("");
-                    documentoTextField.setText("");
-                    JOptionPane.showMessageDialog(mainPanel, "Aggiornamento Caricato!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else{
-                    Aggiornamento aggiornamento = new Aggiornamento(nomeAggiornamento, documentoAggiornamento, utente.getTeamID(), utente.getUsername());
-                    aggiornamento.setElaboratoFinale(true);
-
-                    tdao.caricaAggiornamentoDB(utente, aggiornamento, true);
-                    nomeTextField.setText("");
-                    documentoTextField.setText("");
-                    JOptionPane.showMessageDialog(mainPanel, "Elaborato Finale Caricato!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!", "Error", JOptionPane.WARNING_MESSAGE);
-            }
-        });
+        confermaButton.addActionListener(ignored -> controller.caricaAggiornamento(utente, nomeTextField, documentoTextField, elaboratoFinaleCheckBox));
 
         abbandonaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         abbandonaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        abbandonaButton.addActionListener(e -> {
-            int conferma = JOptionPane.showConfirmDialog(mainPanel, "Sei sicuro di voler abbandonare il team?",
-                    "Conferma", JOptionPane.YES_NO_OPTION);
-            controller.abbandonaTeam(utente, conferma);
-        });
+        abbandonaButton.addActionListener(ignored -> controller.abbandonaTeam(utente));
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        indietroButton.addActionListener(e -> controller.showSchermataUtente(utente));
+        indietroButton.addActionListener(ignored -> controller.showSchermataUtente(utente));
 
         visualizzaUltimoAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         visualizzaUltimoAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        visualizzaUltimoAggiornamentoButton.addActionListener(e -> {
-            if(tdao.getUltimoAggiornamento(utente.getTeamID()) != null) {
-                String aggiornamento = tdao.getUltimoAggiornamento(utente.getTeamID());
-                String aggiornamentoHTML = "<html>" + aggiornamento.replaceAll("(.{50})", "$1<br>") + "</html>";
-                JOptionPane.showMessageDialog(mainPanel, aggiornamentoHTML, "Aggiornamento", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            JOptionPane.showMessageDialog(mainPanel, "Nessun aggiornamento presente!", "Error", JOptionPane.WARNING_MESSAGE);
-        });
+        visualizzaUltimoAggiornamentoButton.addActionListener(ignored -> controller.visualizzaAggiornamento(utente));
     }
 
     public void setVisiblePanelUtenti() {
