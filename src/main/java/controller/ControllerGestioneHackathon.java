@@ -77,7 +77,7 @@ public class ControllerGestioneHackathon {
         modelList.clear();
 
         if(giudici.isEmpty()){
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti giudici","Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti giudici","INFORMATION", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         modelList.addElement("-------------------------- Elenco Giudici -------------------------");
@@ -94,7 +94,7 @@ public class ControllerGestioneHackathon {
         modelList.clear();
 
         if(potenzialiGiudici.isEmpty()){
-            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti potenziali giudici da inserire","Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Non sono presenti potenziali giudici da inserire","INFORMATION", JOptionPane.INFORMATION_MESSAGE);
             return false ;
         }
         modelList.addElement("-------------------- Elenco Potenziali Giudici --------------------");
@@ -120,6 +120,7 @@ public class ControllerGestioneHackathon {
         }
         JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Aggiunto giudice!" , "Success", JOptionPane.INFORMATION_MESSAGE);
         usernameTextField.setText("");
+
     }
 
     public void gestioneRimozioni(JCheckBox utenteCheckBox, JCheckBox giudiceCheckBox,JCheckBox teamCheckBox, JTextField idTextField,Organizzatore organizzatore){
