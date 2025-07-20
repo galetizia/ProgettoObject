@@ -128,7 +128,7 @@ public class ControllerVotiCommenti {
             return;
         }
 
-        Integer idAgg = tdao.getIdAggiornamentoByTeam(id);
+        Integer idAgg = hdao.getIdAggiornamentoByTeam(id);
         if (idAgg == null) {
             JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Questo team non ha ancora caricato aggiornamenti.\nImpossibile commentare.", "Nessun aggiornamento", JOptionPane.WARNING_MESSAGE);
             return;

@@ -8,23 +8,32 @@ import java.sql.*;
 public class UtenteDAO implements IUtenteDAO {
 
     public UtenteDAO() { /* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/ }
-    TeamDAO tdao = new TeamDAO();
+
+    private static final String NOME = "nome";
+    private static final String COGNOME = "cognome";
+    private static final String EMAIL = "email";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String HACKATHONID = "hackathon_id";
+    private static final String TEAMID = "team_id";
+    private final HackathonDAO hdao = new HackathonDAO();
+
 
     private Utente mapResultSetToUtente(ResultSet rs) throws SQLException {
 
         Utente u = new Utente(
-                rs.getString("nome"),
-                rs.getString("cognome"),
-                rs.getString("email"),
-                rs.getString("username"),
-                rs.getString("password")
+                rs.getString(NOME),
+                rs.getString(COGNOME),
+                rs.getString(EMAIL),
+                rs.getString(USERNAME),
+                rs.getString(PASSWORD)
         );
-        int hackathonId = rs.getInt("hackathon_id");
+        int hackathonId = rs.getInt(HACKATHONID);
         if (rs.wasNull()) u.setHackathonID(null);
         else u.setHackathonID(hackathonId);
 
 
-        int teamId = rs.getInt("team_id");
+        int teamId = rs.getInt(TEAMID);
         if (rs.wasNull()) u.setTeamID(null);
         else u.setTeamID(teamId);
 
@@ -66,12 +75,12 @@ public class UtenteDAO implements IUtenteDAO {
 
     @Override
     public Utente findUtenteByUsername(String username) {
-        return findUtenteByField("username", username);
+        return findUtenteByField(USERNAME, username);
     }
 
     @Override
     public Utente findUtenteByEmail(String email) {
-        return findUtenteByField("email", email);
+        return findUtenteByField(EMAIL, email);
     }
 
     @Override
@@ -80,11 +89,11 @@ public class UtenteDAO implements IUtenteDAO {
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, team.getId());
-            stmt.setInt(2, tdao.getHackathonByTeam(team.getId()));
+            stmt.setInt(2, hdao.getHackathonByTeam(team.getId()));
             stmt.setString(3, utente.getUsername());
 
             utente.setTeamID(team.getId());
-            utente.setHackathonID(tdao.getHackathonByTeam(team.getId()));
+            utente.setHackathonID(hdao.getHackathonByTeam(team.getId()));
             stmt.executeUpdate();
 
         } catch (SQLException e) {

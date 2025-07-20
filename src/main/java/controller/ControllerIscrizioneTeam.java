@@ -17,10 +17,10 @@ public class ControllerIscrizioneTeam {
     private final IscrizioneTeam schermataIscrizioneTeam;
 
     private final MainController mainController;
-    private Utente utente;
-    private TeamDAO tdao = new TeamDAO();
-    private HackathonDAO hdao = new HackathonDAO();
-    private UtenteDAO udao = new UtenteDAO();
+    private final Utente utente;
+    private final TeamDAO tdao = new TeamDAO();
+    private final HackathonDAO hdao = new HackathonDAO();
+    private final UtenteDAO udao = new UtenteDAO();
 
     public ControllerIscrizioneTeam(MainController mainController, Utente utente) {
         this.mainController = mainController;
@@ -86,7 +86,7 @@ public class ControllerIscrizioneTeam {
 
             List<Utente> teams = tdao.membriTeam(id);
 
-            if(teams.size() >= (hdao.getMaxDimTeam(tdao.getHackathonByTeam(id)))) {
+            if(teams.size() >= (hdao.getMaxDimTeam(hdao.getHackathonByTeam(id)))) {
                 JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Team Pieno" , "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 udao.changeIDTeam(t, utente);

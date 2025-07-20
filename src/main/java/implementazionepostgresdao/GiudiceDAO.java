@@ -9,9 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GiudiceDAO implements IGiudiceDAO {
-
+    private static final String NOME = "nome";
+    private static final String COGNOME = "cognome";
     private static final String EMAIL = "email";
     private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String HACKATHONID = "hackathon_id";
+    private static final String TEAMID = "team_id";
+    HackathonDAO hdao = new HackathonDAO();
 
     public GiudiceDAO() {/* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
     TeamDAO tdao = new TeamDAO();
@@ -28,12 +33,12 @@ public class GiudiceDAO implements IGiudiceDAO {
             if (rs.next()) {
 
                 return new Giudice(
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
+                        rs.getString(NOME),
+                        rs.getString(COGNOME),
                         rs.getString(EMAIL),
                         rs.getString(USERNAME),
-                        rs.getString("password"),
-                        rs.getInt("hackathon_id")
+                        rs.getString(PASSWORD),
+                        rs.getInt(HACKATHONID)
                 );
             }
         } catch (SQLException e) {
@@ -51,12 +56,12 @@ public class GiudiceDAO implements IGiudiceDAO {
 
             if (rs.next()) {
                 return new Giudice(
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
+                        rs.getString(NOME),
+                        rs.getString(COGNOME),
                         rs.getString(EMAIL),
                         rs.getString(USERNAME),
-                        rs.getString("password"),
-                        rs.getInt("hackathon_id")
+                        rs.getString(PASSWORD),
+                        rs.getInt(HACKATHONID)
                 );
             }
         } catch (SQLException e) {
@@ -82,7 +87,7 @@ public class GiudiceDAO implements IGiudiceDAO {
             stmt.setString(1, commento);
             stmt.setString(2, giudice.getUsername());
             stmt.setInt(3, id);
-            stmt.setInt(4, tdao.getIdAggiornamentoByTeam(id));
+            stmt.setInt(4, hdao.getIdAggiornamentoByTeam(id));
 
             int r = stmt.executeUpdate();
             if (r == 0) {
@@ -99,7 +104,7 @@ public class GiudiceDAO implements IGiudiceDAO {
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, giudice.getUsername());
-            stmt.setInt(2, tdao.getIdAggiornamentoByTeam(id));
+            stmt.setInt(2, hdao.getIdAggiornamentoByTeam(id));
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -158,7 +163,7 @@ public class GiudiceDAO implements IGiudiceDAO {
              ResultSet rs = stmt.executeQuery()){
 
             while(rs.next()) {
-                int idTeam = rs.getInt("team_id");
+                int idTeam = rs.getInt(TEAMID);
                 Team t = tdao.getTeamByID(idTeam);
 
                 if(t!=null && t.getHackathonID().equals(hackathonID)) teams.add(t);

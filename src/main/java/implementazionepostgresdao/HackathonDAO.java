@@ -12,11 +12,28 @@ import database.ConnessioneDatabase;
 
 public class HackathonDAO implements IHackathonDAO {
 
+    private static final String NOME = "nome";
     private static final String COGNOME = "cognome";
+    private static final String EMAIL = "email";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
-    private static final String EMAIL = "email";
     private static final String HACKATHONID = "hackathon_id";
+    private static final String TEAMID = "team_id";
+    private static final String ID = "id";
+    private static final String MEDIAVOTI = "mediavoti";
+    private static final String CLASSIFICA = "classifica_pubblicata";
+    private static final String MAXDIMTEAM = "max_dim_team";
+    private static final String MAXISCRITTI = "max_scritti";
+    private static final String DATAINIZIO = "data_inizio";
+    private static final String DATAFINE = "data_fine";
+    private static final String UTENTE = "utente";
+    private static final String ORGANIZZATORE = "organizzatore";
+    private static final String PROBLEMA = "problema";
+    private static final String TITOLO = "titolo";
+    private static final String SEDE = "sede";
+    private static final String HACKATHON = "hackathon";
+    private static final String TEAM = "team";
+    private static final String AGGIORNAMENTO = "aggiornamento";
 
     public HackathonDAO() {/* Costruttore vuoto perchè l'oggetto DAO non lo utiliziamo con dei campi a cui assegnare i valori*/}
 
@@ -50,27 +67,27 @@ public class HackathonDAO implements IHackathonDAO {
 
     @Override
     public boolean signInUtente(String nome, String cognome, String email, String username, String password){
-        return signIn("utente",nome,cognome,email,username,password);
+        return signIn(UTENTE,nome,cognome,email,username,password);
     }
 
     @Override
     public boolean signInOrganizzatore(String nome, String cognome, String email, String username, String password){
-        return signIn("organizzatore",nome,cognome,email,username,password);
+        return signIn(ORGANIZZATORE,nome,cognome,email,username,password);
     }
 
     private Hackathon mapResultSetToHackathon(ResultSet rs) throws SQLException {
-        LocalDate dataInizio = rs.getDate("data_inizio").toLocalDate();
-        LocalDate dataFine = rs.getDate("data_fine").toLocalDate();
+        LocalDate dataInizio = rs.getDate(DATAINIZIO).toLocalDate();
+        LocalDate dataFine = rs.getDate(DATAFINE).toLocalDate();
 
-        Hackathon h = new Hackathon(rs.getString("titolo"),
-                rs.getString("sede"),
+        Hackathon h = new Hackathon(rs.getString(TITOLO),
+                rs.getString(SEDE),
                 dataInizio,
                 dataFine,
-                rs.getString("problema"),
-                rs.getInt("max_iscritti"),
-                rs.getInt("max_dim_team")
+                rs.getString(PROBLEMA),
+                rs.getInt(MAXISCRITTI),
+                rs.getInt(MAXDIMTEAM)
         );
-        h.setID(rs.getInt("id"));
+        h.setID(rs.getInt(ID));
         return h;
     }
     @Override
@@ -111,43 +128,40 @@ public class HackathonDAO implements IHackathonDAO {
 
         return hackathons;
     }
-
-    @Override
-    public int getMaxDimTeam(Integer iD) {
-
-        String sql = "SELECT max_dim_team FROM hackathon WHERE id = ?";
+    private int getFieldOfTable(String field, String table, String where, Integer id){
+        String sql = "SELECT " + field + "FROM"+ table +" WHERE "+ where +" = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, iD);
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-               return rs.getInt("max_dim_team");
+                return rs.getInt(field);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return 0;
     }
 
     @Override
+    public int getMaxDimTeam(Integer iD) {
+        return getFieldOfTable(MAXDIMTEAM, HACKATHON,ID , iD);
+    }
+
+    @Override
     public int getMaxIscritti(Integer iD) {
+        return getFieldOfTable(MAXISCRITTI, HACKATHON,ID ,iD);
+    }
 
-        String sql = "SELECT max_iscritti FROM hackathon WHERE id = ?";
+    @Override
+    public Integer getHackathonByTeam(Integer id) {
+        return getFieldOfTable(HACKATHONID, TEAM,ID, id);
+    }
 
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, iD);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt("max_iscritti");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
+    @Override
+    public Integer getIdAggiornamentoByTeam(Integer id) {
+        return getFieldOfTable(ID,AGGIORNAMENTO,TEAMID,id);
     }
 
     @Override
@@ -196,14 +210,14 @@ public class HackathonDAO implements IHackathonDAO {
 
             while (rs.next()) {
                 Utente u = new Utente(
-                        rs.getString("nome"),
+                        rs.getString(NOME),
                         rs.getString(COGNOME),
                         rs.getString(EMAIL),
                         rs.getString(USERNAME),
                         rs.getString(PASSWORD)
                 );
                 u.setHackathonID(rs.getInt(HACKATHONID));
-                int teamId = rs.getInt("team_id");
+                int teamId = rs.getInt(TEAMID);
                 if (rs.wasNull()) u.setTeamID(null);
                 else u.setTeamID(teamId);
 
@@ -227,7 +241,7 @@ public class HackathonDAO implements IHackathonDAO {
 
             while (rs.next()) {
                 Giudice g = new Giudice(
-                        rs.getString("nome"),
+                        rs.getString(NOME),
                         rs.getString(COGNOME),
                         rs.getString(EMAIL),
                         rs.getString(USERNAME),
@@ -252,9 +266,9 @@ public class HackathonDAO implements IHackathonDAO {
 
             while (rs.next()) {
                 teams.add(new Team(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getDouble("mediavoti"),
+                        rs.getInt(ID),
+                        rs.getString(NOME),
+                        rs.getDouble(MEDIAVOTI),
                         rs.getInt(HACKATHONID)
                 ));
             }
@@ -285,7 +299,7 @@ public class HackathonDAO implements IHackathonDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getBoolean("classifica_pubblicata");
+                return rs.getBoolean(CLASSIFICA);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -304,7 +318,7 @@ public class HackathonDAO implements IHackathonDAO {
 
             while (rs.next()) {
                 Utente u = new Utente(
-                        rs.getString("nome"),
+                        rs.getString(NOME),
                         rs.getString(COGNOME),
                         rs.getString(EMAIL),
                         rs.getString(USERNAME),
@@ -314,7 +328,7 @@ public class HackathonDAO implements IHackathonDAO {
                 if (rs.wasNull()) u.setHackathonID(null);
                 else u.setTeamID(hackathonId);
 
-                int teamId = rs.getInt("team_id");
+                int teamId = rs.getInt(TEAMID);
                 if (rs.wasNull()) u.setTeamID(null);
                 else u.setTeamID(teamId);
 

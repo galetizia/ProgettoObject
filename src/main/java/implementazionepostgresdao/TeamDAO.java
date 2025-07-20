@@ -10,6 +10,17 @@ import java.util.List;
 public class TeamDAO implements ITeamDAO {
     public TeamDAO() {/* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
 
+    private static final String NOME = "nome";
+    private static final String COGNOME = "cognome";
+    private static final String EMAIL = "email";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String HACKATHONID = "hackathon_id";
+    private static final String ID = "id";
+    private static final String MEDIAVOTI = "mediavoti";
+    private static final String VOTO = "voto";
+    private static final String DOCUMENTO = "documento";
+
     @Override
     public Team getTeamByID(Integer id){
         String sql = "SELECT id,nome,mediavoti,hackathon_id FROM team WHERE id = ?";
@@ -21,10 +32,10 @@ public class TeamDAO implements ITeamDAO {
             if (rs.next()) {
 
                 return new Team(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getInt("mediaVoti"),
-                        rs.getInt("Hackathon_id")
+                        rs.getInt(ID),
+                        rs.getString(NOME),
+                        rs.getInt(MEDIAVOTI),
+                        rs.getInt(HACKATHONID)
                 );
             }
         } catch (SQLException e) {
@@ -42,7 +53,7 @@ public class TeamDAO implements ITeamDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                votiPerTeam.add(rs.getDouble("voto"));
+                votiPerTeam.add(rs.getDouble(VOTO));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,11 +121,11 @@ public class TeamDAO implements ITeamDAO {
 
             while (rs.next()) {
                 Utente u = new Utente(
-                        rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getString("email"),
-                        rs.getString("username"),
-                        rs.getString("password")
+                        rs.getString(NOME),
+                        rs.getString(COGNOME),
+                        rs.getString(EMAIL),
+                        rs.getString(USERNAME),
+                        rs.getString(PASSWORD)
                 );
 
                 membri.add(u);
@@ -136,23 +147,6 @@ public class TeamDAO implements ITeamDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public Integer getHackathonByTeam(Integer id) {
-        String sql = "SELECT hackathon_id FROM team WHERE id = ?";
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt("hackathon_id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
@@ -207,24 +201,7 @@ public class TeamDAO implements ITeamDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getString("documento");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public Integer getIdAggiornamentoByTeam(Integer id) {
-            String sql = "SELECT id FROM aggiornamento WHERE team_id=?";
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt("id");
+                return rs.getString(DOCUMENTO);
             }
         } catch (SQLException e) {
             e.printStackTrace();

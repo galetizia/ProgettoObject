@@ -16,6 +16,8 @@ public interface IHackathonDAO {
 
     Hackathon getHackathonByID(Integer id);
     List<Team> getTeamByHackathon(Integer id);
+    Integer getHackathonByTeam(Integer id);
+    Integer getIdAggiornamentoByTeam(Integer id);
 
     List<Utente> getUtenti(Integer id);
     List<Giudice> getGiudici(Integer id);

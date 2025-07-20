@@ -8,22 +8,25 @@ import java.sql.*;
 public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     UtenteDAO udao = new UtenteDAO();
-
+    private static final String NOME = "nome";
+    private static final String COGNOME = "cognome";
     private static final String EMAIL = "email";
     private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String HACKATHONID = "hackathon_id";
 
     public OrganizzatoreDAO() {/* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
 
     private Organizzatore mapResultSetToOrganizzatore(ResultSet rs) throws SQLException {
         Organizzatore o = new Organizzatore(
-                rs.getString("nome"),
-                rs.getString("cognome"),
+                rs.getString(NOME),
+                rs.getString(COGNOME),
                 rs.getString(EMAIL),
                 rs.getString(USERNAME),
-                rs.getString("password")
+                rs.getString(PASSWORD)
 
         );
-        int hackathonId = rs.getInt("hackathon_id");
+        int hackathonId = rs.getInt(HACKATHONID);
         if (rs.wasNull()) o.setHackathonID(null);
         else o.setHackathonID(hackathonId);
 
@@ -133,11 +136,11 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             ResultSet rs = selectstmt.executeQuery();
 
             if(rs.next()) {
-                insertstmt.setString(1, rs.getString("nome"));
-                insertstmt.setString(2, rs.getString("cognome"));
+                insertstmt.setString(1, rs.getString(NOME));
+                insertstmt.setString(2, rs.getString(COGNOME));
                 insertstmt.setString(3, rs.getString(EMAIL));
                 insertstmt.setString(4, rs.getString(USERNAME));
-                insertstmt.setString(5, rs.getString("password"));
+                insertstmt.setString(5, rs.getString(PASSWORD));
                 insertstmt.executeUpdate();
 
                 deletestmt.setString(1, username);
