@@ -46,16 +46,30 @@ public class ControllerTeamSchermataUtente {
         maincontroller.showSchermataUtente(utente);
     }
 
-    public void visualizzaMembri(Team team, JList<String> listaUtenti, DefaultListModel<String> modelListUtenti) {
+    public JButton visualizzaMembri(Team team, JList<String> listaUtenti, DefaultListModel<String> modelListUtenti, JButton membriButton, JButton ultimoPulsantePremuto) {
         List<Utente> membri = tdao.membriTeam(team.getId());
+
         modelListUtenti.clear();
 
-        for (Utente u : membri) {
-            modelListUtenti.addElement(u.getNome() + " " + u.getCognome());
+        if (ultimoPulsantePremuto != membriButton) {
+
+            modelListUtenti.addElement("------- Elenco dei membri del team -------");
+
+            for (Utente u : membri) {
+                modelListUtenti.addElement(u.getNome() + " " + u.getCognome());
+            }
+
+            ultimoPulsantePremuto = membriButton;
         }
+        else
+            ultimoPulsantePremuto = null;
+
+
         listaUtenti.revalidate();
         listaUtenti.repaint();
         teamSchermataUtente.setVisiblePanelUtenti();
+
+        return ultimoPulsantePremuto;
     }
 
     public void visualizzaAggiornamento(Utente utente){

@@ -25,6 +25,8 @@ public class TeamSchermataUtente {
     private JCheckBox elaboratoFinaleCheckBox;
     private final DefaultListModel<String> modelListUtenti;
 
+    private JButton ultimoPulsantePremuto = null;
+
     private static final String SEGOEUI = "Segoe UI";
 
     private final HackathonDAO hdao = new HackathonDAO();
@@ -47,7 +49,8 @@ public class TeamSchermataUtente {
 
         membriButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         membriButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        membriButton.addActionListener(ignored -> controller.visualizzaMembri(team, listaUtenti, modelListUtenti));
+        membriButton.addActionListener(ignored ->
+            ultimoPulsantePremuto = controller.visualizzaMembri(team, listaUtenti, modelListUtenti, membriButton, ultimoPulsantePremuto));
 
         caricaAggiornamentoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         caricaAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
