@@ -38,6 +38,7 @@ public class UtenteDAO implements IUtenteDAO {
 
         return u;
     }
+
     @Override
     public Utente login(String username, String password){
         String sql="SELECT nome, cognome, email, username, password, team_id, hackathon_id FROM utente WHERE username=? AND password=?";

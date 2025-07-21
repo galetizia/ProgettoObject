@@ -1,5 +1,10 @@
 package controller;
-import model.*;
+
+import model.Giudice;
+import model.Organizzatore;
+import model.Team;
+import model.Utente;
+
 import javax.swing.*;
 
 

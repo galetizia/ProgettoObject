@@ -154,6 +154,7 @@ public class GiudiceDAO implements IGiudiceDAO {
         }
     }
 
+    @Override
     public List<Team> getElaboratiFinaliTeam(Integer hackathonID) {
         String sql="SELECT team_id FROM aggiornamento WHERE iselaboratofinale=true";
         List<Team> teams = new ArrayList<>();
@@ -174,7 +175,7 @@ public class GiudiceDAO implements IGiudiceDAO {
         return teams;
     }
 
-
+    @Override
     public boolean isElaboratoFinale(Integer idTeam){
         String sql="SELECT id FROM aggiornamento WHERE iselaboratofinale=true AND team_id=?";
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)){
