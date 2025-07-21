@@ -29,6 +29,8 @@ public class SchermataOrganizzatore {
     private JButton pubblicaClassificaButton;
     private JButton visualizzaClassificaButton;
 
+    private static final String SEGOEUI = "Segoe UI";
+
     private final HackathonDAO hdao = new HackathonDAO();
 
     public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
@@ -36,23 +38,23 @@ public class SchermataOrganizzatore {
 
         hackatt.setVisible(false);
         name.setVisible(false);
-        hackatt.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        hackatt.setFont(new Font(SEGOEUI, Font.BOLD, 14));
 
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
 
-        visualizzaClassificaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        visualizzaClassificaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         visualizzaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         visualizzaClassificaButton.addActionListener(ignored -> controller.getClassifica(organizzatore));
 
-        gestioneHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        gestioneHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         gestioneHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         gestioneHackathonButton.addActionListener(ignored -> controller.getSchermataGestioneHack(organizzatore));
 
-        pubblicaClassificaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        pubblicaClassificaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         pubblicaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         pubblicaClassificaButton.addActionListener(ignored ->controller.pubblicaClassifica(organizzatore));
 
-        informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        informazioniPersonaliButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(ignored -> {
             if (!name.isVisible()) {
@@ -77,7 +79,7 @@ public class SchermataOrganizzatore {
             mainPanel.repaint();
         });
 
-        hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        hackathonAttualeButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hackathonAttualeButton.addActionListener(ignored -> {
             if(organizzatore.getHackathonID() != null) {
@@ -112,15 +114,15 @@ public class SchermataOrganizzatore {
 
         });
 
-        problemaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        problemaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         problemaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         problemaHackathonButton.addActionListener(ignored -> controller.mostraProblemaHackathon(organizzatore));
 
-        organizzaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        organizzaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         organizzaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         organizzaHackathonButton.addActionListener(ignored -> controller.schermataOrganizzaHackathon(organizzatore));
 
-        logOutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        logOutButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         logOutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logOutButton.addActionListener(ignored -> controller.logout());
 

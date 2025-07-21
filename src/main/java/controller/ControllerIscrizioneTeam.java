@@ -22,6 +22,9 @@ public class ControllerIscrizioneTeam {
     private final HackathonDAO hdao = new HackathonDAO();
     private final UtenteDAO udao = new UtenteDAO();
 
+    private static final String ERROR = "Error";
+    private static final String ERROREFORMATO = "Errore di formato";
+
     public ControllerIscrizioneTeam(MainController mainController, Utente utente) {
         this.mainController = mainController;
         this.schermataIscrizioneTeam = new IscrizioneTeam(this);
@@ -37,18 +40,18 @@ public class ControllerIscrizioneTeam {
         try{
             id = Integer.parseInt(idHackathon);
         }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID deve essere un numero intero valido", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID deve essere un numero intero valido", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if(hdao.getHackathonByID(id) == null) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "ID hackathon non valido" , "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "ID hackathon non valido" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         List<Team> teams = hdao.getTeamByHackathon(id);
 
         if(teams.size() >= hdao.getMaxDimTeam(id)) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Raggiunto numero massimo di Team" , "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Raggiunto numero massimo di Team" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         Team t = new Team(nome,id);
@@ -73,7 +76,7 @@ public class ControllerIscrizioneTeam {
 
     public void iscrizioneTeam(String idTeamTxt) {
         if(idTeamTxt.isEmpty()) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserisci un ID di un team" , "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserisci un ID di un team" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -87,21 +90,21 @@ public class ControllerIscrizioneTeam {
             List<Utente> teams = tdao.membriTeam(id);
 
             if(teams.size() >= (hdao.getMaxDimTeam(hdao.getHackathonByTeam(id)))) {
-                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Team Pieno" , "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Team Pieno" , ERROR, JOptionPane.ERROR_MESSAGE);
             } else {
                 udao.changeIDTeam(t, utente);
                 JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Sei stato aggiunto al Team: "+t.getNome(), "Success", JOptionPane.INFORMATION_MESSAGE);
                 showUtente();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID Hackathon deve essere un numero valido.", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID Hackathon deve essere un numero valido.", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
         }
     }
 
 
     public void visualizzaTeamHackathon(String idHackathonTxt, JList<String> list,DefaultListModel<String> modelList) {
         if(idHackathonTxt.isEmpty()) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserisci un ID Hackathon" , "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserisci un ID Hackathon" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -121,7 +124,7 @@ public class ControllerIscrizioneTeam {
             list.repaint();
             schermataIscrizioneTeam.setVisiblePanelElenchi();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID Hackathon deve essere un numero valido.", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID Hackathon deve essere un numero valido.", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
         }
 
 

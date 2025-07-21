@@ -19,6 +19,8 @@ public class ControllerVotiCommenti {
     private final HackathonDAO hdao = new HackathonDAO();
     private final GiudiceDAO gdao = new GiudiceDAO();
 
+    private static final String ERROREFORMATO = "Errore di formato";
+
     public ControllerVotiCommenti(MainController mainController, Giudice giudice) {
         this.mainController = mainController;
         this.votiCommenti = new SchermataVotiCommenti(this, giudice);
@@ -69,7 +71,7 @@ public class ControllerVotiCommenti {
         String votoText = votoField.getText();
 
         if(idTeamText.isEmpty() || votoText.isEmpty()){
-            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Compilare tutti i campi!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Compilare tutti i campi!", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
         int idTeam;
@@ -78,11 +80,11 @@ public class ControllerVotiCommenti {
             idTeam = Integer.parseInt(idTeamText);
             valutazione = Integer.parseInt(votoText);
         }catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Entrambi i campi devono essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Entrambi i campi devono essere un numero valido!", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(valutazione < 0 || valutazione > 10) {
-            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Il voto deve essere compreso tra 0 e 10!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Il voto deve essere compreso tra 0 e 10!", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(hdao.isClassificaPubblicata(giudice.getHackathonID())){
@@ -117,7 +119,7 @@ public class ControllerVotiCommenti {
         String commentoTxt = commentoTextF.getText();
 
         if(idTxt.isEmpty() || commentoTxt.isEmpty()){
-            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Compilare tutti i campi!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Compilare tutti i campi!", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -125,7 +127,7 @@ public class ControllerVotiCommenti {
         try {
             id = Integer.parseInt(idTxt);
         }catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "L'ID deve essere un numero valido!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "L'ID deve essere un numero valido!", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -154,13 +156,13 @@ public class ControllerVotiCommenti {
         try {
             teamId = Integer.parseInt(idTxt);
         }catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "L'ID deve essere un numero intero valido", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "L'ID deve essere un numero intero valido", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String agg = tdao.getUltimoAggiornamento(teamId);
         if(agg == null){
-            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Nessun aggiornamento presente", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Nessun aggiornamento presente", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
         String aHTML = "<html>" + agg.replaceAll("(.{50})", "$1<br>") + "</html>";

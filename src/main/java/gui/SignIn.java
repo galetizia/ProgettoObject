@@ -20,10 +20,12 @@ public class SignIn {
     private JCheckBox organizzatoreCheckBox;
     private JLabel area;
 
+    private static final String SEGOEUI = "Segoe UI";
+
     public SignIn(ControllerSignIn controller) {
 
         mainPanel.setPreferredSize(new Dimension(600, 400));
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
 
         utenteCheckBox.addActionListener(ignored -> {
             if (utenteCheckBox.isSelected()) organizzatoreCheckBox.setSelected(false);
@@ -33,7 +35,7 @@ public class SignIn {
             if (organizzatoreCheckBox.isSelected()) utenteCheckBox.setSelected(false);
         });
 
-        registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        registerButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerButton.addActionListener(ignored -> {
             String username = inpUsername.getText();
@@ -49,7 +51,7 @@ public class SignIn {
         });
 
         // Pulsante indietro
-        backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        backButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         backButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backButton.addActionListener(ignored -> controller.showLogin());
     }

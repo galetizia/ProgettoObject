@@ -12,6 +12,8 @@ public class ControllerRecuperoPassword {
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     GiudiceDAO gdao = new GiudiceDAO();
 
+    private static final String PASSWORD = "Password: ";
+
     private final MainController mainController;
 
     public ControllerRecuperoPassword(MainController mainController) {
@@ -31,17 +33,17 @@ public class ControllerRecuperoPassword {
 
         if((u!=null)&&((u.getEmail().equalsIgnoreCase(email)) && (u.getUsername().equalsIgnoreCase(username)))){
             success = true;
-            JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +u.getPassword());
+            JOptionPane.showMessageDialog(getRecuperaPassword(),PASSWORD +u.getPassword());
         }
 
         if((o!=null)&&((o.getEmail().equalsIgnoreCase(email)) && (o.getUsername().equalsIgnoreCase(username)))){
             success = true;
-            JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +o.getPassword());
+            JOptionPane.showMessageDialog(getRecuperaPassword(),PASSWORD +o.getPassword());
         }
 
         if((g!=null)&&((g.getEmail().equalsIgnoreCase(email)) && (g.getUsername().equalsIgnoreCase(username)))){
             success = true;
-            JOptionPane.showMessageDialog(getRecuperaPassword(),"Password: " +g.getPassword());
+            JOptionPane.showMessageDialog(getRecuperaPassword(),PASSWORD +g.getPassword());
         }
 
         if(!success){

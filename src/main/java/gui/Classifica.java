@@ -12,15 +12,17 @@ public class Classifica {
     private JScrollPane panelClassifica;
     private JButton indietroButton;
 
+    private static final String SEGOEUI = "Segoe UI";
+
     public Classifica(ControllerClassifica controller, Runnable azioneIndietro) {
         mainPanel.setPreferredSize(new Dimension(500,350));
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
         final DefaultListModel<String> modelList= new DefaultListModel<>();
         classificaList.setModel(modelList);
 
         controller.mostraClassifica(classificaList, modelList, panelClassifica);
 
-        indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        indietroButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(ignored -> azioneIndietro.run() );
     }

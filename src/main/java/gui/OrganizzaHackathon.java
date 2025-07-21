@@ -24,29 +24,31 @@ public class OrganizzaHackathon {
     private JLabel area;
     private final DefaultListModel<String> modelLista;
 
+    private static final String SEGOEUI = "Segoe UI";
+
 
     public OrganizzaHackathon(ControllerOrganizzaHackathon controller) {
         mainPanel.setPreferredSize(new Dimension(600,400));
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
 
         panelIscrizione.setVisible(false);
 
         modelLista = new DefaultListModel<>();
         listElenchi.setModel(modelLista);
 
-        hackathonAttiveButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        hackathonAttiveButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         hackathonAttiveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         hackathonAttiveButton.addActionListener(ignored -> controller.listeHackathon(listElenchi, modelLista, panelElenchi));
 
-        confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermaButton.addActionListener(ignored -> controller.creaHackathon(titoloTextField, sedeTextField, problemaTextField, dataInizioTextField, dataFineTextField, maxIscrTextField, maxDimTeamTextField));
 
-        organizzaNuovaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        organizzaNuovaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         organizzaNuovaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         organizzaNuovaHackathonButton.addActionListener(ignored -> panelIscrizione.setVisible(true));
 
-        indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        indietroButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(ignored -> controller.indietro());
     }

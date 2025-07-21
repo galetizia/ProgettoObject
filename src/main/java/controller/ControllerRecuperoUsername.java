@@ -13,6 +13,8 @@ public class ControllerRecuperoUsername {
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     GiudiceDAO gdao = new GiudiceDAO();
 
+    private static final String USERNAME = "Username: ";
+
     private final MainController mainController;
 
     public ControllerRecuperoUsername(MainController mainController) {
@@ -32,17 +34,17 @@ public class ControllerRecuperoUsername {
 
         if((u!=null)&&((u.getEmail().equalsIgnoreCase(email)) && (u.getPassword().equalsIgnoreCase(password)))){
             success = true;
-            JOptionPane.showMessageDialog(getRecuperoUsername(), "Username: " +u.getUsername());
+            JOptionPane.showMessageDialog(getRecuperoUsername(), USERNAME +u.getUsername());
         }
 
         if((o!=null)&&((o.getEmail().equalsIgnoreCase(email)) && (o.getPassword().equalsIgnoreCase(password)))){
             success = true;
-            JOptionPane.showMessageDialog(getRecuperoUsername(),"Username: " +o.getUsername());
+            JOptionPane.showMessageDialog(getRecuperoUsername(),USERNAME +o.getUsername());
         }
 
         if((g!=null)&&((g.getEmail().equalsIgnoreCase(email)) && (g.getPassword().equalsIgnoreCase(password)))){
             success = true;
-            JOptionPane.showMessageDialog(getRecuperoUsername(),"Username: " +g.getUsername());
+            JOptionPane.showMessageDialog(getRecuperoUsername(),USERNAME +g.getUsername());
         }
 
         if(!success){

@@ -27,21 +27,23 @@ public class SchermataGiudice {
     private JButton votazioniCommentiButton;
     private JButton classificaHackathonButton;
 
+    private static final String SEGOEUI = "Segoe UI";
+
     HackathonDAO hdao = new HackathonDAO();
 
     public SchermataGiudice(ControllerSchermataGiudice controller, Giudice giudice) {
         mainpanel.setPreferredSize(new Dimension(600, 400));
         Hackathon h = hdao.getHackathonByID(giudice.getHackathonID());
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
         name.setVisible(false);
         attualehack.setVisible(false);
-        attualehack.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        attualehack.setFont(new Font(SEGOEUI, Font.BOLD, 14));
 
-        classificaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        classificaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         classificaHackathonButton.addActionListener(ignored -> controller.getClassifica(giudice));
 
-        infoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        infoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         infoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         infoButton.addActionListener(ignored -> {
             if (!name.isVisible()) {
@@ -66,11 +68,11 @@ public class SchermataGiudice {
             mainpanel.repaint();
         });
 
-        votazioniCommentiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        votazioniCommentiButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         votazioniCommentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         votazioniCommentiButton.addActionListener(ignored -> controller.showSchermataVotiCommenti(giudice));
 
-        hackathonAttualeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        hackathonAttualeButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         hackathonAttualeButton.addActionListener(ignored -> {
             titolo.setText("Titolo: " +h.getNome());
@@ -98,11 +100,11 @@ public class SchermataGiudice {
             maxDimTeam.setVisible(false);
         });
 
-        problemaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        problemaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         problemaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         problemaHackathonButton.addActionListener(ignored -> controller.problemaHackathon(giudice,h));
 
-        logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        logoutButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         logoutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         logoutButton.addActionListener(ignored -> controller.logout());
     }

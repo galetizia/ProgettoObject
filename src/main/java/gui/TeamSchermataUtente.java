@@ -25,12 +25,14 @@ public class TeamSchermataUtente {
     private JCheckBox elaboratoFinaleCheckBox;
     private final DefaultListModel<String> modelListUtenti;
 
+    private static final String SEGOEUI = "Segoe UI";
+
     private final HackathonDAO hdao = new HackathonDAO();
 
     public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));
 
-        teamLabelName.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        teamLabelName.setFont(new Font(SEGOEUI, Font.BOLD, 38));
         teamLabelName.setText("Team: " + team.getNome());
 
         modelListUtenti = new DefaultListModel<>();
@@ -43,11 +45,11 @@ public class TeamSchermataUtente {
         documento.setVisible(false);
         elaboratoFinaleCheckBox.setVisible(false);
 
-        membriButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        membriButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         membriButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         membriButton.addActionListener(ignored -> controller.visualizzaMembri(team, listaUtenti, modelListUtenti));
 
-        caricaAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        caricaAggiornamentoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         caricaAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         caricaAggiornamentoButton.addActionListener(ignored -> {
 
@@ -71,19 +73,19 @@ public class TeamSchermataUtente {
             documento.setVisible(false);
         });
 
-        confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermaButton.addActionListener(ignored -> controller.caricaAggiornamento(utente, nomeTextField, documentoTextField, elaboratoFinaleCheckBox));
 
-        abbandonaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        abbandonaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         abbandonaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         abbandonaButton.addActionListener(ignored -> controller.abbandonaTeam(utente));
 
-        indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        indietroButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(ignored -> controller.showSchermataUtente(utente));
 
-        visualizzaUltimoAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        visualizzaUltimoAggiornamentoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         visualizzaUltimoAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         visualizzaUltimoAggiornamentoButton.addActionListener(ignored -> controller.visualizzaAggiornamento(utente));
     }

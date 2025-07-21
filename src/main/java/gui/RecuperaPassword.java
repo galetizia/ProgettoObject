@@ -12,12 +12,14 @@ public class RecuperaPassword {
     private JPanel mainPanel;
     private JLabel area;
 
+    private static final String SEGOEUI = "Segoe UI";
+
     public RecuperaPassword(ControllerRecuperoPassword controller) {
 
         mainPanel.setPreferredSize(new Dimension(500, 400));
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
 
-        confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermaButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confermaButton.addActionListener(ignored -> {
             String email = emailInput.getText();
@@ -25,7 +27,7 @@ public class RecuperaPassword {
             controller.recuperoPassword(email, username);
         });
 
-        logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        logoutButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logoutButton.addActionListener(ignored -> controller.logout());
     }

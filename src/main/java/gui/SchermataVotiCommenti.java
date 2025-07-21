@@ -32,10 +32,12 @@ public class SchermataVotiCommenti {
     private final DefaultListModel<String> modelList;
     private JButton ultimoPulsantePremuto = null;
 
+    private static final String SEGOEUI = "SegoeUI";
+
     public SchermataVotiCommenti(ControllerVotiCommenti controller, Giudice giudice) {
         mainPanel.setPreferredSize(new Dimension(500,350));
 
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
         idTextF.setVisible(false);
         idTextField.setVisible(false);
         aggTextId.setVisible(false);
@@ -53,42 +55,42 @@ public class SchermataVotiCommenti {
         modelList = new DefaultListModel<>();
         list.setModel(modelList);
 
-        elencoTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        elencoTeamButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         elencoTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoTeamButton.addActionListener(ignored ->
             ultimoPulsantePremuto=controller.visibilitaElencoTeam(aggTextId,teamIdtextField,idTextField,modelList, ultimoPulsantePremuto, elencoTeamButton, list));
 
-        visualizzaAggiornamentoDiUnButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        visualizzaAggiornamentoDiUnButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         visualizzaAggiornamentoDiUnButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         visualizzaAggiornamentoDiUnButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaVisualizzaAgg(aggTextId, teamIdtextField, idTextField, modelList, ultimoPulsantePremuto, visualizzaAggiornamentoDiUnButton, list)
         );
 
-        confermavisualizzButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermavisualizzButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermavisualizzButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermavisualizzButton.addActionListener(ignored -> controller.visualizzaAggiornamento(idTextField, modelList));
 
-        commentaUnAggiornamentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        commentaUnAggiornamentoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         commentaUnAggiornamentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         commentaUnAggiornamentoButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaCommento(idTextField, teamIdtextField, aggTextId, modelList, ultimoPulsantePremuto, commentaUnAggiornamentoButton, list)
         );
 
-        confermacommentoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermacommentoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermacommentoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermacommentoButton.addActionListener(ignored ->
             controller.caricaCommento(giudice, aggTextId, commentoTextF));
 
-        valutaUnTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        valutaUnTeamButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         valutaUnTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         valutaUnTeamButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaValutazione(idTextField, teamIdtextField, commentoTextF, modelList, ultimoPulsantePremuto, valutaUnTeamButton, list));
 
-        indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        indietroButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(ignored -> controller.getSchermataGiudice());
 
-        confermavotoButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermavotoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermavotoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermavotoButton.addActionListener(ignored -> controller.caricaVoto(giudice, idTeamField, votoField));
 

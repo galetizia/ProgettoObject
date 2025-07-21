@@ -18,7 +18,10 @@ public class ControllerOrganizzaHackathon {
     private final MainController mainController;
     private final Organizzatore organizzatore;
     HackathonDAO hdao = new HackathonDAO();
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private static final String ERROREFORMATO = "Errore di formato";
 
     public ControllerOrganizzaHackathon(MainController mainController, Organizzatore organizzatore) {
         this.mainController = mainController;
@@ -60,28 +63,28 @@ public class ControllerOrganizzaHackathon {
         try {
             dataInizio = LocalDate.parse(dataInizioTextField.getText(), formatter);
         } catch (DateTimeParseException datE) {
-            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Data Fine deve avere formato DD/MM/yyyy", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Data Fine deve avere formato DD/MM/yyyy", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
             dataFine = LocalDate.parse(dataFineTextField.getText(), formatter);
         } catch (DateTimeParseException datE) {
-            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Data Inizio deve avere formato DD/MM/yyyy", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Data Inizio deve avere formato DD/MM/yyyy", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
             maxIscr = Integer.parseInt(maxIscrTextField.getText());
         } catch (NumberFormatException numE) {
-            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Max Iscritti deve essere un numero intero", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Max Iscritti deve essere un numero intero", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
             maxDimTeam = Integer.parseInt(maxDimTeamTextField.getText());
         } catch (NumberFormatException numE) {
-            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Max Dim. Team deve essere un numero intero", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataOrganizzaHackathon.getMainPanel(), "Il campo Max Dim. Team deve essere un numero intero", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
             return;
         }
 

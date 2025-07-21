@@ -20,11 +20,13 @@ public class Login {
     private JCheckBox giudiceCheckBox;
     private JLabel area;
 
+    private static final String SEGOEUI = "Segoe UI";
+
     public Login(ControllerLogin controller) {
 
         mainPanel.setPreferredSize(new Dimension(400, 300));
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
-        loginButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
+        loginButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         utenteCheck.addActionListener(ignored -> {
@@ -48,7 +50,7 @@ public class Login {
             controller.login(username, password, utenteCheck.isSelected(), organizzatoreCheck.isSelected(), giudiceCheckBox.isSelected());
         });
 
-        signInButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        signInButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         signInButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signInButton.addActionListener(ignored -> controller.showSignIn());
 

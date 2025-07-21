@@ -27,14 +27,15 @@ public class GestioneHackathon {
     private JTextField usernameTextField;
     private JButton confermaGiudiceButton;
     private JLabel username;
-    private JButton ultimoPulsantePremuto = null; //variabile utilizzata per svuotare la lista
-                                                  // al secondo click di uno stesso bottone
+    private JButton ultimoPulsantePremuto = null;
+
+    private static final String SEGOEUI = "Segoe UI";
 
     private final DefaultListModel<String> modelList;
 
     public GestioneHackathon(ControllerGestioneHackathon controller, Organizzatore organizzatore) {
         mainpanel.setPreferredSize(new Dimension(600, 450));
-        area.setFont(new Font("Segoe UI", Font.BOLD, 38));
+        area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
 
         setVisibilityAggGiudice(false);
         setVisibilityRimozione(false);
@@ -42,38 +43,38 @@ public class GestioneHackathon {
         modelList = new DefaultListModel<>();
         list.setModel(modelList);
 
-        aggiungiGiudiceButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        aggiungiGiudiceButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         aggiungiGiudiceButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         aggiungiGiudiceButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaAggGiudice(idLabel, list, modelList, panelHackathon, username, ultimoPulsantePremuto, aggiungiGiudiceButton));
 
-        confermaGiudiceButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermaGiudiceButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermaGiudiceButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermaGiudiceButton.addActionListener(ignored -> {
             controller.aggiungiGiudice(usernameTextField, organizzatore);
             controller.mostraPotenzialiGiudici(list, modelList, panelHackathon);
         });
 
-        elencoUtentiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        elencoUtentiButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         elencoUtentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoUtentiButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaElencoUtenti(username,idLabel, ultimoPulsantePremuto, elencoUtentiButton, list, modelList, organizzatore));
 
-        elencoGiudiciButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        elencoGiudiciButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         elencoGiudiciButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoGiudiciButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaElencoGiudici(username, idLabel, ultimoPulsantePremuto, elencoGiudiciButton, list, modelList, organizzatore));
 
-        elencoTeamsButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        elencoTeamsButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         elencoTeamsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         elencoTeamsButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaElencoTeam(username, idLabel, ultimoPulsantePremuto, elencoTeamsButton, list, modelList, organizzatore));
 
-        terminaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        terminaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         terminaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         terminaHackathonButton.addActionListener(ignored -> controller.terminaHackathon());
 
-        rimozioneUtenteGiudiceTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        rimozioneUtenteGiudiceTeamButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         rimozioneUtenteGiudiceTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rimozioneUtenteGiudiceTeamButton.addActionListener(ignored ->
             ultimoPulsantePremuto = controller.visibilitaRimozione(idLabel, ultimoPulsantePremuto, rimozioneUtenteGiudiceTeamButton, modelList,  utenteCheckBox, giudiceCheckBox, teamCheckBox));
@@ -108,11 +109,11 @@ public class GestioneHackathon {
                 modelList.clear();
         });
 
-        confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        confermaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         confermaButton.addActionListener(ignored -> controller.gestioneRimozioni(utenteCheckBox,giudiceCheckBox,teamCheckBox,idTextField,organizzatore));
 
-        indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        indietroButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         indietroButton.addActionListener(ignored -> controller.getSchermataOrganizzatore());
 
