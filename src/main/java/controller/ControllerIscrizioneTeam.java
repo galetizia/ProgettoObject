@@ -24,6 +24,7 @@ public class ControllerIscrizioneTeam {
 
     private static final String ERROR = "Error";
     private static final String ERROREFORMATO = "Errore di formato";
+    private static final String ATTENZIONE = "Attenzione";
 
     public ControllerIscrizioneTeam(MainController mainController, Utente utente) {
         this.mainController = mainController;
@@ -31,9 +32,13 @@ public class ControllerIscrizioneTeam {
         this.utente=utente;
     }
 
-    public void creazioneTeam(String nome, String idHackathon) {
-        if(nome.isEmpty()) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserire un nome");
+    public void creazioneTeam(JTextField nomeNuovoTeamTextField, JTextField creaTeamIDTextField) {
+
+        String nome = nomeNuovoTeamTextField.getText();
+        String idHackathon = creaTeamIDTextField.getText();
+
+        if(nome.isEmpty() || idHackathon.isEmpty()) {
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserire tutti i campi!", ATTENZIONE, JOptionPane.WARNING_MESSAGE);
             return;
         }
         int id;
@@ -45,13 +50,13 @@ public class ControllerIscrizioneTeam {
         }
 
         if(hdao.getHackathonByID(id) == null) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "ID hackathon non valido" , ERROR, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "ID hackathon non valido, inserire un hackathon esistente!" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         List<Team> teams = hdao.getTeamByHackathon(id);
 
         if(teams.size() >= hdao.getMaxDimTeam(id)) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Raggiunto numero massimo di Team" , ERROR, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Raggiunto numero massimo di Team!" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }
         Team t = new Team(nome,id);
@@ -63,6 +68,9 @@ public class ControllerIscrizioneTeam {
     public void visualizzaHackathonAttive(JList<String> list, DefaultListModel<String> modelList) {
         List<Hackathon> hackathons = hdao.getHackathons();
         modelList.clear();
+
+        modelList.addElement("------- Elenco Hackathon Attive --------");
+
         for (Hackathon h : hackathons) {
             List<Team> teams = hdao.getTeamByHackathon(h.getID());
             modelList.addElement(h.getNome()+" (ID: "+h.getID()+") "+"("+teams.size()+"/"+hdao.getMaxIscritti(h.getID())+")");
@@ -73,8 +81,102 @@ public class ControllerIscrizioneTeam {
         schermataIscrizioneTeam.setVisiblePanelElenchi();
     }
 
+    public JButton visibilitaHackathonAttive(JList<String> list, DefaultListModel<String> modelList, JButton confermaListaTeamButton, JButton confermaIscrTramiteButton, JPanel panelIscrizione, JButton hackathonAttiveButton, JButton ultimoPulsantePremuto) {
 
-    public void iscrizioneTeam(String idTeamTxt) {
+        if(confermaListaTeamButton.isVisible()) {
+            schermataIscrizioneTeam.setVisibilityListaTeam(false);
+        }
+
+        if(confermaIscrTramiteButton.isVisible()) {
+            schermataIscrizioneTeam.setVisibilityIscrivitiTeam(false);
+        }
+
+        if(panelIscrizione.isVisible()) {
+            panelIscrizione.setVisible(false);
+        }
+
+        if(ultimoPulsantePremuto == hackathonAttiveButton) {
+            modelList.clear();
+            ultimoPulsantePremuto = null;
+        }else{
+            visualizzaHackathonAttive(list, modelList);
+            ultimoPulsantePremuto = hackathonAttiveButton;
+        }
+
+        return ultimoPulsantePremuto;
+    }
+
+    public JButton visibilitaListaTeam(JList<String> list, DefaultListModel<String> modelList, JButton listaTeamButton, JButton confermaIscrTramiteButton, JPanel panelIscrizione, JTextField hackathonIDTextField, JButton ultimoPulsantePremuto) {
+
+        if(confermaIscrTramiteButton.isVisible()) {
+            schermataIscrizioneTeam.setVisibilityIscrivitiTeam(false);
+        }
+
+        if(panelIscrizione.isVisible()) {
+            panelIscrizione.setVisible(false);
+        }
+
+        schermataIscrizioneTeam.setVisibilityListaTeam(!hackathonIDTextField.isVisible());
+
+        if(ultimoPulsantePremuto == listaTeamButton) {
+            modelList.clear();
+            ultimoPulsantePremuto = null;
+        }else{
+            visualizzaHackathonAttive(list, modelList);
+            ultimoPulsantePremuto = listaTeamButton;
+        }
+
+        return ultimoPulsantePremuto;
+    }
+
+    public JButton visibilitaIscrivitiTeam(JButton confermaListaTeamButton, JButton iscrivitiAdUnTeamButton, JPanel panelIscrizione, JTextField teamIDTextField, JButton ultimoPulsantePremuto) {
+
+        if(confermaListaTeamButton.isVisible()) {
+            schermataIscrizioneTeam.setVisibilityListaTeam(false);
+        }
+
+        if(panelIscrizione.isVisible()) {
+            panelIscrizione.setVisible(false);
+        }
+
+        schermataIscrizioneTeam.setVisibilityIscrivitiTeam(!teamIDTextField.isVisible());
+
+        if(ultimoPulsantePremuto == iscrivitiAdUnTeamButton)
+            ultimoPulsantePremuto = null;
+        else
+            ultimoPulsantePremuto = iscrivitiAdUnTeamButton;
+
+
+        return ultimoPulsantePremuto;
+    }
+
+    public JButton visibilitaCreaTeam(DefaultListModel<String> modelList, JButton creaTeamButton, JButton confermaListaTeamButton, JButton confermaIscrTramiteButton, JPanel panelIscrizione, JButton ultimoPulsantePremuto){
+
+        modelList.clear();
+
+        if(confermaListaTeamButton.isVisible()) {
+            schermataIscrizioneTeam.setVisibilityListaTeam(false);
+        }
+        if(confermaIscrTramiteButton.isVisible()) {
+            schermataIscrizioneTeam.setVisibilityIscrivitiTeam(false);
+        }
+
+        if(ultimoPulsantePremuto == creaTeamButton) {
+            ultimoPulsantePremuto = null;
+            panelIscrizione.setVisible(false);
+        }
+        else {
+            panelIscrizione.setVisible(true);
+            ultimoPulsantePremuto = creaTeamButton;
+        }
+
+        return ultimoPulsantePremuto;
+    }
+
+    public void iscrizioneTeam(JTextField idTeamTextField) {
+
+        String idTeamTxt = idTeamTextField.getText();
+
         if(idTeamTxt.isEmpty()) {
             JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserisci un ID di un team" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
@@ -83,7 +185,7 @@ public class ControllerIscrizioneTeam {
             int id= Integer.parseInt(idTeamTxt);
             Team t = tdao.getTeamByID(id);
             if(t == null) {
-                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Team non iscritto all Hackathon" , "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Il Team inserito non esiste!" , ATTENZIONE, JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -97,12 +199,13 @@ public class ControllerIscrizioneTeam {
                 showUtente();
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID Hackathon deve essere un numero valido.", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "L'ID del Team deve essere un numero intero.", ERROREFORMATO, JOptionPane.ERROR_MESSAGE);
         }
     }
 
 
-    public void visualizzaTeamHackathon(String idHackathonTxt, JList<String> list,DefaultListModel<String> modelList) {
+    public void visualizzaTeamHackathon(JTextField idHackathonTextField, JList<String> list,DefaultListModel<String> modelList) {
+        String idHackathonTxt = idHackathonTextField.getText();
         if(idHackathonTxt.isEmpty()) {
             JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Inserisci un ID Hackathon" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
@@ -111,10 +214,13 @@ public class ControllerIscrizioneTeam {
             int hackathonID = Integer.parseInt(idHackathonTxt);
             List<Team> teams = hdao.getTeamByHackathon(hackathonID);
             modelList.clear();
+
             if(teams.isEmpty()) {
-                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Nessun Team iscritto a quest Hackathon!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Nessun Team iscritto a quest Hackathon!", ATTENZIONE, JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
+            modelList.addElement("---------- Elenco Team -----------");
 
             for (Team t : teams) {
                 modelList.addElement(t.getNome()+" (ID: "+t.getId()+") "+"("+teams.size()+"/"+hdao.getMaxDimTeam(hackathonID)+")");
