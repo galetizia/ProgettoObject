@@ -129,7 +129,7 @@ public class HackathonDAO implements IHackathonDAO {
         return hackathons;
     }
     private int getFieldOfTable(String field, String table, String where, Integer id){
-        String sql = "SELECT " + field + "FROM"+ table +" WHERE "+ where +" = ?";
+        String sql = "SELECT " + field + " FROM "+ table +" WHERE "+ where +" = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);

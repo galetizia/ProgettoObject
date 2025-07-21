@@ -32,6 +32,7 @@ public class SchermataUtente {
     private boolean hackathonVisibile= false;
 
     private static final String SEGOEUI = "Segoe UI";
+    private static final String ATTENZIONE = "Attenzione";
 
     private final HackathonDAO hdao = new HackathonDAO();
 
@@ -46,11 +47,11 @@ public class SchermataUtente {
         classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         classificaHackathonButton.addActionListener(ignored ->{
             if(utente.getHackathonID() == (null)) {
-                JOptionPane.showMessageDialog(mainPanel, "Non partecipi a nessun Hackathon!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(mainPanel, "Non partecipi a nessun Hackathon!", ATTENZIONE, JOptionPane.WARNING_MESSAGE);
                 return;
             }
             if(!hdao.isClassificaPubblicata(utente.getHackathonID())){
-                JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(mainPanel, "Classifica non ancora pubblicata!", ATTENZIONE, JOptionPane.WARNING_MESSAGE);
                 return;
             }
             controller.showSchermataClassifica(utente.getHackathonID(), utente);
@@ -117,7 +118,7 @@ public class SchermataUtente {
                 }
                 return;
             }
-            JOptionPane.showMessageDialog(mainPanel,"Non partecipi a nessun Hackathon");
+            JOptionPane.showMessageDialog(mainPanel,"Non partecipi a nessun Hackathon", ATTENZIONE, JOptionPane.WARNING_MESSAGE);
 
         });
 
