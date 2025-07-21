@@ -28,6 +28,15 @@ public class ControllerLogin {
             return;
         }
 
+        if(isUtente){
+            Utente u = udao.login(username, password);
+            if(u!=null){
+                JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Login effettuato come Utente!");
+                maincontroller.showSchermataUtente(u);
+                return;
+            }
+        }
+
         if(isGiudice) {
             Giudice g = gdao.login(username, password);
             if(g != null) {
@@ -46,14 +55,8 @@ public class ControllerLogin {
             }
         }
 
-        if(isUtente){
-            Utente u = udao.login(username, password);
-            if(u!=null){
-                JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Login effettuato come Utente!");
-                maincontroller.showSchermataUtente(u);
-                return;
-            }
-        }
+
+
         JOptionPane.showMessageDialog(loginGui.getMainPanel(), "Credenziali errate.");
         }
     public void showSignIn() {
