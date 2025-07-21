@@ -223,7 +223,8 @@ public class ControllerIscrizioneTeam {
             modelList.addElement("---------- Elenco Team -----------");
 
             for (Team t : teams) {
-                modelList.addElement(t.getNome()+" (ID: "+t.getId()+") "+"("+teams.size()+"/"+hdao.getMaxDimTeam(hackathonID)+")");
+                List<Utente> membri = tdao.membriTeam(t.getId());
+                modelList.addElement(t.getNome()+" (ID: "+t.getId()+") "+"("+membri.size()+"/"+hdao.getMaxDimTeam(hackathonID)+")");
             }
 
             list.revalidate();
