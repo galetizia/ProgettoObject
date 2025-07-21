@@ -8,7 +8,6 @@ public class Aggiornamento {
     private final String documento;
     private boolean isElaboratoFinale;
 
-
     public Aggiornamento(String nome, String documento, Integer teamID, String usernameUtente) {
         this.nome = nome;
         this.documento = documento;

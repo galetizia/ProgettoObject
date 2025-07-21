@@ -2,10 +2,7 @@ package controller;
 
 import gui.Classifica;
 
-import implementazionepostgresdao.GiudiceDAO;
 import implementazionepostgresdao.HackathonDAO;
-import implementazionepostgresdao.TeamDAO;
-import implementazionepostgresdao.UtenteDAO;
 import model.*;
 
 import javax.swing.*;
@@ -15,14 +12,13 @@ public class ControllerClassifica {
 
     private final Classifica classifica;
 
-    private final MainController mainController;
-    private Integer hackathonID;
-    private HackathonDAO hdao = new HackathonDAO();
+    private final Integer hackathonID;
+    private final HackathonDAO hdao = new HackathonDAO();
 
-    public ControllerClassifica(MainController mainController, Integer hackathonID, Runnable azioneIndietro) {
-        this.mainController = mainController;
+    public ControllerClassifica(Integer hackathonID, Runnable azioneIndietro) {
+
         this.hackathonID = hackathonID;
-        this.classifica = new Classifica(this, hackathonID, azioneIndietro);
+        this.classifica = new Classifica(this, azioneIndietro);
     }
 
     public JPanel getSchermataClassifica(){return classifica.getMainPanel();}
@@ -42,10 +38,5 @@ public class ControllerClassifica {
         list.repaint();
         panel.setVisible(true);
     }
-    public void indietro(){
-
-    }
-
-
 
 }

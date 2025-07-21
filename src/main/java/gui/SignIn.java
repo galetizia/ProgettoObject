@@ -20,7 +20,6 @@ public class SignIn {
     private JCheckBox organizzatoreCheckBox;
     private JLabel area;
 
-
     public SignIn(ControllerSignIn controller) {
 
         mainPanel.setPreferredSize(new Dimension(600, 400));

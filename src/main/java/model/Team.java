@@ -28,6 +28,4 @@ public class Team {
     public Integer getHackathonID() { return hackathonID; }
     public void setHackathonID(Integer hackathonID) { this.hackathonID = hackathonID; }
 
-
-
 }

@@ -8,7 +8,6 @@ import javax.swing.*;
 
 public class ControllerRecuperoPassword {
     private final RecuperaPassword recuperaPassword;
-    HackathonDAO hdao = new HackathonDAO();
     UtenteDAO udao = new UtenteDAO();
     OrganizzatoreDAO odao = new OrganizzatoreDAO();
     GiudiceDAO gdao = new GiudiceDAO();

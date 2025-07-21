@@ -31,4 +31,5 @@ public class Utente {
 
     public Integer getTeamID() { return teamID; }
     public void setTeamID(Integer teamID) { this.teamID = teamID; }
+
 }

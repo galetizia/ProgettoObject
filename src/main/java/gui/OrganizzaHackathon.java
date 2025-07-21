@@ -1,15 +1,9 @@
 package gui;
 
 import controller.ControllerOrganizzaHackathon;
-import implementazionepostgresdao.HackathonDAO;
-import model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.List;
 
 public class OrganizzaHackathon {
     private JPanel mainPanel;
@@ -28,12 +22,10 @@ public class OrganizzaHackathon {
     private JTextField maxIscrTextField;
     private JTextField maxDimTeamTextField;
     private JLabel area;
-    private DefaultListModel<String> modelLista;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final DefaultListModel<String> modelLista;
 
-    HackathonDAO hdao = new HackathonDAO();
 
-    public OrganizzaHackathon(ControllerOrganizzaHackathon controller, Organizzatore organizzatore) {
+    public OrganizzaHackathon(ControllerOrganizzaHackathon controller) {
         mainPanel.setPreferredSize(new Dimension(600,400));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
@@ -44,83 +36,19 @@ public class OrganizzaHackathon {
 
         hackathonAttiveButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         hackathonAttiveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        hackathonAttiveButton.addActionListener(e -> {
-            List<Hackathon> hackathons = hdao.getHackathons();
-            if(hackathons.isEmpty()){
-                JOptionPane.showMessageDialog(mainPanel, "Nessuna Hackathon attiva!", "Info", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            modelLista.clear();
-            for (Hackathon h : hackathons) {
-                modelLista.addElement(h.getNome()+" (ID:"+h.getID()+")");
-            }
-            listElenchi.revalidate();
-            listElenchi.repaint();
-            panelElenchi.setVisible(true);
-        });
+        hackathonAttiveButton.addActionListener(ignored -> controller.listeHackathon(listElenchi, modelLista, panelElenchi));
 
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        confermaButton.addActionListener(e -> {
-
-            String titolo = titoloTextField.getText();
-            String sede = sedeTextField.getText();
-            String problema = problemaTextField.getText();
-            LocalDate dataInizio;
-            LocalDate dataFine;
-            int maxIscr;
-            int maxDimTeam;
-
-            if(titolo.isEmpty() || sede.isEmpty() || problema.isEmpty()) {
-                JOptionPane.showMessageDialog(mainPanel, "Inserire tutti i campi!!");
-                return;
-            }
-            try {
-                dataInizio = LocalDate.parse(dataInizioTextField.getText(), formatter);
-            } catch (DateTimeParseException datE) {
-                JOptionPane.showMessageDialog(mainPanel, "Il campo Data Fine deve avere formato DD/MM/yyyy", "Errore di formato", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            try {
-                dataFine = LocalDate.parse(dataFineTextField.getText(), formatter);
-            } catch (DateTimeParseException datE) {
-                JOptionPane.showMessageDialog(mainPanel, "Il campo Data Inizio deve avere formato DD/MM/yyyy", "Errore di formato", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            try {
-                maxIscr = Integer.parseInt(maxIscrTextField.getText());
-            } catch (NumberFormatException numE) {
-                JOptionPane.showMessageDialog(mainPanel, "Il campo Max Iscritti deve essere un numero intero", "Errore di formato", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            try {
-                maxDimTeam = Integer.parseInt(maxDimTeamTextField.getText());
-            } catch (NumberFormatException numE) {
-                JOptionPane.showMessageDialog(mainPanel, "Il campo Max Dim. Team deve essere un numero intero", "Errore di formato", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            Hackathon nuovaHackathon = new Hackathon(titolo, sede,  dataInizio, dataFine, problema, maxIscr, maxDimTeam);
-            hdao.caricaHackathonDB(nuovaHackathon, organizzatore);
-            JOptionPane.showMessageDialog(mainPanel, "Nuova Hackathon caricata con successo","Success", JOptionPane.INFORMATION_MESSAGE);
-            controller.indietro();
-        });
+        confermaButton.addActionListener(ignored -> controller.creaHackathon(titoloTextField, sedeTextField, problemaTextField, dataInizioTextField, dataFineTextField, maxIscrTextField, maxDimTeamTextField));
 
         organizzaNuovaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         organizzaNuovaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        organizzaNuovaHackathonButton.addActionListener(e -> {
-            panelIscrizione.setVisible(true);
-        });
+        organizzaNuovaHackathonButton.addActionListener(ignored -> panelIscrizione.setVisible(true));
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        indietroButton.addActionListener(e -> {
-            controller.indietro();
-        });
+        indietroButton.addActionListener(ignored -> controller.indietro());
     }
 
     public JPanel getMainPanel() {return mainPanel;}

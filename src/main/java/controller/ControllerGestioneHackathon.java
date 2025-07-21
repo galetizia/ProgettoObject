@@ -231,4 +231,102 @@ public class ControllerGestioneHackathon {
         mainController.showSchermataOrganizzatore(organizzatoreLoggato);
     }
 
+    public JButton visibilitaAggGiudice(JLabel idLabel, JList<String> list, DefaultListModel<String> modelList, JScrollPane panelHackathon, JLabel username, JButton ultimoPulsantePremuto, JButton aggiungiGiudiceButton){
+        if(idLabel.isVisible()) {
+            schermataGestioneHackathon.setVisibilityRimozione(false);
+        }
+        if(!mostraPotenzialiGiudici(list, modelList, panelHackathon)){
+            schermataGestioneHackathon.setVisibilityAggGiudice(false);
+            modelList.clear();
+            return null;
+        }
+        boolean check=!username.isVisible();
+        schermataGestioneHackathon.setVisibilityAggGiudice(check);
+
+        if (ultimoPulsantePremuto == aggiungiGiudiceButton) {
+            modelList.clear();
+            ultimoPulsantePremuto = null;
+        } else {
+            ultimoPulsantePremuto = aggiungiGiudiceButton;
+        }
+        return ultimoPulsantePremuto;
+    }
+
+    public JButton visibilitaElencoGiudici(JLabel username, JLabel idLabel, JButton ultimoPulsantePremuto, JButton elencoGiudiciButton, JList<String> list, DefaultListModel<String> modelList, Organizzatore organizzatore){
+        if(username.isVisible()) {
+            schermataGestioneHackathon.setVisibilityAggGiudice(false);
+        }
+        if(idLabel.isVisible()) {
+            schermataGestioneHackathon.setVisibilityRimozione(false);
+        }
+
+        if (ultimoPulsantePremuto == elencoGiudiciButton) {
+            modelList.clear();
+            ultimoPulsantePremuto = null;
+        } else {
+            mostraGiudici(list, modelList, schermataGestioneHackathon.getPanelHackathon(), organizzatore);
+            ultimoPulsantePremuto = elencoGiudiciButton;
+        }
+        return ultimoPulsantePremuto;
+    }
+
+    public JButton visibilitaElencoUtenti(JLabel username, JLabel idLabel, JButton ultimoPulsantePremuto, JButton elencoUtentiButton, JList<String> list, DefaultListModel<String> modelList, Organizzatore organizzatore){
+        if(username.isVisible()) {
+            schermataGestioneHackathon.setVisibilityAggGiudice(false);
+        }
+        if(idLabel.isVisible()) {
+            schermataGestioneHackathon.setVisibilityRimozione(false);
+        }
+        if (ultimoPulsantePremuto == elencoUtentiButton) {
+            modelList.clear();
+            ultimoPulsantePremuto = null;
+        } else {
+            mostraUtenti(list, modelList, schermataGestioneHackathon.getPanelHackathon(), organizzatore);
+            ultimoPulsantePremuto = elencoUtentiButton;
+        }
+        return ultimoPulsantePremuto;
+    }
+
+    public JButton visibilitaElencoTeam(JLabel username, JLabel idLabel, JButton ultimoPulsantePremuto, JButton elencoTeamsButton, JList<String> list, DefaultListModel<String> modelList, Organizzatore organizzatore){
+        if(username.isVisible()) {
+            schermataGestioneHackathon.setVisibilityAggGiudice(false);
+        }
+        if(idLabel.isVisible()) {
+            schermataGestioneHackathon.setVisibilityRimozione(false);
+        }
+        if (ultimoPulsantePremuto == elencoTeamsButton) {
+            modelList.clear();
+            ultimoPulsantePremuto = null;
+        } else {
+            mostraTeams(list, modelList, schermataGestioneHackathon.getPanelHackathon(), organizzatore);
+            ultimoPulsantePremuto = elencoTeamsButton;
+        }
+        return ultimoPulsantePremuto;
+    }
+
+    public JButton visibilitaRimozione(JLabel idLabel, JButton ultimoPulsantePremuto, JButton rimozioneUtenteGiudiceTeamButton, DefaultListModel<String> modelList, JCheckBox utenteCheckBox, JCheckBox giudiceCheckBox, JCheckBox teamCheckBox){
+        if(schermataGestioneHackathon.getUsernameLabel().isVisible()) {
+            schermataGestioneHackathon.setVisibilityAggGiudice(false);
+        }
+
+        schermataGestioneHackathon.setVisibilityRimozione(!idLabel.isVisible());
+
+        if(!utenteCheckBox.isSelected() && !giudiceCheckBox.isSelected() && !teamCheckBox.isSelected())
+            modelList.clear();
+
+        if (ultimoPulsantePremuto == rimozioneUtenteGiudiceTeamButton) {
+            modelList.clear();
+            ultimoPulsantePremuto = null;
+        } else {
+            ultimoPulsantePremuto = rimozioneUtenteGiudiceTeamButton;
+        }
+        schermataGestioneHackathon.getMainPanel().revalidate();
+        schermataGestioneHackathon.getMainPanel().repaint();
+        return ultimoPulsantePremuto;
+    }
+
+
+
+
+
 }

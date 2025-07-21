@@ -9,6 +9,7 @@ import java.util.List;
 public interface IGiudiceDAO {
 
     Giudice login(String username, String password);
+
     Giudice findGiudiceByUsername(String username);
     Giudice findGiudiceByEmail(String email);
 

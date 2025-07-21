@@ -36,179 +36,49 @@ public class GestioneHackathon {
         mainpanel.setPreferredSize(new Dimension(600, 450));
         area.setFont(new Font("Segoe UI", Font.BOLD, 38));
 
-        idLabel.setVisible(false);
-        idTextField.setVisible(false);
-        confermaButton.setVisible(false);
-        utenteCheckBox.setVisible(false);
-        giudiceCheckBox.setVisible(false);
-        teamCheckBox.setVisible(false);
-        username.setVisible(false);
-        usernameTextField.setVisible(false);
-        confermaGiudiceButton.setVisible(false);
+        setVisibilityAggGiudice(false);
+        setVisibilityRimozione(false);
 
         modelList = new DefaultListModel<>();
         list.setModel(modelList);
 
         aggiungiGiudiceButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         aggiungiGiudiceButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        aggiungiGiudiceButton.addActionListener(e ->{
-            if(idLabel.isVisible()) {
-                idLabel.setVisible(false);
-                idTextField.setVisible(false);
-                confermaButton.setVisible(false);
-                utenteCheckBox.setVisible(false);
-                giudiceCheckBox.setVisible(false);
-                teamCheckBox.setVisible(false);
-            }
-            if(!controller.mostraPotenzialiGiudici(list, modelList, panelHackathon)){
-                username.setVisible(false);
-                usernameTextField.setVisible(false);
-                confermaGiudiceButton.setVisible(false);
-                modelList.clear();
-                return;
-            }
-            boolean check=!username.isVisible();
-            username.setVisible(check);
-            usernameTextField.setVisible(check);
-            confermaGiudiceButton.setVisible(check);
-
-            if (ultimoPulsantePremuto == aggiungiGiudiceButton) {
-                modelList.clear();
-                ultimoPulsantePremuto = null;
-            } else {
-                ultimoPulsantePremuto = aggiungiGiudiceButton;
-            }
-
-        });
+        aggiungiGiudiceButton.addActionListener(ignored ->
+            ultimoPulsantePremuto = controller.visibilitaAggGiudice(idLabel, list, modelList, panelHackathon, username, ultimoPulsantePremuto, aggiungiGiudiceButton));
 
         confermaGiudiceButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaGiudiceButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        confermaGiudiceButton.addActionListener(e -> {
+        confermaGiudiceButton.addActionListener(ignored -> {
             controller.aggiungiGiudice(usernameTextField, organizzatore);
             controller.mostraPotenzialiGiudici(list, modelList, panelHackathon);
         });
 
         elencoUtentiButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         elencoUtentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        elencoUtentiButton.addActionListener(e -> {
-            if(username.isVisible()) {
-                username.setVisible(false);
-                usernameTextField.setVisible(false);
-                confermaGiudiceButton.setVisible(false);
-            }
-            if(idLabel.isVisible()) {
-                idLabel.setVisible(false);
-                idTextField.setVisible(false);
-                confermaButton.setVisible(false);
-                utenteCheckBox.setVisible(false);
-                giudiceCheckBox.setVisible(false);
-                teamCheckBox.setVisible(false);
-            }
-
-            if (ultimoPulsantePremuto == elencoUtentiButton) {
-                modelList.clear();
-                ultimoPulsantePremuto = null;
-            } else {
-                controller.mostraUtenti(list, modelList, panelHackathon, organizzatore);
-                ultimoPulsantePremuto = elencoUtentiButton;
-            }
-        });
+        elencoUtentiButton.addActionListener(ignored ->
+            ultimoPulsantePremuto = controller.visibilitaElencoUtenti(username,idLabel, ultimoPulsantePremuto, elencoUtentiButton, list, modelList, organizzatore));
 
         elencoGiudiciButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         elencoGiudiciButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        elencoGiudiciButton.addActionListener(e -> {
-            if(username.isVisible()) {
-                username.setVisible(false);
-                usernameTextField.setVisible(false);
-                confermaGiudiceButton.setVisible(false);
-            }
-            if(idLabel.isVisible()) {
-                idLabel.setVisible(false);
-                idTextField.setVisible(false);
-                confermaButton.setVisible(false);
-                utenteCheckBox.setVisible(false);
-                giudiceCheckBox.setVisible(false);
-                teamCheckBox.setVisible(false);
-            }
-
-            if (ultimoPulsantePremuto == elencoGiudiciButton) {
-                modelList.clear();
-                ultimoPulsantePremuto = null;
-            } else {
-                controller.mostraGiudici(list, modelList, panelHackathon, organizzatore);
-                ultimoPulsantePremuto = elencoGiudiciButton;
-            }
-
-        });
+        elencoGiudiciButton.addActionListener(ignored ->
+            ultimoPulsantePremuto = controller.visibilitaElencoGiudici(username, idLabel, ultimoPulsantePremuto, elencoGiudiciButton, list, modelList, organizzatore));
 
         elencoTeamsButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         elencoTeamsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        elencoTeamsButton.addActionListener(e -> {
-            if(username.isVisible()) {
-                username.setVisible(false);
-                usernameTextField.setVisible(false);
-                confermaGiudiceButton.setVisible(false);
-            }
-            if(idLabel.isVisible()) {
-                idLabel.setVisible(false);
-                idTextField.setVisible(false);
-                confermaButton.setVisible(false);
-                utenteCheckBox.setVisible(false);
-                giudiceCheckBox.setVisible(false);
-                teamCheckBox.setVisible(false);
-            }
-            if (ultimoPulsantePremuto == elencoTeamsButton) {
-                modelList.clear();
-                ultimoPulsantePremuto = null;
-            } else {
-                controller.mostraTeams(list, modelList, panelHackathon, organizzatore);
-                ultimoPulsantePremuto = elencoTeamsButton;
-            }
-        });
+        elencoTeamsButton.addActionListener(ignored ->
+            ultimoPulsantePremuto = controller.visibilitaElencoTeam(username, idLabel, ultimoPulsantePremuto, elencoTeamsButton, list, modelList, organizzatore));
 
         terminaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         terminaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        terminaHackathonButton.addActionListener(e -> controller.terminaHackathon());
+        terminaHackathonButton.addActionListener(ignored -> controller.terminaHackathon());
 
         rimozioneUtenteGiudiceTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         rimozioneUtenteGiudiceTeamButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        rimozioneUtenteGiudiceTeamButton.addActionListener(e -> {
-            if(username.isVisible()) {
-                username.setVisible(false);
-                usernameTextField.setVisible(false);
-                confermaGiudiceButton.setVisible(false);
-            }
-            if(!idLabel.isVisible()) {
-                idLabel.setVisible(true);
-                idTextField.setVisible(true);
-                confermaButton.setVisible(true);
-                utenteCheckBox.setVisible(true);
-                giudiceCheckBox.setVisible(true);
-                teamCheckBox.setVisible(true);
-            }else {
-                idLabel.setVisible(false);
-                idTextField.setVisible(false);
-                confermaButton.setVisible(false);
-                utenteCheckBox.setVisible(false);
-                giudiceCheckBox.setVisible(false);
-                teamCheckBox.setVisible(false);
-            }
+        rimozioneUtenteGiudiceTeamButton.addActionListener(ignored ->
+            ultimoPulsantePremuto = controller.visibilitaRimozione(idLabel, ultimoPulsantePremuto, rimozioneUtenteGiudiceTeamButton, modelList,  utenteCheckBox, giudiceCheckBox, teamCheckBox));
 
-            if(!utenteCheckBox.isSelected() && !giudiceCheckBox.isSelected() && !teamCheckBox.isSelected())
-                modelList.clear();
-
-            if (ultimoPulsantePremuto == rimozioneUtenteGiudiceTeamButton) {
-                modelList.clear();
-                ultimoPulsantePremuto = null;
-            } else {
-                ultimoPulsantePremuto = rimozioneUtenteGiudiceTeamButton;
-            }
-
-            mainpanel.revalidate();
-            mainpanel.repaint();
-        });
-
-        utenteCheckBox.addActionListener(e -> {
+        utenteCheckBox.addActionListener(ignored -> {
             if (utenteCheckBox.isSelected()) {
                 teamCheckBox.setSelected(false);
                 giudiceCheckBox.setSelected(false);
@@ -218,7 +88,7 @@ public class GestioneHackathon {
                 modelList.clear();
         });
 
-        teamCheckBox.addActionListener(e -> {
+        teamCheckBox.addActionListener(ignored -> {
             if (teamCheckBox.isSelected()) {
                 utenteCheckBox.setSelected(false);
                 giudiceCheckBox.setSelected(false);
@@ -228,7 +98,7 @@ public class GestioneHackathon {
                 modelList.clear();
         });
 
-        giudiceCheckBox.addActionListener(e -> {
+        giudiceCheckBox.addActionListener(ignored -> {
             if (giudiceCheckBox.isSelected()) {
                 utenteCheckBox.setSelected(false);
                 teamCheckBox.setSelected(false);
@@ -240,15 +110,37 @@ public class GestioneHackathon {
 
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        confermaButton.addActionListener(e -> controller.gestioneRimozioni(utenteCheckBox,giudiceCheckBox,teamCheckBox,idTextField,organizzatore));
+        confermaButton.addActionListener(ignored -> controller.gestioneRimozioni(utenteCheckBox,giudiceCheckBox,teamCheckBox,idTextField,organizzatore));
 
         indietroButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         indietroButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        indietroButton.addActionListener(e -> controller.getSchermataOrganizzatore());
+        indietroButton.addActionListener(ignored -> controller.getSchermataOrganizzatore());
 
 
     }
+
+    private void setVisibility(boolean visible, JComponent... components) {
+        for (JComponent c : components)
+            c.setVisible(visible);
+    }
+
     public JPanel getMainPanel() {
         return mainpanel;
+    }
+
+    public JScrollPane getPanelHackathon() {
+        return panelHackathon;
+    }
+
+    public JLabel getUsernameLabel() {
+        return username;
+    }
+
+    public void setVisibilityRimozione(boolean visible){
+        setVisibility(visible, idLabel, idTextField, confermaButton, utenteCheckBox, giudiceCheckBox, teamCheckBox);
+    }
+
+    public void setVisibilityAggGiudice(boolean visible){
+        setVisibility(visible, username, usernameTextField, confermaGiudiceButton);
     }
 }

@@ -25,8 +25,7 @@ public class TeamSchermataUtente {
     private JCheckBox elaboratoFinaleCheckBox;
     private final DefaultListModel<String> modelListUtenti;
 
-    HackathonDAO hdao = new HackathonDAO();
-
+    private final HackathonDAO hdao = new HackathonDAO();
 
     public TeamSchermataUtente(ControllerTeamSchermataUtente controller, Team team, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600,400));

@@ -22,4 +22,5 @@ public interface ITeamDAO {
     void setVotiPerTeam(Integer id, Double media);
 
     boolean getElaboratoFinaleUltimoAggiornamento(Integer id);
+
 }

@@ -20,7 +20,6 @@ public class UtenteDAO implements IUtenteDAO {
 
 
     private Utente mapResultSetToUtente(ResultSet rs) throws SQLException {
-
         Utente u = new Utente(
                 rs.getString(NOME),
                 rs.getString(COGNOME),

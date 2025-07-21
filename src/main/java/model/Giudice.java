@@ -6,5 +6,4 @@ public class Giudice extends Utente {
         super(nome, cognome, email, username, password);
         setHackathonID(hackathonID);
     }
-
 }

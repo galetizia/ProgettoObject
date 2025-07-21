@@ -30,7 +30,7 @@ public class SchermataUtente {
     private JLabel hackText;
     private JButton classificaHackathonButton;
     private boolean hackathonVisibile= false;
-    HackathonDAO hdao = new HackathonDAO();
+    private final HackathonDAO hdao = new HackathonDAO();
 
     public SchermataUtente(ControllerSchermataUtente controller, Utente utente) {
         mainPanel.setPreferredSize(new Dimension(600, 300));
@@ -41,7 +41,7 @@ public class SchermataUtente {
 
         classificaHackathonButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        classificaHackathonButton.addActionListener(e ->{
+        classificaHackathonButton.addActionListener(ignored ->{
             if(utente.getHackathonID() == (null)) {
                 JOptionPane.showMessageDialog(mainPanel, "Non partecipi a nessun Hackathon!", "Attenzione", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -56,7 +56,7 @@ public class SchermataUtente {
 
         informazioniPersonaliButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        informazioniPersonaliButton.addActionListener(e -> {
+        informazioniPersonaliButton.addActionListener(ignored -> {
 
             if (!name.isVisible()) {
                 name.setText("Nome: " + utente.getNome());
@@ -82,7 +82,7 @@ public class SchermataUtente {
 
         attualebutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         attualebutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        attualebutton.addActionListener(e -> {
+        attualebutton.addActionListener(ignored -> {
             if(utente.getHackathonID() != null) {
                 Hackathon h = hdao.getHackathonByID(utente.getHackathonID());
                 titolo.setText("Titolo: " +h.getNome());
@@ -120,19 +120,19 @@ public class SchermataUtente {
 
         iscrizioneTeamButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         iscrizioneTeamButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iscrizioneTeamButton.addActionListener(e -> controller.schermataIscrizioneTeam(utente));
+        iscrizioneTeamButton.addActionListener(ignored -> controller.schermataIscrizioneTeam(utente));
 
         myTeambutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         myTeambutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        myTeambutton.addActionListener(e -> controller.schermataTeamUtente(utente));
+        myTeambutton.addActionListener(ignored -> controller.schermataTeamUtente(utente));
 
         problemabutton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         problemabutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        problemabutton.addActionListener(e -> controller.mostraProblemaHackathon(utente));
+        problemabutton.addActionListener(ignored -> controller.mostraProblemaHackathon(utente));
 
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        logoutButton.addActionListener(e -> controller.logout());
+        logoutButton.addActionListener(ignored -> controller.logout());
 
     }
     public JPanel getMainPanel(){

@@ -10,5 +10,4 @@ public interface IUtenteDAO {
     Utente findUtenteByEmail(String email);
 
     void changeIDTeam(Team team, Utente utente);
-
 }

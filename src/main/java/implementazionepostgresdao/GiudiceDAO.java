@@ -149,7 +149,6 @@ public class GiudiceDAO implements IGiudiceDAO {
             insertstmt.setString(3, voto.getGiudice().getUsername());
 
             insertstmt.executeQuery();
-
         }catch(SQLException e) {
             e.printStackTrace();
         }

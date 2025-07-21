@@ -27,22 +27,22 @@ public class Login {
         loginButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        utenteCheck.addActionListener(e -> {
+        utenteCheck.addActionListener(ignored -> {
             if (utenteCheck.isSelected()) {
                 organizzatoreCheck.setSelected(false); giudiceCheckBox.setSelected(false);}
         });
 
-        organizzatoreCheck.addActionListener(e -> {
+        organizzatoreCheck.addActionListener(ignored -> {
             if (organizzatoreCheck.isSelected()) {
                 utenteCheck.setSelected(false); giudiceCheckBox.setSelected(false);}
         });
 
-        giudiceCheckBox.addActionListener(e -> {
+        giudiceCheckBox.addActionListener(ignored -> {
             if (giudiceCheckBox.isSelected()) {
                 utenteCheck.setSelected(false); organizzatoreCheck.setSelected(false);}
         });
 
-        loginButton.addActionListener(e -> {
+        loginButton.addActionListener(ignored -> {
             String username = inpUsername.getText();
             String password = new String(inpPassword.getPassword());
             controller.login(username, password, utenteCheck.isSelected(), organizzatoreCheck.isSelected(), giudiceCheckBox.isSelected());
@@ -50,7 +50,7 @@ public class Login {
 
         signInButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         signInButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        signInButton.addActionListener(e -> controller.showSignIn());
+        signInButton.addActionListener(ignored -> controller.showSignIn());
 
         // Simula link cliccabile
         forgotUser.setText("<html><a href=''>Ho dimenticato il mio username</a></html>");

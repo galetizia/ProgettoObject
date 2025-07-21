@@ -24,7 +24,7 @@ public class ControllerIscrizioneTeam {
 
     public ControllerIscrizioneTeam(MainController mainController, Utente utente) {
         this.mainController = mainController;
-        this.schermataIscrizioneTeam = new IscrizioneTeam(this, utente);
+        this.schermataIscrizioneTeam = new IscrizioneTeam(this);
         this.utente=utente;
     }
 

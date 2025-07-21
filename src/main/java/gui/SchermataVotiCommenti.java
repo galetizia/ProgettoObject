@@ -101,15 +101,19 @@ public class SchermataVotiCommenti {
         for (JComponent c : components)
             c.setVisible(visible);
         }
+
     public void setVisiblePanelElenchi() {
         elencoPanel.setVisible(true);
     }
+
     public void setVisibilityCommentaAggiornamento(boolean visible){
         setVisibility(visible, commIDT,  aggTextId,  commentoF, commentoTextF, confermacommentoButton);
     }
+
     public void setVisibilityValuta(boolean visible){
         setVisibility(visible, teamIdtextField, idTeamField, votField, votoField, confermavotoButton);
     }
+
     public void setVisibilityVisualizzaAggiornamento(boolean visible){
         setVisibility(visible, idTextF, idTextField, confermavisualizzButton);
     }

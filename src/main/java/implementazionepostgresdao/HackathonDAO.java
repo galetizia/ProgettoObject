@@ -23,7 +23,7 @@ public class HackathonDAO implements IHackathonDAO {
     private static final String MEDIAVOTI = "mediavoti";
     private static final String CLASSIFICA = "classifica_pubblicata";
     private static final String MAXDIMTEAM = "max_dim_team";
-    private static final String MAXISCRITTI = "max_scritti";
+    private static final String MAXISCRITTI = "max_iscritti";
     private static final String DATAINIZIO = "data_inizio";
     private static final String DATAFINE = "data_fine";
     private static final String UTENTE = "utente";
@@ -38,7 +38,7 @@ public class HackathonDAO implements IHackathonDAO {
     public HackathonDAO() {/* Costruttore vuoto perchè l'oggetto DAO non lo utiliziamo con dei campi a cui assegnare i valori*/}
 
     private boolean signIn(String tableName, String nome, String cognome, String email, String username, String password){
-        String checksql="SELECT * FROM"+ tableName +" WHERE username=? OR email=?";
+        String checksql="SELECT * FROM "+ tableName +" WHERE username=? OR email=?";
         String insertsql="INSERT INTO "+tableName+"(nome,cognome,email,username,password) VALUES(?,?,?,?,?)";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement checkstmt = con.prepareStatement(checksql);
@@ -194,7 +194,6 @@ public class HackathonDAO implements IHackathonDAO {
             ostmt.setString(2, organizzatore.getUsername());
 
             ostmt.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

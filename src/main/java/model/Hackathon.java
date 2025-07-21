@@ -44,5 +44,4 @@ public class Hackathon {
 
     public LocalDate getFinePeriodoPrenotazioni(){ return this.finePeriodoPrenotazioni; }
 
-
 }

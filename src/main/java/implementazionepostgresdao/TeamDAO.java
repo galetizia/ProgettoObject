@@ -30,7 +30,6 @@ public class TeamDAO implements ITeamDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
                 return new Team(
                         rs.getInt(ID),
                         rs.getString(NOME),

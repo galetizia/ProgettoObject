@@ -7,6 +7,7 @@ public interface IOrganizzatoreDAO {
     boolean aggiungiGiudice(String username, Integer idHackathon);
 
     Organizzatore login(String username, String password);
+
     Organizzatore findOrganizzatoreByUsername(String username);
     Organizzatore findOrganizzatoreByEmail(String email);
 

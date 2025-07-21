@@ -120,6 +120,7 @@ public class ControllerVotiCommenti {
             JOptionPane.showMessageDialog(votiCommenti.getMainPanel(), "Compilare tutti i campi!", "Errore di formato", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         int id;
         try {
             id = Integer.parseInt(idTxt);

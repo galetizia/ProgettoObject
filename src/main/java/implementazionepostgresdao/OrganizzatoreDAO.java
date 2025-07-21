@@ -24,7 +24,6 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
                 rs.getString(EMAIL),
                 rs.getString(USERNAME),
                 rs.getString(PASSWORD)
-
         );
         int hackathonId = rs.getInt(HACKATHONID);
         if (rs.wasNull()) o.setHackathonID(null);

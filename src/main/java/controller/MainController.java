@@ -1,5 +1,4 @@
 package controller;
-import gui.SchermataGiudice;
 import model.*;
 import javax.swing.*;
 
@@ -82,21 +81,15 @@ public class MainController {
     }
 
     public void showSchermataClassifica(Integer hackathonId, Utente utente) {
-        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId, () -> {
-            showSchermataUtente(utente);
-        });
+        ControllerClassifica classificaController = new ControllerClassifica(hackathonId, () -> showSchermataUtente(utente));
         setPanel(classificaController.getSchermataClassifica());
     }
     public void showSchermataClassifica(Integer hackathonId, Giudice giudice) {
-        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId, () -> {
-            showSchermataGiudice(giudice);
-        });
+        ControllerClassifica classificaController = new ControllerClassifica(hackathonId, () -> showSchermataGiudice(giudice));
         setPanel(classificaController.getSchermataClassifica());
     }
     public void showSchermataClassifica(Integer hackathonId, Organizzatore organizzatore) {
-        ControllerClassifica classificaController = new ControllerClassifica(this, hackathonId, () -> {
-            showSchermataOrganizzatore(organizzatore);
-        });
+        ControllerClassifica classificaController = new ControllerClassifica(hackathonId, () -> showSchermataOrganizzatore(organizzatore));
         setPanel(classificaController.getSchermataClassifica());
     }
 
@@ -104,8 +97,6 @@ public class MainController {
         showLogin();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainController::new);
-    }
 
-} //modificato - Fabio (Aggiunto utente come parametro in showTeamSchermataUtente)
+
+}

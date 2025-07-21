@@ -9,7 +9,6 @@ import javax.swing.*;
 public class ControllerSchermataUtente {
     private final SchermataUtente schermataUtente;
     TeamDAO tdao = new TeamDAO();
-    UtenteDAO udao = new UtenteDAO();
     HackathonDAO hdao = new HackathonDAO();
 
     private final MainController mainController;
@@ -58,4 +57,4 @@ public class ControllerSchermataUtente {
     }
 
 
-} //modificato - Fabio (Parametro Utente)
+}

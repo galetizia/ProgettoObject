@@ -19,7 +19,7 @@ public class RecuperaPassword {
 
         confermaButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         confermaButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        confermaButton.addActionListener(e -> {
+        confermaButton.addActionListener(ignored -> {
             String email = emailInput.getText();
             String username = usernameInput.getText();
             controller.recuperoPassword(email, username);
@@ -27,7 +27,7 @@ public class RecuperaPassword {
 
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        logoutButton.addActionListener(e -> controller.logout());
+        logoutButton.addActionListener(ignored -> controller.logout());
     }
 
     public JPanel getMainPanel() {
