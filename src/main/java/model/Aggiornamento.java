@@ -23,7 +23,7 @@ public class Aggiornamento {
      * Crea una nuova istanza di {@code Aggiornamento}.
      *
      * @param nome           il nome dell'aggiornamento
-     * @param documento      il contenuto del documento (es. percorso o link)
+     * @param documento      il contenuto del documento (esempio un percorso o link)
      * @param teamID         l'ID del team che ha caricato l'aggiornamento
      * @param usernameUtente lo username dell’utente che ha inviato l’aggiornamento
      */
@@ -56,7 +56,7 @@ public class Aggiornamento {
     /**
      * Restituisce il contenuto del documento.
      *
-     * @return il documento (es. file, link o contenuto testuale)
+     * @return il documento (es. link o contenuto testuale)
      */
     public String getDocumento() {
         return this.documento;

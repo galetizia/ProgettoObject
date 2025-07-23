@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Rappresenta un voto asseganto da un giudice a un team in un suo hackathon.
+ * Rappresenta un voto assegnato da un giudice a un team in un suo hackathon.
  */
 public class Voto {
 

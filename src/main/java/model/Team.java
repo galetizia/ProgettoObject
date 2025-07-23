@@ -2,7 +2,9 @@ package model;
 
 /**
  *  Rappresenta un team iscritto a un hackathon.
+ *  <p>
  *  Ogni team ha un identificativo, un nome, un ID hackathon associato e una media dei voti ricevuti.
+ *  </p>
  */
 public class Team {
     private int id;
@@ -11,7 +13,7 @@ public class Team {
     private double mediaVoti=0;
 
     /**
-     * Instantiates a new Team (senza id perchè viene generato automaticamente dal database).
+     * Crea un nuovo Team (senza id perché viene generato automaticamente dal database).
      *
      * @param nome        il nome del team
      * @param hackathonID l'hackathon id associato
@@ -22,7 +24,7 @@ public class Team {
     }
 
     /**
-     * Instantiates a new Team (usato per il recupero da database).
+     * Crea un nuovo Team (usato per il recupero da database).
      *
      * @param id          l'id del team
      * @param nome        il nome
@@ -46,7 +48,7 @@ public class Team {
     /**
      * Restituisce l'id del team (integer).
      *
-     * @return l'id come tipo integer (scelto integer perchè non sempre lo inseriamo, il Database ci pensarà a generarlo)
+     * @return l'id come tipo integer (scelto integer perché non sempre lo inseriamo, il Database ci penserà a generarlo)
      *         e se il team non esiste ritorna null.
      */
     public Integer getId(){ return this.id; }
@@ -54,7 +56,7 @@ public class Team {
     /**
      * Imposta l'id del team.
      *
-     * @param id l'id del team asseganto dal Database
+     * @param id l'id del team assegnato dal Database
      */
     public void setId(int id) { this.id = id; }
 

@@ -2,8 +2,10 @@ package model;
 
 /**
  * Rappresenta un utente iscritto alla piattaforma.
+ * <p>
  * Ogni utente è caratterizzato un nome, cognome, email, username, password
  * e può essere associato a un hackathon e a un team.
+ * </p>
  */
 public class Utente {
 
