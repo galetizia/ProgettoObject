@@ -39,7 +39,7 @@ public class GiudiceDAO implements IGiudiceDAO {
     /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene lo username del giudice */
     private static final String USERNAME = "username";
 
-    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene lo username del giudice */
+    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene la password del giudice */
     private static final String PASSWORD = "password";
 
     /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene l'id dell'hackathon associato a un utente/team */

@@ -115,7 +115,7 @@ public class UtenteDAO implements IUtenteDAO {
      *
      * @param field il nome della colonna su cui effettuare la ricerca (esempio "email" o "username").
      * @param value il valore da confrontare nel campo specificato.
-     * @return se trovato l'oggetto {@code Utente} convertito da un {@link ResultSet}, altrimenti {@code null}.
+     * @return se trovato l'oggetto {@code Utente} convertito da un {@link ResultSet} (con il metodo mapResultSetToUtente), altrimenti {@code null}.
      */
     private Utente findUtenteByField(String field, String value) {
         String sql = "SELECT nome, cognome, email, username, password, team_id, hackathon_id  FROM utente WHERE " + field + " = ?";
@@ -131,6 +131,7 @@ public class UtenteDAO implements IUtenteDAO {
         }
         return null;
     }
+
 
     /**
      * Cerca un utente nel database in base allo username.

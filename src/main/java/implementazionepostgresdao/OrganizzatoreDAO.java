@@ -6,17 +6,45 @@ import dao.IOrganizzatoreDAO;
 import java.sql.*;
 
 public class OrganizzatoreDAO implements IOrganizzatoreDAO {
+    /**
+     * Crea una nuova istanza di {@code OrganizzatoreDAO}, costruttore vuoto poiché
+     * L'oggetto DAO non ha bisogno di campi da assegnare alla creazione.
+     */
+    public OrganizzatoreDAO() {/* Costruttore vuoto perché l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
 
-    UtenteDAO udao = new UtenteDAO();
+    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene il nome del Team/di un utente/di un giudice/di un organizzatore */
     private static final String NOME = "nome";
+
+    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene il cognome di un utente/di un giudice/di un organizzatore */
     private static final String COGNOME = "cognome";
+
+    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene l'email dell'utente/organizzatore/giudice */
     private static final String EMAIL = "email";
+
+    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene lo username del giudice/utente/organizzatore */
     private static final String USERNAME = "username";
+
+    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene la password del giudice/utente/organizzatore */
     private static final String PASSWORD = "password";
+
+    /** Costante che rappresenta la Stringa del nome della colonna che nel database contiene l'id dell'hackathon associato a un utente/team/giudice/organizzatore */
     private static final String HACKATHONID = "hackathon_id";
 
-    public OrganizzatoreDAO() {/* Costruttore vuoto perchè l'oggetto DAO non ha bisogno di campi da assegnare alla creazione*/}
+    /** DAO per l'entità utente, usato per operazioni collegate */
+    UtenteDAO udao = new UtenteDAO();
 
+
+    /**
+     * Converte un {@link ResultSet} in un oggetto {@link Organizzatore}.
+     * <p>
+     * I valori delle colonne sono letti in base ai nomi definiti come costanti,
+     * e vengono gestiti anche eventuali valori {@code NULL} per hackathonID.
+     * </p>
+     *
+     * @param rs il {@code ResultSet} ottenuto da una query.
+     * @return un oggetto {@code Organizzatore} popolato con i dati del database.
+     * @throws SQLException se si verifica un errore durante la lettura dei dati.
+     */
     private Organizzatore mapResultSetToOrganizzatore(ResultSet rs) throws SQLException {
         Organizzatore o = new Organizzatore(
                 rs.getString(NOME),
@@ -32,6 +60,15 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         return o;
     }
 
+
+    /**
+     * Esegue l'autenticazione di un organizzatore sulla base di username e password.
+     *
+     * @param username lo username inserito dall'organizzatore.
+     * @param password la password associata allo username.
+     * @return se l'autenticazione ha successo un oggetto {@code Organizzatore} convertito
+     * da un {@link ResultSet} (con il metodo mapResultSetToOrganizzatore), altrimenti {@code null}.
+     */
     @Override
     public Organizzatore login(String username, String password) {
         String sql = "SELECT nome, cognome, email, username, password, hackathon_id FROM organizzatore WHERE username = ? AND password = ?";
@@ -50,6 +87,18 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         return null;
     }
 
+
+    /**
+     * Cerca un organizzatore in base a un campo specifico del database.
+     * <p>
+     * Metodo di supporto privato riutilizzato da {@code findOrganizzatoreByUsername} e {@code findOrganizzatoreByEmail}.
+     * </p>
+     *
+     * @param field il nome della colonna su cui effettuare la ricerca (esempio "email" o "username").
+     * @param value il valore da confrontare nel campo specificato.
+     * @return se trovato l'oggetto {@code Organizzatore} convertito da un {@link ResultSet} (con il metodo mapResultSetToOrganizzatore),
+     * altrimenti {@code null}.
+     */
     private Organizzatore findOrganizzatoreByField(String field, String value) {
         String sql = "SELECT nome, cognome, email, username, password, hackathon_id  FROM organizzatore WHERE " + field + " = ?";
 
@@ -66,16 +115,38 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         return null;
     }
 
+
+    /**
+     * Cerca un organizzatore nel database in base allo username.
+     *
+     * @param username lo username dell'organizzatore da cercare.
+     * @return l'oggetto {@code Organizzatore} se trovato, altrimenti {@code null}.
+     */
     @Override
     public Organizzatore findOrganizzatoreByUsername(String username) {
         return findOrganizzatoreByField(USERNAME, username);
     }
 
+
+    /**
+     * Cerca un organizzatore nel database in base all'email.
+     *
+     * @param email l'email dell'organizzatore da cercare.
+     * @return l'oggetto {@code Organizzatore} se trovato, altrimenti {@code null}.
+     */
     @Override
     public Organizzatore findOrganizzatoreByEmail(String email) {
         return findOrganizzatoreByField(EMAIL, email);
     }
 
+
+    /**
+     * Converte un utente in giudice, associandolo a un hackathon.
+     *
+     * @param username username dell’utente da convertire.
+     * @param idHackathon ID dell’hackathon da associare.
+     * @return {@code true} se la conversione è avvenuta con successo, {@code false} altrimenti.
+     */
     @Override
     public boolean aggiungiGiudice(String username, Integer idHackathon){
         Utente u = udao.findUtenteByUsername(username);
@@ -83,24 +154,24 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
             return false;
         }
 
-        String insertsql = "INSERT INTO giudice (nome,cognome,email,username,password,hackathon_id) VALUES (?,?,?,?,?,?)";
-        String deletesql = "DELETE FROM utente WHERE username=?";
+        String insertSql = "INSERT INTO giudice (nome,cognome,email,username,password,hackathon_id) VALUES (?,?,?,?,?,?)";
+        String deleteSql = "DELETE FROM utente WHERE username=?";
 
-        try(Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement insertstmt = con.prepareStatement(insertsql);
-            PreparedStatement deletestmt = con.prepareStatement(deletesql)) {
+        try(Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement insertStmt = con.prepareStatement(insertSql);
+            PreparedStatement deleteStmt = con.prepareStatement(deleteSql)) {
 
-            insertstmt.setString(1, u.getNome());
-            insertstmt.setString(2, u.getCognome());
-            insertstmt.setString(3, u.getEmail());
-            insertstmt.setString(4, u.getUsername());
-            insertstmt.setString(5, u.getPassword());
-            insertstmt.setInt(6, idHackathon);
+            insertStmt.setString(1, u.getNome());
+            insertStmt.setString(2, u.getCognome());
+            insertStmt.setString(3, u.getEmail());
+            insertStmt.setString(4, u.getUsername());
+            insertStmt.setString(5, u.getPassword());
+            insertStmt.setInt(6, idHackathon);
 
-            int rows = insertstmt.executeUpdate();
+            int rows = insertStmt.executeUpdate();
             if (rows > 0) {
 
-                deletestmt.setString(1, u.getUsername());
-                deletestmt.executeUpdate();
+                deleteStmt.setString(1, u.getUsername());
+                deleteStmt.executeUpdate();
                 return true;
             }
 
@@ -111,6 +182,12 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     }
 
+
+    /**
+     * Rimuove un utente da un team e da un hackathon.
+     *
+     * @param username username dell’utente da scollegare.
+     */
     @Override
     public void removeUtente(String username) {
         String sql = "UPDATE utente SET hackathon_id = null, team_id = null WHERE username = ?";
@@ -123,27 +200,33 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
+
+    /**
+     * Rimuove un giudice e lo reinserisce come utente nel sistema.
+     *
+     * @param username username del giudice da rimuovere.
+     */
     @Override
     public void removeGiudice(String username) {
         String selectSql = "SELECT nome, cognome, email, username, password, hackathon_id FROM giudice WHERE username = ?";
         String deleteSql = "DELETE FROM giudice WHERE username = ?";
         String insertSql = "INSERT INTO utente (nome, cognome, email, username, password) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement selectstmt = con.prepareStatement(selectSql); PreparedStatement deletestmt = con.prepareStatement(deleteSql);
-             PreparedStatement insertstmt = con.prepareStatement(insertSql)) {
-            selectstmt.setString(1, username);
-            ResultSet rs = selectstmt.executeQuery();
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement selectStmt = con.prepareStatement(selectSql); PreparedStatement deleteStmt = con.prepareStatement(deleteSql);
+             PreparedStatement insertStmt = con.prepareStatement(insertSql)) {
+            selectStmt.setString(1, username);
+            ResultSet rs = selectStmt.executeQuery();
 
             if(rs.next()) {
-                insertstmt.setString(1, rs.getString(NOME));
-                insertstmt.setString(2, rs.getString(COGNOME));
-                insertstmt.setString(3, rs.getString(EMAIL));
-                insertstmt.setString(4, rs.getString(USERNAME));
-                insertstmt.setString(5, rs.getString(PASSWORD));
-                insertstmt.executeUpdate();
+                insertStmt.setString(1, rs.getString(NOME));
+                insertStmt.setString(2, rs.getString(COGNOME));
+                insertStmt.setString(3, rs.getString(EMAIL));
+                insertStmt.setString(4, rs.getString(USERNAME));
+                insertStmt.setString(5, rs.getString(PASSWORD));
+                insertStmt.executeUpdate();
 
-                deletestmt.setString(1, username);
-                deletestmt.executeUpdate();
+                deleteStmt.setString(1, username);
+                deleteStmt.executeUpdate();
             }
 
 
@@ -152,13 +235,19 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
+
+    /**
+     * Elimina un team dal sistema e aggiorna gli utenti che ne facevano parte.
+     *
+     * @param id ID del team da eliminare.
+     */
     @Override
     public void removeTeam(Integer id) {
         String sql = "DELETE FROM team WHERE id = ?";
-        String updatesql = "UPDATE utente SET hackathon_id = null WHERE team_id = ?";
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql); PreparedStatement updatestmt = con.prepareStatement(updatesql)) {
-            updatestmt.setInt(1, id);
-            updatestmt.executeUpdate();
+        String updateSql = "UPDATE utente SET hackathon_id = null WHERE team_id = ?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql); PreparedStatement updateStmt = con.prepareStatement(updateSql)) {
+            updateStmt.setInt(1, id);
+            updateStmt.executeUpdate();
 
             stmt.setInt(1, id);
             stmt.executeUpdate();
@@ -169,11 +258,17 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
     }
 
+
+    /**
+     * Termina un hackathon eliminandolo dal database.
+     *
+     * @param hackathonId ID dell’hackathon da eliminare.
+     */
     @Override
     public void terminaHackathon(Integer hackathonId) {
-        String deletesql = "DELETE FROM hackathon WHERE id=?";
+        String deleteSql = "DELETE FROM hackathon WHERE id=?";
 
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(deletesql)) {
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(deleteSql)) {
 
             stmt.setInt(1, hackathonId);
             stmt.executeUpdate();
@@ -183,6 +278,12 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
         }
     }
 
+
+    /**
+     * Segna la classifica come pubblicata per l'hackathon specificato.
+     *
+     * @param id ID dell’hackathon.
+     */
     @Override
     public void setClassifica(Integer id) {
         String sql = "UPDATE hackathon SET classifica_pubblicata=TRUE WHERE id=?";
