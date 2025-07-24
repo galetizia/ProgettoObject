@@ -27,9 +27,13 @@ public class GestioneHackathon {
     private JTextField usernameTextField;
     private JButton confermaGiudiceButton;
     private JLabel username;
+
+
     private JButton ultimoPulsantePremuto = null;
 
+
     private static final String SEGOEUI = "Segoe UI";
+
 
     private final DefaultListModel<String> modelList;
 

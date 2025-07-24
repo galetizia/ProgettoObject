@@ -53,7 +53,7 @@ public class ControllerRecuperoPassword {
                 JOptionPane.showMessageDialog(getRecuperaPassword(), "Non ci sono utenti/organizzatori/giudici con questo username/email");
         }
     }
-    public void logout() {
+    public void indietro() {
         mainController.logout();
     }
 }

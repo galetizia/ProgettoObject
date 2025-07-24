@@ -55,7 +55,7 @@ public class ControllerRecuperoUsername {
         }
     }
 
-    public void logout(){
+    public void indietro(){
         mainController.logout();
     }
 

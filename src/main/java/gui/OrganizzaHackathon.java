@@ -22,7 +22,10 @@ public class OrganizzaHackathon {
     private JTextField maxIscrTextField;
     private JTextField maxDimTeamTextField;
     private JLabel area;
+
+
     private final DefaultListModel<String> modelLista;
+
 
     private static final String SEGOEUI = "Segoe UI";
 

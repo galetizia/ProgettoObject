@@ -6,6 +6,14 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe GUI per la schermata organizzatore.
+ * Consente a un organizzatore di visualizzare la propria hackathon, il relativo problema, pubblicare e
+ * visualizzare la classifica e organizzare un hackathon.
+ * <p>
+ * Questa classe interagisce con {@link ControllerSchermataOrganizzatore} per delegare la logica applicativa.
+ * </p>
+ */
 public class SchermataOrganizzatore {
     private JPanel mainPanel;
     private JButton organizzaHackathonButton;
@@ -29,11 +37,17 @@ public class SchermataOrganizzatore {
     private JButton pubblicaClassificaButton;
     private JButton visualizzaClassificaButton;
 
+    /** Stringa che contiene il nome del font utilizzato */
     private static final String SEGOEUI = "Segoe UI";
 
-    private final HackathonDAO hdao = new HackathonDAO();
-
+    /**
+     * Costruttore della schermata organizzatore.
+     *
+     * @param controller Controller associato alla schermata.
+     * @param organizzatore L'oggetto {@link Organizzatore} attualmente loggato.
+     */
     public SchermataOrganizzatore(ControllerSchermataOrganizzatore controller, Organizzatore organizzatore) {
+        final HackathonDAO hdao = new HackathonDAO();
         mainPanel.setPreferredSize(new Dimension(600, 400));
 
         hackatt.setVisible(false);
@@ -42,23 +56,26 @@ public class SchermataOrganizzatore {
 
         area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
 
+        /* Bottone che, se pubblicata, mostra la classifica */
         visualizzaClassificaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         visualizzaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         visualizzaClassificaButton.addActionListener(ignored -> controller.getClassifica(organizzatore));
 
+        /* Bottone che porta alla schermata per la gestione dell'hackathon */
         gestioneHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         gestioneHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         gestioneHackathonButton.addActionListener(ignored -> controller.getSchermataGestioneHack(organizzatore));
 
+        /* Bottone che chiama il metodo del controller che calcola e pubblica la classifica */
         pubblicaClassificaButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         pubblicaClassificaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         pubblicaClassificaButton.addActionListener(ignored ->controller.pubblicaClassifica(organizzatore));
 
+        /* Bottone che rende visibili le informazioni personali */
         informazioniPersonaliButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         informazioniPersonaliButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         informazioniPersonaliButton.addActionListener(ignored -> {
             if (!name.isVisible()) {
-                // Primo clic: imposto i testi e rendo visibili
                 name.setText("Nome: " + organizzatore.getNome());
                 surname.setText("Cognome: " + organizzatore.getCognome());
                 email.setText("Email: " + organizzatore.getEmail());
@@ -70,7 +87,6 @@ public class SchermataOrganizzatore {
                 username.setVisible(true);
                 return;
             }
-            // Se già visibili, li nascondo
             name.setVisible(false);
             surname.setVisible(false);
             email.setVisible(false);
@@ -79,6 +95,7 @@ public class SchermataOrganizzatore {
             mainPanel.repaint();
         });
 
+        /* Bottone che rende visibili le informazioni dell'hackathon attuale */
         hackathonAttualeButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hackathonAttualeButton.addActionListener(ignored -> {
@@ -114,20 +131,28 @@ public class SchermataOrganizzatore {
 
         });
 
+        /* Bottone che mostra il problema dell'hackathon */
         problemaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         problemaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         problemaHackathonButton.addActionListener(ignored -> controller.mostraProblemaHackathon(organizzatore));
 
+        /* Bottone che porta alla schermata per organizzare un hackathon*/
         organizzaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         organizzaHackathonButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         organizzaHackathonButton.addActionListener(ignored -> controller.schermataOrganizzaHackathon(organizzatore));
 
+        /* Bottone di logout, riporta alla schermata di login */
         logOutButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         logOutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logOutButton.addActionListener(ignored -> controller.logout());
 
     }
 
+    /**
+     * Restituisce il pannello principale della schermata.
+     *
+     * @return Il pannello principale {@link JPanel}.
+     */
     public JPanel getMainPanel(){
         return mainPanel;
     }

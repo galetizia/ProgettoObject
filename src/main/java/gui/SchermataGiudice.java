@@ -5,8 +5,17 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe GUI per la schermata Giudice.
+ * Consente a un giudice di visualizzare la propria hackathon, il relativo problema e classifica.
+ * <p>
+ * Questa classe interagisce con {@link ControllerSchermataGiudice} per delegare la logica applicativa.
+ * </p>
+ */
 
 public class SchermataGiudice {
+
+    /** Tutte le componenti di design */
     private JPanel mainpanel;
     private JButton infoButton;
     private JLabel name;
@@ -27,22 +36,34 @@ public class SchermataGiudice {
     private JButton votazioniCommentiButton;
     private JButton classificaHackathonButton;
 
+    /** Stringa che contiene il nome del font utilizzato */
     private static final String SEGOEUI = "Segoe UI";
 
-    HackathonDAO hdao = new HackathonDAO();
-
+    /**
+     * Costruttore della schermata giudice.
+     *
+     * @param controller Controller associato alla schermata.
+     * @param giudice L'oggetto {@link Giudice} attualmente loggato.
+     */
     public SchermataGiudice(ControllerSchermataGiudice controller, Giudice giudice) {
+
+        /* DAO per l'entità hackathon, usato per operazioni collegate */
+        final HackathonDAO hdao = new HackathonDAO();
+
         mainpanel.setPreferredSize(new Dimension(600, 400));
+        /* Creiamo un oggetto hackathon, ricercando nel database l'hackathon del giudice*/
         Hackathon h = hdao.getHackathonByID(giudice.getHackathonID());
         area.setFont(new Font(SEGOEUI, Font.BOLD, 38));
         name.setVisible(false);
         attualehack.setVisible(false);
         attualehack.setFont(new Font(SEGOEUI, Font.BOLD, 14));
 
+        /* Bottone che, se pubblicata, mostra la classifica */
         classificaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         classificaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         classificaHackathonButton.addActionListener(ignored -> controller.getClassifica(giudice));
 
+        /* Bottone che rende visibili le informazioni personali */
         infoButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         infoButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         infoButton.addActionListener(ignored -> {
@@ -68,10 +89,12 @@ public class SchermataGiudice {
             mainpanel.repaint();
         });
 
+        /* Bottone che collega alla schermata voti commenti */
         votazioniCommentiButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         votazioniCommentiButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         votazioniCommentiButton.addActionListener(ignored -> controller.showSchermataVotiCommenti(giudice));
 
+        /* Bottone che rende visibili le informazioni dell'hackathon attuale */
         hackathonAttualeButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         hackathonAttualeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         hackathonAttualeButton.addActionListener(ignored -> {
@@ -100,15 +123,22 @@ public class SchermataGiudice {
             maxDimTeam.setVisible(false);
         });
 
+        /* Bottone che mostra il problema dell'hackathon */
         problemaHackathonButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         problemaHackathonButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         problemaHackathonButton.addActionListener(ignored -> controller.problemaHackathon(giudice,h));
 
+        /* Bottone di logout, riporta alla schermata di login */
         logoutButton.setFont(new Font(SEGOEUI, Font.BOLD, 14));
         logoutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         logoutButton.addActionListener(ignored -> controller.logout());
     }
 
+    /**
+     * Restituisce il pannello principale della schermata.
+     *
+     * @return Il pannello principale {@link JPanel}.
+     */
     public JPanel getMainPanel(){
         return mainpanel;
     }
