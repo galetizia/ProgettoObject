@@ -51,21 +51,21 @@ public interface IOrganizzatoreDAO {
      *
      * @param username Username dell'utente da rimuovere.
      */
-    void removeUtente(String username);
+    boolean removeUtente(String username, Organizzatore organizzatore);
 
     /**
      * Rimuove un giudice dal sistema tramite username.
      *
      * @param username Username del giudice da rimuovere.
      */
-    void removeGiudice(String username);
+    boolean removeGiudice(String username, Organizzatore organizzatore);
 
     /**
      * Rimuove un team dal sistema tramite il suo identificativo.
      *
      * @param id Identificativo del team da rimuovere.
      */
-    void removeTeam(Integer id);
+    boolean removeTeam(Integer id, Integer idHackathon, Boolean bool);
 
     /**
      * Termina una hackathon specifica.

@@ -252,9 +252,14 @@ public class ControllerGestioneHackathon {
                 CONFERMA, JOptionPane.YES_NO_OPTION);
 
         if (conferma == JOptionPane.YES_OPTION) {
+            if(!odao.removeUtente(username, organizzatoreLoggato)){
+                JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Impossibile rimuovere\n Classifica già pubblicata" , ATTENZIONE, JOptionPane.WARNING_MESSAGE);
+            return;
+            }
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Utente rimosso.", "Success", JOptionPane.INFORMATION_MESSAGE);
             idTextField.setText("");
-            odao.removeUtente(username);
+
+
         }
     }
 
@@ -285,9 +290,12 @@ public class ControllerGestioneHackathon {
                 CONFERMA, JOptionPane.YES_NO_OPTION);
 
         if (conferma == JOptionPane.YES_OPTION) {
+            if(!odao.removeGiudice(username, organizzatoreLoggato)){
+                JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Impossibile rimuovere\n Classifica già pubblicata" , ATTENZIONE, JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Giudice declassato ad utente.", "Success", JOptionPane.INFORMATION_MESSAGE);
             idTextField.setText("");
-            odao.removeGiudice(username);
         }
     }
 
@@ -328,9 +336,12 @@ public class ControllerGestioneHackathon {
                 CONFERMA, JOptionPane.YES_NO_OPTION);
 
         if (conferma == JOptionPane.YES_OPTION) {
+            if(!odao.removeTeam(id, hackathonID, true)){
+                JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Impossibile rimuovere\n Classifica già pubblicata" , ATTENZIONE, JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Team rimosso.", "Success", JOptionPane.INFORMATION_MESSAGE);
             idTextField.setText("");
-            odao.removeTeam(id);
         }
     }
 

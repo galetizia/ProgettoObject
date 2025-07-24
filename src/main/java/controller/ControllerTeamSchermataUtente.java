@@ -3,9 +3,7 @@ package controller;
 import gui.TeamSchermataUtente;
 import implementazionepostgresdao.OrganizzatoreDAO;
 import implementazionepostgresdao.TeamDAO;
-import model.Aggiornamento;
-import model.Team;
-import model.Utente;
+import model.*;
 
 import javax.swing.*;
 import java.util.List;
@@ -51,12 +49,13 @@ public class ControllerTeamSchermataUtente {
                 "Conferma", JOptionPane.YES_NO_OPTION);
         if (conferma == JOptionPane.YES_OPTION) {
             int id = utente.getTeamID();
+            int idH = utente.getHackathonID();
             tdao.rimuoviUtenteDalTeam(utente.getUsername());
             utente.setTeamID(null);
             utente.setHackathonID(null);
             List<Utente> membri = tdao.membriTeam(id);
             if (membri.isEmpty()) {
-                odao.removeTeam(id);
+                odao.removeTeam(id, idH, false);
             }
             JOptionPane.showMessageDialog(teamSchermataUtente.getMainPanel(), "Hai abbandonato il team con successo.");
         }

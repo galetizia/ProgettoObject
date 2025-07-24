@@ -31,7 +31,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
     private static final String HACKATHONID = "hackathon_id";
 
     /** DAO per l'entità utente, usato per operazioni collegate */
-    UtenteDAO udao = new UtenteDAO();
+    private final UtenteDAO udao = new UtenteDAO();
 
 
     /**
@@ -189,15 +189,26 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
      * @param username username dell’utente da scollegare.
      */
     @Override
-    public void removeUtente(String username) {
+    public boolean removeUtente(String username, Organizzatore organizzatore) {
         String sql = "UPDATE utente SET hackathon_id = null, team_id = null WHERE username = ?";
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            stmt.executeUpdate();
-
+        String oSql = "SELECT classifica_pubblicata FROM hackathon WHERE username_organizzatore = ?";
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql);
+             PreparedStatement oStmt = con.prepareStatement(oSql)) {
+            oStmt.setString(1, organizzatore.getUsername());
+            ResultSet rs = oStmt.executeQuery();
+            if (rs.next()) {
+                boolean  classPubblicata = rs.getBoolean("classifica_pubblicata");
+                if(classPubblicata) {
+                    return false;
+                }
+                stmt.setString(1, username);
+                stmt.executeUpdate();
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 
@@ -207,13 +218,21 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
      * @param username username del giudice da rimuovere.
      */
     @Override
-    public void removeGiudice(String username) {
+    public boolean removeGiudice(String username, Organizzatore organizzatore) {
         String selectSql = "SELECT nome, cognome, email, username, password, hackathon_id FROM giudice WHERE username = ?";
         String deleteSql = "DELETE FROM giudice WHERE username = ?";
         String insertSql = "INSERT INTO utente (nome, cognome, email, username, password) VALUES (?, ?, ?, ?, ?)";
+        String oSql = "SELECT classifica_pubblicata FROM hackathon WHERE username_organizzatore = ?";
 
         try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement selectStmt = con.prepareStatement(selectSql); PreparedStatement deleteStmt = con.prepareStatement(deleteSql);
-             PreparedStatement insertStmt = con.prepareStatement(insertSql)) {
+             PreparedStatement insertStmt = con.prepareStatement(insertSql); PreparedStatement oStmt = con.prepareStatement(oSql)) {
+            oStmt.setString(1, organizzatore.getUsername());
+            ResultSet oRs = oStmt.executeQuery();
+            if(oRs.next()) {
+                boolean classPubblicata = oRs.getBoolean("classifica_pubblicata");
+                if(classPubblicata)
+                    return false;
+            }
             selectStmt.setString(1, username);
             ResultSet rs = selectStmt.executeQuery();
 
@@ -227,12 +246,12 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
 
                 deleteStmt.setString(1, username);
                 deleteStmt.executeUpdate();
+                return true;
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 
@@ -242,20 +261,30 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
      * @param id ID del team da eliminare.
      */
     @Override
-    public void removeTeam(Integer id) {
+    public boolean removeTeam(Integer id, Integer idHackathon, Boolean bool) {
         String sql = "DELETE FROM team WHERE id = ?";
         String updateSql = "UPDATE utente SET hackathon_id = null WHERE team_id = ?";
-        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql); PreparedStatement updateStmt = con.prepareStatement(updateSql)) {
-            updateStmt.setInt(1, id);
-            updateStmt.executeUpdate();
+        String oSql = "SELECT classifica_pubblicata FROM hackathon WHERE id = ?";
 
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-
+        try (Connection con = ConnessioneDatabase.getInstance().getConnection(); PreparedStatement stmt = con.prepareStatement(sql); PreparedStatement updateStmt = con.prepareStatement(updateSql);
+             PreparedStatement oStmt = con.prepareStatement(oSql)) {
+            oStmt.setInt(1, idHackathon);
+            ResultSet rs = oStmt.executeQuery();
+            if(rs.next() && bool) {
+                boolean  classPubblicata = rs.getBoolean("classifica_pubblicata");
+                if(classPubblicata) {
+                    return false;
+                }
+                updateStmt.setInt(1, id);
+                updateStmt.executeUpdate();
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return false;
     }
 
 
