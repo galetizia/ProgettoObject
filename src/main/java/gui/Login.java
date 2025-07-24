@@ -67,6 +67,8 @@ public class Login {
         loginButton.addActionListener(ignored -> {
             String username = inpUsername.getText();
             String password = new String(inpPassword.getPassword());
+            inpUsername.setText("");
+            inpPassword.setText("");
             controller.login(username, password, utenteCheck.isSelected(), organizzatoreCheck.isSelected(), giudiceCheckBox.isSelected());
         });
 
