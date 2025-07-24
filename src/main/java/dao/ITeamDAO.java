@@ -5,7 +5,7 @@ import model.*;
 import java.util.List;
 
 /**
- * Interfaccia DAO per la gestione delle operazioni relative ai team.
+ * Interfaccia DAO per la gestione delle operazioni relative ai teams.
  * <p>
  * Definisce i metodi per recuperare informazioni sui team, gestire i membri,
  * caricare team e aggiornamenti nel database, gestire voti e stati degli elaborati.

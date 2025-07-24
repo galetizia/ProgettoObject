@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class OrganizzaHackathon {
 
-    /** Tutte le componenti dell’interfaccia grafica */
+    /** Tutte le componenti di design */
     private JPanel mainPanel;
     private JPanel panelIscrizione;
     private JTextField titoloTextField;
@@ -32,10 +32,10 @@ public class OrganizzaHackathon {
     private JTextField maxDimTeamTextField;
     private JLabel area;
 
-    /** Modello per la gestione dinamica degli elementi nella lista delle hackathon */
+    /** Modello della lista per la visualizzazione dei dati nella GUI. */
     private final DefaultListModel<String> modelLista;
 
-    /** Font utilizzato per i testi */
+    /** Stringa che contiene il nome del font utilizzato */
     private static final String SEGOEUI = "Segoe UI";
 
     /**

@@ -7,10 +7,18 @@ import model.Utente;
 
 import javax.swing.*;
 
-
+/**
+ * Controller principale dell'applicazione.
+ * Gestisce il frame principale e la navigazione tra le diverse schermate
+ * dell'interfaccia utente in base al ruolo dell'utente (Utente, Organizzatore, Giudice).
+ */
 public class MainController {
     private final JFrame mainFrame;
 
+    /**
+     * Costruttore della classe.
+     * Inizializza il frame principale e mostra la schermata di login.
+     */
     public MainController(){
         mainFrame = new JFrame("Hackathon");
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -19,6 +27,12 @@ public class MainController {
         showLogin();
 
     }
+
+    /**
+     * Imposta il pannello corrente da visualizzare nel frame principale.
+     *
+     * @param panel Il pannello da visualizzare.
+     */
     public void setPanel(JPanel panel) {
         mainFrame.setContentPane(panel);
         mainFrame.pack();
@@ -27,26 +41,43 @@ public class MainController {
         mainFrame.repaint();
     }
 
+    /**
+     * Mostra la schermata di login.
+     */
     public void showLogin(){
         ControllerLogin loginController = new ControllerLogin(this);
         setPanel(loginController.getLogin());
     }
 
+    /**
+     * Mostra la schermata di registrazione (sign in).
+     */
     public void showSignIn() {
         ControllerSignIn signInController = new ControllerSignIn(this);
         setPanel(signInController.getSignIn());
     }
 
+    /**
+     * Mostra la schermata per il recupero dello username.
+     */
     public void showRecuperoUsername() {
         ControllerRecuperoUsername recuperoUsernameController = new ControllerRecuperoUsername(this);
         setPanel(recuperoUsernameController.getRecuperoUsername());
     }
 
+    /**
+     * Mostra la schermata per il recupero della password.
+     */
     public void showRecuperoPassword() {
         ControllerRecuperoPassword recuperoPasswordController = new ControllerRecuperoPassword(this);
         setPanel(recuperoPasswordController.getRecuperaPassword());
     }
 
+    /**
+     * Mostra la schermata principale per l'organizzatore.
+     *
+     * @param organizzatore L'organizzatore autenticato.
+     */
     public void showSchermataOrganizzatore(Organizzatore organizzatore) {
         ControllerSchermataOrganizzatore schermataOrganizzatoreController = new ControllerSchermataOrganizzatore(this,organizzatore);
         setPanel(schermataOrganizzatoreController.getSchermataOrganizzatore());
@@ -101,7 +132,4 @@ public class MainController {
     public void logout() {
         showLogin();
     }
-
-
-
 }

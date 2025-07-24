@@ -16,11 +16,12 @@ import java.awt.*;
  *   <li>Aggiungere giudici a un hackathon</li>
  *   <li>Terminare un hackathon</li>
  * </ul>
- * Tutte le operazioni sono delegate a {@link controller.ControllerGestioneHackathon}.
+ * Tutte le operazioni sono delegate a {@link ControllerGestioneHackathon}.
  * </p>
  */
 public class GestioneHackathon {
-    // Componenti dell’interfaccia grafica
+
+    /** Tutte le componenti di design */
     private JLabel area;
     private JList<String> list;
     private JButton elencoUtentiButton;
@@ -42,13 +43,13 @@ public class GestioneHackathon {
     private JButton confermaGiudiceButton;
     private JLabel username;
 
-    // Stato dell'interfaccia
+    /** Ultimo pulsante premuto dall’utente, usato per la gestione dello stato della GUI. */
     private JButton ultimoPulsantePremuto = null;
 
-    // Costanti
+    /** Stringa che contiene il nome del font utilizzato */
     private static final String SEGOEUI = "Segoe UI";
 
-    // Modello della lista visualizzata
+    /** Modello della lista per la visualizzazione dei dati nella GUI. */
     private final DefaultListModel<String> modelList;
 
     /**
@@ -64,6 +65,7 @@ public class GestioneHackathon {
         setVisibilityAggGiudice(false);
         setVisibilityRimozione(false);
 
+        /* Inizializza il modello della lista e lo collega alla JList per gestire gli elementi visualizzati dinamicamente. */
         modelList = new DefaultListModel<>();
         list.setModel(modelList);
 
