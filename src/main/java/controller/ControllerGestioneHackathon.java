@@ -194,6 +194,11 @@ public class ControllerGestioneHackathon {
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Inserire username!" , ATTENZIONE, JOptionPane.WARNING_MESSAGE);
             return;
         }
+        if(hdao.isClassificaPubblicata(organizzatore.getHackathonID())){
+            JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Classifica già pubblicata!" , ATTENZIONE, JOptionPane.WARNING_MESSAGE);
+            usernameTextField.setText("");
+            return;
+        }
         if(!odao.aggiungiGiudice(usern, organizzatore.getHackathonID())){
             JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "L'utente non esiste/è membro di un team!" , ERROR, JOptionPane.ERROR_MESSAGE);
             usernameTextField.setText("");
