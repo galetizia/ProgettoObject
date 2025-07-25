@@ -187,6 +187,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
      * Rimuove un utente da un team e da un hackathon.
      *
      * @param username username dell’utente da scollegare.
+     * @param organizzatore organizzatore utilizzato per controllare se la classifica è già stata pubblicata.
      */
     @Override
     public boolean removeUtente(String username, Organizzatore organizzatore) {
@@ -216,6 +217,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
      * Rimuove un giudice e lo reinserisce come utente nel sistema.
      *
      * @param username username del giudice da rimuovere.
+     * @param organizzatore organizzatore utilizzato per controllare se la classifica è già stata pubblicata.
      */
     @Override
     public boolean removeGiudice(String username, Organizzatore organizzatore) {
@@ -259,6 +261,8 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
      * Elimina un team dal sistema e aggiorna gli utenti che ne facevano parte.
      *
      * @param id ID del team da eliminare.
+     * @param idHackathon ID dell'hackathon.
+     * @param bool parametro booleano utilizzato per controllare se la classifica è già pubblicata.
      */
     @Override
     public boolean removeTeam(Integer id, Integer idHackathon, Boolean bool) {

@@ -50,6 +50,7 @@ public interface IOrganizzatoreDAO {
      * Rimuove un utente dal sistema tramite username.
      *
      * @param username Username dell'utente da rimuovere.
+     * @param organizzatore organizzatore utilizzato per controllare se la classifica è già stata pubblicata.
      */
     boolean removeUtente(String username, Organizzatore organizzatore);
 
@@ -57,6 +58,7 @@ public interface IOrganizzatoreDAO {
      * Rimuove un giudice dal sistema tramite username.
      *
      * @param username Username del giudice da rimuovere.
+     * @param organizzatore organizzatore utilizzato per controllare se la classifica è già stata pubblicata.
      */
     boolean removeGiudice(String username, Organizzatore organizzatore);
 
@@ -64,6 +66,8 @@ public interface IOrganizzatoreDAO {
      * Rimuove un team dal sistema tramite il suo identificativo.
      *
      * @param id Identificativo del team da rimuovere.
+     * @param idHackathon ID dell'hackathon.
+     * @param bool parametro booleano utilizzato per controllare se la classifica è già pubblicata.
      */
     boolean removeTeam(Integer id, Integer idHackathon, Boolean bool);
 
