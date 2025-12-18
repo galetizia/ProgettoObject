@@ -7,8 +7,7 @@ package model;
  * come la creazione di hackathon, gestione dei partecipanti, giudici, e aggiornamenti.
  * </p>
  */
-public class Organizzatore extends Utente {
-
+public class Organizzatore extends User {
     /**
      * Crea un nuovo organizzatore con i dati specificati.
      *
@@ -20,5 +19,6 @@ public class Organizzatore extends Utente {
      */
     public Organizzatore(String nome, String cognome, String email, String username, String password) {
         super(nome, cognome, email, username, password);
+        setHackathonID(null);
     }
 }

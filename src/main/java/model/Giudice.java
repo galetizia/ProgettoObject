@@ -7,8 +7,7 @@ package model;
  * Ogni giudice è collegato a uno specifico {@code hackathonID}.
  * </p>
  */
-public class Giudice extends Utente {
-
+public class Giudice extends User {
     /**
      * Crea un nuovo giudice con i dati specificati e lo assegna a un determinato hackathon.
      *

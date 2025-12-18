@@ -34,6 +34,7 @@ public class Login {
     private static final String SEGOEUI = "Segoe UI";
 
     /**
+     * 
      * Costruttore della GUI di login.
      *
      * @param controller Il controller associato alla schermata.
