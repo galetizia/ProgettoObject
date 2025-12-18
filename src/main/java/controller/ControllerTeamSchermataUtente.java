@@ -54,10 +54,12 @@ public class ControllerTeamSchermataUtente {
             utente.setTeamID(null);
             utente.setHackathonID(null);
             List<Utente> membri = tdao.membriTeam(id);
+            JOptionPane.showMessageDialog(teamSchermataUtente.getMainPanel(), "Hai abbandonato il team con successo.", "Info", JOptionPane.INFORMATION_MESSAGE);
             if (membri.isEmpty()) {
-                odao.removeTeam(id, idH, false);
+                odao.removeTeam(id, idH);
+                JOptionPane.showMessageDialog(teamSchermataUtente.getMainPanel(), "Team eliminato poiché vuoto", "Info", JOptionPane.INFORMATION_MESSAGE);
             }
-            JOptionPane.showMessageDialog(teamSchermataUtente.getMainPanel(), "Hai abbandonato il team con successo.");
+
         }
         maincontroller.showSchermataUtente(utente);
     }

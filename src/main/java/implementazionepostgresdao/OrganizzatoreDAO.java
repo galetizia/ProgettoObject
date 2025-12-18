@@ -263,10 +263,9 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
      *
      * @param id ID del team da eliminare.
      * @param idHackathon ID dell'hackathon.
-     * @param check parametro booleano utilizzato per controllare se la classifica è già pubblicata.
      */
     @Override
-    public boolean removeTeam(Integer id, Integer idHackathon, boolean check) {
+    public boolean removeTeam(Integer id, Integer idHackathon) {
         String sql = "DELETE FROM team WHERE id = ?";
         String updateSql = "UPDATE utente SET hackathon_id = null WHERE team_id = ?";
         String oSql = "SELECT classifica_pubblicata FROM hackathon WHERE id = ?";
@@ -275,7 +274,7 @@ public class OrganizzatoreDAO implements IOrganizzatoreDAO {
              PreparedStatement oStmt = con.prepareStatement(oSql)) {
             oStmt.setInt(1, idHackathon);
             ResultSet rs = oStmt.executeQuery();
-            if(rs.next() && check) {
+            if(rs.next()) {
                 boolean  classPubblicata = rs.getBoolean("classifica_pubblicata");
                 if(classPubblicata) {
                     return false;

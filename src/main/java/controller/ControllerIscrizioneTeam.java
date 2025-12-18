@@ -84,7 +84,7 @@ public class ControllerIscrizioneTeam {
         }
         List<Team> teams = hdao.getTeamByHackathon(id);
 
-        if(teams.size() >= hdao.getMaxDimTeam(id)) {
+        if(teams.size() >= hdao.getMaxIscritti(id)) {
             JOptionPane.showMessageDialog(schermataIscrizioneTeam.getMainPanel(), "Raggiunto numero massimo di Team!" , ERROR, JOptionPane.ERROR_MESSAGE);
             return;
         }

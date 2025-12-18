@@ -67,9 +67,8 @@ public interface IOrganizzatoreDAO {
      *
      * @param id Identificativo del team da rimuovere.
      * @param idHackathon ID dell'hackathon.
-     * @param check parametro booleano utilizzato per controllare se la classifica è già pubblicata.
      */
-    boolean removeTeam(Integer id, Integer idHackathon, boolean check);
+    boolean removeTeam(Integer id, Integer idHackathon);
 
     /**
      * Termina una hackathon specifica.

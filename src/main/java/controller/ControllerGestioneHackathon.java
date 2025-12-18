@@ -341,7 +341,7 @@ public class ControllerGestioneHackathon {
                 CONFERMA, JOptionPane.YES_NO_OPTION);
 
         if (conferma == JOptionPane.YES_OPTION) {
-            if(!odao.removeTeam(id, hackathonID, true)){
+            if(!odao.removeTeam(id, hackathonID)){
                 JOptionPane.showMessageDialog(schermataGestioneHackathon.getMainPanel(), "Impossibile rimuovere\n Classifica già pubblicata" , ATTENZIONE, JOptionPane.WARNING_MESSAGE);
                 return;
             }

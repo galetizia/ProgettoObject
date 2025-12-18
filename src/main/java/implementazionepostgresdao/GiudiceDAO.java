@@ -49,8 +49,8 @@ public class GiudiceDAO implements IGiudiceDAO {
     private static final String TEAMID = "team_id";
 
     /** DAO per le entità hackathon e team, usati per operazioni collegate */
-    HackathonDAO hdao = new HackathonDAO();
-    TeamDAO tdao = new TeamDAO();
+    private final HackathonDAO hdao = new HackathonDAO();
+    private final TeamDAO tdao = new TeamDAO();
 
 
     /**
